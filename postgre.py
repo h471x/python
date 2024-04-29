@@ -1,8 +1,7 @@
-import psycopg2
-from psycopg2 import OperationalError
+import psycopg2 as pg
+from psycopg2 import OperationalError as error
 
-def connect_to_postgresql():
-    print("Attempting to connect to the PostgreSQL database...")
+def pg_connect():
     try:
         # Connection parameters
         dbname = 'postgres'
@@ -12,7 +11,13 @@ def connect_to_postgresql():
         port = '5432'
 
         # Establish connection
-        conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
+        conn = pg.connect(
+            dbname=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+        )
 
         # Create a cursor
         cursor = conn.cursor()
@@ -24,8 +29,8 @@ def connect_to_postgresql():
         cursor.close()
         conn.close()
 
-    except OperationalError as e:
+    except error as e:
         print(f"Unable to connect to the PostgreSQL database: {e}")
 
 # Call the function to connect to PostgreSQL
-connect_to_postgresql()
+pg_connect()
