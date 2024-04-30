@@ -235,8 +235,8 @@ class InventoryManagement(Frame):
         self._box1.set('')
         self.text.configure(state="disabled")
 
-def main():
+def mainGui():
     InventoryManagement().mainloop()
 
-
-main()
+if __name__ == '__main__':
+    mainGui()
