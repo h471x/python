@@ -1,8 +1,8 @@
 # Python GUI app with PostgreSQL Database
 
-### Install the necessary packages
+### Setup the project
 ```shell
-pip install -r lib.txt
+python setup.py
 ```
 ### Enabling all IP to connect to the database
 
