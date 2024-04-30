@@ -11,6 +11,7 @@ def init(config):
             return conn, status
     except (dbError, Exception) as error:
         print(error)
+        print('Disonnected from the PostgreSQL server.')
         return None, status
 
 def connect():
