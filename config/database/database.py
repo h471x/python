@@ -1,10 +1,10 @@
 import os
 from configparser import ConfigParser
 
-def load_config(filename='postgre.ini', section='postgresql'):
+def loadConfig(filename='postgre.ini', section='postgresql'):
     # Get the directory of this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Construct the full path to database.ini in the config directory
+    # Construct the full path to postgre.ini in the config directory
     config_path = os.path.join(script_dir, filename)
 
     parser = ConfigParser()
@@ -21,5 +21,5 @@ def load_config(filename='postgre.ini', section='postgresql'):
     return config
 
 if __name__ == '__main__':
-    config = load_config()
+    config = loadConfig()
     print(config)

@@ -1,16 +1,17 @@
-import psycopg2
-from .database import load_config
+import psycopg2 as pg
+from psycopg2 import DatabaseError as dbError
+from .database import loadConfig
 
 def init(config):
     try:
-        with psycopg2.connect(**config) as conn:
+        with pg.connect(**config) as conn:
             print('Connected to the PostgreSQL server.')
             return conn
-    except (psycopg2.DatabaseError, Exception) as error:
+    except (pg.dbError, Exception) as error:
         print(error)
 
 def connect():
-    config = load_config()
+    config = loadConfig()
     init(config)
 
 if __name__ == '__main__':

@@ -35,4 +35,3 @@ class PackageManager:
             print(f"Installed {package_name}.")
         except subprocess.CalledProcessError as e:
             print(f"Error installing {package_name}: {e}")
-
