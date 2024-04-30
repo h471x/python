@@ -1,11 +1,11 @@
-import psycopg2 as pg
+import psycopg2 as postgres
 from psycopg2 import DatabaseError as dbError
-from .database import loadConfig
+from .database import loadDbConfig
 
-def init(config):
+def init(dbConfig):
     status = 'disconnected'
     try:
-        with pg.connect(**config) as conn:
+        with postgres.connect(**dbConfig) as conn:
             # print('Connected to the PostgreSQL server.')
             status = 'connected'
             return conn, status
@@ -15,8 +15,8 @@ def init(config):
         return None, status
 
 def connect():
-    config = loadConfig()
-    return init(config)
+    dbConfig = loadDbConfig()
+    return init(dbConfig)
 
 if __name__ == '__main__':
     connect()
