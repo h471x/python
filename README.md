@@ -36,11 +36,19 @@ sudo service postgresql start
 ```
 * Load the postgresql database & user
 ```shell
-sudo -u postgres psql -f config/postgres/postgresql.sql
+sudo -u postgres psql -f config/postgres/postgresql.sql &>/dev/null
 ```
 * Restart the postgresql service
 ```shell
 sudo service postgresql restart
+```
+* Access the console with the new user
+```shell
+psql -U python -d python -W
+```
+* python user password
+```
+python
 ```
 
 ### Launch the application

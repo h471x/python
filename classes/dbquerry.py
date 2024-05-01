@@ -12,8 +12,7 @@ class DatabaseQuery:
             queryHasReturnValue = cursor.description is not None
 
             if queryHasReturnValue:
-                result = cursor.fetchall()
-                print("Query returned values:", result)
+                return cursor.fetchall()
             else:
                 print("Query executed successfully.")
             return True
@@ -21,3 +20,13 @@ class DatabaseQuery:
             print("Cannot execute the query")
             print("Error executing query:", e)
             return False
+
+if __name__=='__main__':
+    db = DatabaseQuery()
+    query = """
+    CREATE TABLE IF NOT EXISTS app_user(
+        firstname TEXT,
+        lastname TEXT
+    );
+    """
+    result = db.execute(query)
