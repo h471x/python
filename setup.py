@@ -1,5 +1,5 @@
-from classes.package import PackageManager as PkgMgt
+from classes.package import PackageManager as PkgMngr
 
 if __name__ == '__main__':
-    pkg = PkgMgt(PkgMgt.getPkg())
+    pkg = PkgMngr(PkgMngr.getPkg())
     pkg.install()
