@@ -1,22 +1,22 @@
 import psycopg2 as postgres
 from psycopg2 import DatabaseError as dbError
-from .database import loadDbConfig
+from .database import loadDbConfig as dbConfig
 
-def init(dbConfig):
-    status = 'disconnected'
+def getConnection():
     try:
-        with postgres.connect(**dbConfig) as conn:
-            # print('Connected to the PostgreSQL server.')
-            status = 'connected'
-            return conn, status
+        with postgres.connect(**dbConfig()) as connection:
+            return connection
     except (dbError, Exception) as error:
         print(error)
-        print('Disonnected from the PostgreSQL server.')
-        return None, status
+        print('Failed to connect to the PostgreSQL server.')
+        return None
 
-def connect():
-    dbConfig = loadDbConfig()
-    return init(dbConfig)
+def getStatus():
+    if getConnection():
+        return 'connected'
+    else:
+        return None
 
 if __name__ == '__main__':
-    connect()
+    getConnection()
+    getStatus()

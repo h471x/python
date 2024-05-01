@@ -1,6 +1,5 @@
-from config.database.connect import connect
+from config.database.connect import getStatus
 from app.view.gui import mainGui
 
 if __name__ == '__main__':
-    conn, status = connect()
-    mainGui() if status == 'connected' else None
+    mainGui() if getStatus() == 'connected' else None
