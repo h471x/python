@@ -20,13 +20,3 @@ class DatabaseQuery:
             print("Cannot execute the query")
             print("Error executing query:", e)
             return False
-
-if __name__=='__main__':
-    db = DatabaseQuery()
-    query = """
-    CREATE TABLE IF NOT EXISTS app_user(
-        firstname TEXT,
-        lastname TEXT
-    );
-    """
-    result = db.execute(query)
