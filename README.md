@@ -1,61 +1,50 @@
 # Python GUI app with PostgreSQL Database
 
-### Setup the project
+### Cloning the repo & Get to it
+```shell
+git clone https://github.com/h471x/python.git && cd python
+```
+
+### Install project libraries
 ```shell
 python setup.py
 ```
+
 ### Enabling all IP to connect to the database
 
 ```shell
-sudoedit /etc/postgresql/*/main/postgresql.conf
-```
-
-* Inside this file edit the line like so
-```
-listen_addresses = '*'
+pgConf=/etc/postgresql/*/main/postgresql.conf
+newConf=config/postgres/postgresql.conf
+sudo mv $pgConf $pgConf.bak
+sudo cat $newConf > $pgConf
 ```
 
 ### Allowing the user to access the database
 
 ```shell
-sudoedit /etc/postgresql/*/main/pg_gba.conf
+pgGba=/etc/postgresql/*/main/pg_gba.conf
+newGba=config/postgres/pg_gba.conf
+sudo mv $pgGba $pgGba.bak
+sudo cat $newGba > $pgGba
 ```
 
-* Inside this file edit the line like so
-```
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-host    all             all             0.0.0.0/0               md5
-```
-
-
-### PostgreSQL User Creation
+### PostgreSQL User & Database Configuration
 
 * Start the postgresql server
 ```shell
 sudo service postgresql start
 ```
-* Switch to the postgresql user
+* Load the postgresql database & user
 ```shell
-sudo su - postgres
-```
-* Access the shell of postgresql
-```shell
-psql
-```
-* New user with permissions
-```psql
-CREATE USER python WITH PASSWORD 'python';
-GRANT ALL PRIVILEGES ON DATABASE postgres TO python;
-```
-* Exit the shell
-```psql
-\q
-```
-* Exit the postgres user session
-```shell
-exit
+sudo -u postgres psql -f config/postgres/postgresql.sql
 ```
 * Restart the postgresql service
 ```shell
 sudo service postgresql restart
+```
+
+### Launch the application
+
+```shell
+python main.py
 ```

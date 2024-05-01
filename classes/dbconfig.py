@@ -8,6 +8,7 @@ class DatabaseConfigurator:
     def __init__(self):
         self.iniFile = '../config/database/postgres.ini'
         self.section = 'postgresql'
+        self.postgres = postgres
 
     def loadDbConfig(self):
         # Get the directory of the .ini file
@@ -34,8 +35,9 @@ class DatabaseConfigurator:
     def getConnection(self):
         try:
             dbConfig = self.loadDbConfig()
-            with postgres.connect(**dbConfig) as connection:
-                return connection
+            connection = self.postgres.connect(**dbConfig)
+            connection.autocommit = True
+            return connection
         except (dbError, Exception) as error:
             print(error)
             print("Disconnected from the PostgreSQL Database.")
