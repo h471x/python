@@ -13,19 +13,23 @@ python setup.py
 ### Enabling all IP to connect to the database
 
 ```shell
-pgConf=/etc/postgresql/*/main/postgresql.conf
+pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
+pgPath=/etc/postgresql/$pgVersion/main
+pgConf=$pgPath/postgresql.conf
 newConf=config/postgres/postgresql.conf
-sudo mv $pgConf $pgConf.bak
-sudo cat $newConf > $pgConf
+sudo cp -rv $pgConf $pgConf.bak
+sudo cp -rv $newConf $pgPath
 ```
 
 ### Allowing the user to access the database
 
 ```shell
-pgGba=/etc/postgresql/*/main/pg_gba.conf
+pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
+pgPath=/etc/postgresql/$pgVersion/main
+pgGba=$pgPath/pg_gba.conf
 newGba=config/postgres/pg_gba.conf
-sudo mv $pgGba $pgGba.bak
-sudo cat $newGba > $pgGba
+sudo cp -rv $pgGba $pgGba.bak
+sudo cp -rv $newGba $pgPath
 ```
 
 ### PostgreSQL User & Database Configuration
