@@ -17,8 +17,8 @@ pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
 pgPath=/etc/postgresql/$pgVersion/main
 pgConf=$pgPath/postgresql.conf
 newConf=config/postgres/postgresql.conf
-sudo cp -rv $pgConf $pgConf.bak
-sudo cp -rv $newConf $pgPath
+sudo cp -v $pgConf $pgConf.bak
+sudo cp -v $newConf $pgPath
 ```
 
 ### Allowing the user to access the database
@@ -28,8 +28,8 @@ pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
 pgPath=/etc/postgresql/$pgVersion/main
 pgGba=$pgPath/pg_gba.conf
 newGba=config/postgres/pg_gba.conf
-sudo cp -rv $pgGba $pgGba.bak
-sudo cp -rv $newGba $pgPath
+sudo cp -v $pgGba $pgGba.bak
+sudo cp -v $newGba $pgPath
 ```
 
 ### PostgreSQL User & Database Configuration
