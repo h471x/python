@@ -40,7 +40,7 @@ sudo service postgresql start
 ```
 * Load the postgresql database & user
 ```shell
-sudo -u postgres psql -f config/postgres/postgresql.sql &>/dev/null
+sudo -u postgres psql -f config/postgres/postgresql.sql 2>/dev/null
 ```
 * Restart the postgresql service
 ```shell
@@ -59,4 +59,10 @@ python
 
 ```shell
 python main.py
+```
+
+### Resetting the application database
+
+```shell
+sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
 ```
