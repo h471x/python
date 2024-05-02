@@ -34,7 +34,11 @@ sudo cp -rv $newGba $pgPath
 
 ### PostgreSQL User & Database Configuration
 
-* Start the postgresql server
+* Start the postgresql server on Linux
+```shell
+sudo systemctl start postgresql
+```
+* Start the postgresql server on WSL
 ```shell
 sudo service postgresql start
 ```
