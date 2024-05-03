@@ -10,6 +10,7 @@ def openLogin():
     login.open()
 
 if __name__ == '__main__':
-    # mainGui() if getStatus() == 'connected' else None
-    # openLogin() if getStatus() == 'connected' else None
-    initTables() if getStatus() == 'connected' else None
+    if getStatus() == 'connected':
+        initTables()
+        openLogin()
+        # mainGui()
