@@ -11,13 +11,9 @@ def initTables():
 
     dbQuery().execute(createQuery)
 
-def getConnection():
-    return dbConfig().getConnection()
-
 def getStatus():
     return dbConfig().getStatus()
 
 if __name__ == '__main__':
-    getConnection()
     getStatus()
     initTables()
