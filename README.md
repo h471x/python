@@ -52,7 +52,7 @@ sudo service postgresql restart
 ```
 * Access the console with the new user
 ```shell
-psql -U python -d python -W
+psql -U python -d python -h localhost -p 5432 -W
 ```
 * python user password
 ```
