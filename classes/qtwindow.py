@@ -3,9 +3,8 @@ from PyQt6.QtWidgets import QWidget, QApplication, QFrame, QMessageBox
 
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
-
-# import login from one step above
 path.append(abs(jn(dir(__file__), '..')))
+
 from app.view.login import LoginUi
 
 GuiApp = QApplication(sys.argv)

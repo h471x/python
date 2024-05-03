@@ -14,7 +14,8 @@ class PackageManager:
             with open(self.file_path, 'r') as file:
                 packages = file.readlines()
                 for package in packages:
-                    package = package.strip()  # Remove leading/trailing whitespace
+                    # Remove leading/trailing whitespace
+                    package = package.strip()
                     if not self.isInstalled(package):
                         self.pkgInstall(package)
                     else:

@@ -4,25 +4,26 @@ from configparser import ConfigParser
 import psycopg2 as postgres
 from psycopg2 import DatabaseError as dbError
 
+iniFile = '../config/database/postgres.ini'
+
 class DatabaseConfigurator:
     def __init__(self):
-        self.iniFile = '../config/database/postgres.ini'
-        self.section = 'postgresql'
         self.postgres = postgres
+        self.iniFile = iniFile
+        self.section = 'postgresql'
 
-    def loadDbConfig(self):
-        # Get the directory of the .ini file
+    def __getIniFile(self):
         iniDir = os.path.dirname(os.path.abspath(__file__))
-        # Construct the full path to postgre.ini in the config directory
         dbConfigPath = os.path.join(iniDir, self.iniFile)
 
         if not os.path.exists(dbConfigPath):
             raise FileNotFoundError(f"Configuration file '{self.iniFile}' not found.")
+        return dbConfigPath
 
+    def loadDbConfig(self):
         parser = ConfigParser()
-        parser.read(dbConfigPath)
+        parser.read(self.__getIniFile())
 
-        # Get section, default to postgresql
         dbConfig = {}
         if parser.has_section(self.section):
             params = parser.items(self.section)
