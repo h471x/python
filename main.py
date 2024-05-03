@@ -1,5 +1,4 @@
-from config.database.connect import getStatus
-from config.database.tableInit import initTables
+from config.database.connect import getStatus, initTables
 
 from app.view.gui import mainGui
 from app.view.login import LoginUi
