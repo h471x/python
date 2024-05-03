@@ -1,4 +1,4 @@
-from dbconfig import DatabaseConfigurator as dbConfig
+from .dbconfig import DatabaseConfigurator as dbConfig
 
 class DatabaseQuery:
     def __init__(self):
