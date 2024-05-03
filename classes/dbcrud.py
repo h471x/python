@@ -17,3 +17,9 @@ class CrudHandler():
             VALUES ({self.__getValues(data)});
         """
         self.db.execute(insertQuery)
+
+    def deleteAll(self):
+        deleteQuery = f"""
+        DELETE from {self.table};
+        """
+        self.db.execute(deleteQuery)
