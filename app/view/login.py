@@ -7,7 +7,7 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-class Ui_Login(object):
+class LoginUi(object):
     def setupUi(self, Login):
         Login.setObjectName("Login")
         Login.resize(600, 600)

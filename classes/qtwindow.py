@@ -6,19 +6,24 @@ from os.path import abspath as abs, join as jn, dirname as dir
 
 # import login from one step above
 path.append(abs(jn(dir(__file__), '..')))
-from app.view.login import Ui_Login
+from app.view.login import LoginUi
 
-class MainWindow(QWidget):
-    def __init__(self):
+GuiApp = QApplication(sys.argv)
+
+class QtWindow(QWidget):
+    def __init__(self, ui, app):
         super().__init__()
-
-        self.ui = Ui_Login()
+        self.app = app
+        self.ui = ui
         self.ui.setupUi(self)
 
+    def open(self):
+        self.show()
+        sys.exit(self.app.exec())
+
+    def close(self):
+        self.close()
+
 if __name__=='__main__':
-    app = QApplication(sys.argv)
-
-    window = MainWindow()
-    window.show()
-
-    sys.exit(app.exec())
+    window = QtWindow(LoginUi(), GuiApp)
+    window.open()
