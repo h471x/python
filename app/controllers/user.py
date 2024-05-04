@@ -11,4 +11,15 @@ userData = {
     'password': 'python'
 }
 
-user.insert(userData)
+# insert user
+# user.insert(userData)
+
+# select all users
+users = user.selectAll()
+print(users)
+
+# delete all users
+# user.deleteAll()
+
+# delete specified user
+# user.delete(userData)

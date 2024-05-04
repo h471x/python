@@ -21,21 +21,23 @@ class CrudHandler():
         )
 
     def insert(self, data):
-        insertQuery = f"""
+        self.db.execute(f"""
             INSERT INTO {self.table} ({self.__getColumn(data)})
             VALUES ({self.__getValues(data)});
-        """
-        self.db.execute(insertQuery)
+        """)
+
+    def selectAll(self):
+        return self.db.execute(f"""
+            SELECT * from {self.table};
+        """)
 
     def deleteAll(self):
-        deleteAllQuery = f"""
+        self.db.execute(f"""
             DELETE from {self.table};
-        """
-        self.db.execute(deleteAllQuery)
+        """)
 
     def delete(self, condition):
-        deleteQuery = f"""
+        self.db.execute(f"""
             DELETE FROM {self.table}
             WHERE {self.__getCondition(condition)};
-        """
-        self.db.execute(deleteQuery)
+        """)
