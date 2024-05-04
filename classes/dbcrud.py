@@ -31,6 +31,12 @@ class CrudHandler():
             SELECT * from {self.table};
         """)
 
+    def select(self, condition):
+        return self.db.execute(f"""
+            SELECT * FROM {self.table}
+            WHERE {self.__getCondition(condition)};
+        """)
+
     def deleteAll(self):
         self.db.execute(f"""
             DELETE from {self.table};

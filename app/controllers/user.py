@@ -18,6 +18,10 @@ userData = {
 users = user.selectAll()
 print(users)
 
+# select specified user
+specUser = user.select(userData)
+print(specUser)
+
 # delete all users
 # user.deleteAll()
 
