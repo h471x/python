@@ -11,6 +11,11 @@ userData = {
     'password': 'python'
 }
 
+newUserData = {
+    'username': 'python2',
+    'password': 'python2'
+}
+
 # insert user
 # user.insert(userData)
 
@@ -21,6 +26,9 @@ print(users)
 # select specified user
 specUser = user.select(userData)
 print(specUser)
+
+# update user
+# user.update(userData, newUserData)
 
 # delete all users
 # user.deleteAll()

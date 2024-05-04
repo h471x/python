@@ -20,6 +20,11 @@ class CrudHandler():
             [f"{key} = '{value}'" for key, value in condition.items()]
         )
 
+    def __getSetValues(self, newData):
+        return ", ".join(
+            [f"{key} = '{value}'" for key, value in newData.items()]
+        )
+
     def insert(self, data):
         self.db.execute(f"""
             INSERT INTO {self.table} ({self.__getColumn(data)})
@@ -35,6 +40,12 @@ class CrudHandler():
         return self.db.execute(f"""
             SELECT * FROM {self.table}
             WHERE {self.__getCondition(condition)};
+        """)
+
+    def update(self, oldData, newData):
+        self.db.execute(f"""
+            UPDATE {self.table} SET {self.__getSetValues(newData)}
+            WHERE {self.__getCondition(oldData)};
         """)
 
     def deleteAll(self):
