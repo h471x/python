@@ -21,11 +21,11 @@ newUserData = {
 
 # select all users
 users = user.selectAll()
-print(users)
+# print(users)
 
 # select specified user
 specUser = user.select(userData)
-print(specUser)
+# print(specUser)
 
 # update user
 # user.update(userData, newUserData)
@@ -35,3 +35,12 @@ print(specUser)
 
 # delete specified user
 # user.delete(userData)
+
+def getData(tupleData):
+    for i, dataTuple in enumerate(tupleData, 1):
+        username = dataTuple[0]
+        print(f"user{i}: {username}")
+
+    print(f"Number of users: {len(tupleData)}")
+
+getData(users)
