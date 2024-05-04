@@ -17,15 +17,30 @@ newUserData = {
 }
 
 # insert user
-# user.insert(userData)
+user.insert(userData)
 
 # select all users
 users = user.selectAll()
-# print(users)
+print(users)
 
 # select specified user
 specUser = user.select(userData)
 # print(specUser)
+
+# insert with a raw SQL Query
+rawInsertQuery = """
+    INSERT INTO APP_USER (username, password)
+    SELECT 'python', 'python'
+    WHERE NOT EXISTS(
+        SELECT 1 FROM APP_USER
+        WHERE username = 'python'
+    );
+"""
+user.rawExecute(rawInsertQuery)
+
+# select with a raw SQL Query
+rawGetQuery = "SELECT * FROM APP_USER;"
+rawData = user.rawGet(rawGetQuery)
 
 # update user
 # user.update(userData, newUserData)
@@ -43,4 +58,4 @@ def getData(tupleData):
 
     print(f"Number of users: {len(tupleData)}")
 
-getData(users)
+# getData(users)
