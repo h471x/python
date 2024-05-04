@@ -6,10 +6,19 @@ class CrudHandler():
         self.table = table
 
     def __getColumn(self, data):
-        return ', '.join(data.keys())
+        return ', '.join(
+            data.keys()
+        )
 
     def __getValues(self, data):
-        return ', '.join([f"'{value}'" for value in data.values()])
+        return ', '.join(
+            [f"'{value}'" for value in data.values()]
+        )
+
+    def __getCondition(self, condition):
+        return " AND ".join(
+            [f"{key} = '{value}'" for key, value in condition.items()]
+        )
 
     def insert(self, data):
         insertQuery = f"""
@@ -19,7 +28,14 @@ class CrudHandler():
         self.db.execute(insertQuery)
 
     def deleteAll(self):
+        deleteAllQuery = f"""
+            DELETE from {self.table};
+        """
+        self.db.execute(deleteAllQuery)
+
+    def delete(self, condition):
         deleteQuery = f"""
-        DELETE from {self.table};
+            DELETE FROM {self.table}
+            WHERE {self.__getCondition(condition)};
         """
         self.db.execute(deleteQuery)
