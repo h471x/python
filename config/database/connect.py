@@ -14,8 +14,9 @@ def initTables():
     ) as postgresTables:
         createQuery = postgresTables.read()
 
-    dbConfig().createClassFile(createQuery)
-    dbQuery().execute(createQuery)
+    if dbQuery().execute(createQuery):
+        dbConfig().createClassFile(createQuery)
+        return True
 
 def getStatus():
     return dbConfig().getStatus()

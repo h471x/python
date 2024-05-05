@@ -16,6 +16,7 @@ class DatabaseQuery:
                 return cursor.fetchall()
             else:
                 print("Query executed successfully.")
+            return True
         except self.postgres.Error as e:
             print("Cannot execute the query")
             print("Error executing query:", e)
