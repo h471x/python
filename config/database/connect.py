@@ -10,10 +10,13 @@ def getTableInfos(createQuery):
     queries = createQuery.split(';')
     for query in queries:
         if create_table_syntax in query:
-            table_name = query.split(create_table_syntax)[1].split('(')[0].strip()
-            attributes = query.split('(', 1)[1].split(')')[0].split(',')
-            cleaned_attributes = [attr.split()[0].strip() for attr in attributes]
-            table_infos[table_name] = cleaned_attributes
+            table_name_start = query.find(create_table_syntax) + len(create_table_syntax)
+            table_name_end = query.find('(')
+            table_name = query[table_name_start:table_name_end].strip()
+            attributes_section = query[table_name_end + 1:].strip()
+            attributes_list = attributes_section[:-1].split(',')
+            attributes = [attr.split()[0].strip() for attr in attributes_list if "FOREIGN KEY" not in attr]
+            table_infos[table_name] = attributes
     return table_infos
 
 def initTables():
