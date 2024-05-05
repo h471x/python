@@ -1,5 +1,5 @@
-from classes.dbconfig import DatabaseConfigurator as dbConfig
-from classes.dbquery import DatabaseQuery as dbQuery
+from classes.database.dbconfig import DatabaseConfigurator as dbConfig
+from classes.database.dbquery import DatabaseQuery as dbQuery
 
 import os
 from sys import path
@@ -21,7 +21,7 @@ def getTableInfos(createQuery):
     return table_infos
 
 def createClass(table):
-    controller_dir = abs(jn(dir(__file__), '..', '..', 'app/controllers'))
+    controller_dir = abs(jn(dir(__file__), '..', '..', 'classes/tables'))
     if not os.path.exists(controller_dir):
         os.makedirs(controller_dir)
 

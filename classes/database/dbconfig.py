@@ -4,7 +4,7 @@ from configparser import ConfigParser
 import psycopg2 as postgres
 from psycopg2 import DatabaseError as dbError
 
-iniFile = '../config/database/postgres.ini'
+iniFile = '../../config/database/postgres.ini'
 
 class DatabaseConfigurator:
     def __init__(self):
