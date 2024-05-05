@@ -1,5 +1,6 @@
 from classes.database.dbconfig import DatabaseConfigurator as dbConfig
 from classes.database.dbquery import DatabaseQuery as dbQuery
+from classes.utils.filecreator import FileGenerator as newFile
 
 import os
 from sys import path
@@ -21,17 +22,15 @@ def getTableInfos(createQuery):
     return table_infos
 
 def createClass(table):
-    controller_dir = abs(jn(dir(__file__), '..', '..', 'classes/tables'))
-    if not os.path.exists(controller_dir):
-        os.makedirs(controller_dir)
+    tableClass = newFile('classes/tables')
 
     for tableName, attributes in table.items():
         table_name_lower = tableName.lower()
-        file_name = f"{table_name_lower}.py"
-        file_path = jn(controller_dir, file_name)
+        class_file_name = f"{table_name_lower}.py"
+        file_path = tableClass.getFilePath(class_file_name)
 
         # Check if the file exists and is blank (size is 0)
-        if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+        if tableClass.isBlank(file_path):
             # Get the attributes
             table_attributes = {attr for attr in attributes}
 
@@ -76,13 +75,12 @@ def createClass(table):
             adjusted_lines = [lines[0]] + [line[identations*4:] for line in lines[1:]]
             tableClassContent = '\n'.join(adjusted_lines)
 
-            with open(file_path, 'w') as file:
-                file.write(tableClassContent)
+            tableClass.writeFile(file_path, tableClassContent)
 
             print(f"{tableName} {{ {', '.join(attributes)} }}")
-            print(f"File Class Generated: {file_name}")
+            print(f"File Class Generated: {class_file_name}")
         else:
-            print(f"{file_name} aleready exists")
+            print(f"{class_file_name} already exists")
 
 def initTables():
     tables = abs(jn(dir(__file__), 'tables.sql'))
