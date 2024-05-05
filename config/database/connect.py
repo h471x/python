@@ -32,6 +32,9 @@ def createClass(table):
 
         # Check if the file exists and is blank (size is 0)
         if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+            # Get the attributes
+            table_attributes = {attr for attr in attributes}
+
             # Generate default data dictionary with multi-line formatting
             # Add 7 identations = 28 spaces after each line break
             default_data = ",\n".join([f"'{attr}': '{attr}'" for attr in attributes])
@@ -51,6 +54,7 @@ def createClass(table):
                 class {tableName}_Controller:
                     def __init__(self):
                         self.__{table_name_lower} = handleCrud('{tableName}')
+                        self.__attributes = {table_attributes}
                         self.__default_data = {{
                             {default_data}
                         }}
