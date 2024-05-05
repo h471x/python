@@ -32,6 +32,11 @@ def createClass(table):
 
         # Check if the file exists and is blank (size is 0)
         if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+            # Generate default data dictionary with multi-line formatting
+            # Add 7 identations = 28 spaces after each line break
+            default_data = ",\n".join([f"'{attr}': '{attr}'" for attr in attributes])
+            default_data = default_data.replace('\n', '\n' + ' ' * 28)
+
             tableClassContent = (
                 f"""from sys import path
                 from os.path import abspath as abs, join as jn, dirname as dir
@@ -42,6 +47,9 @@ def createClass(table):
                 class {tableName}_Controller:
                     def __init__(self):
                         self.__{table_name_lower} = handleCrud('{tableName}')
+                        self.__default_data = {{
+                            {default_data}
+                        }}
                 """
             )
 
