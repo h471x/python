@@ -11,5 +11,5 @@ def openLogin():
 if __name__ == '__main__':
     if getStatus() == 'connected':
         initTables()
-        openLogin()
+        # openLogin()
         # mainGui()
