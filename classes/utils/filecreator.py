@@ -14,9 +14,12 @@ class FileGenerator():
     def isBlank(self, file):
         filePath = self.getFilePath(file)
         fileExists = os.path.exists(filePath)
-        fileSize = os.path.getsize(filePath)
 
-        return not fileExists or fileSize == 0
+        if not fileExists:
+            return True
+
+        fileIsBlank = os.path.getsize(filePath) == 0
+        return fileIsBlank
 
     def createBlankFile(self, file):
         createdFile = self.getFilePath(file)
@@ -26,7 +29,7 @@ class FileGenerator():
 
     def writeFile(self, file, content):
         filePath = self.getFilePath(file)
-        if self.isBlank(file):
+        if self.isBlank(filePath):
             self.createBlankFile(file)
         with open(filePath, 'w') as f:
             f.write(content)
