@@ -11,3 +11,7 @@ class APP_USER_Controller:
             'username': 'username',
             'password': 'password'
         }
+        self.__default_new_data = {
+            'username': 'new_username',
+            'password': 'new_password'
+        }

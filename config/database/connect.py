@@ -37,6 +37,10 @@ def createClass(table):
             default_data = ",\n".join([f"'{attr}': '{attr}'" for attr in attributes])
             default_data = default_data.replace('\n', '\n' + ' ' * 28)
 
+            # Generate default newData
+            default_new_data = ",\n".join([f"'{attr}': 'new_{attr}'" for attr in attributes])
+            default_new_data = default_new_data.replace('\n', '\n' + ' ' * 28)
+
             tableClassContent = (
                 f"""from sys import path
                 from os.path import abspath as abs, join as jn, dirname as dir
@@ -49,6 +53,9 @@ def createClass(table):
                         self.__{table_name_lower} = handleCrud('{tableName}')
                         self.__default_data = {{
                             {default_data}
+                        }}
+                        self.__default_new_data = {{
+                            {default_new_data}
                         }}
                 """
             )
