@@ -16,3 +16,8 @@ class APP_USER_Controller:
             'username': 'new_username',
             'password': 'new_password'
         }
+
+    def insert(self, app_user_data):
+        self.__app_user.insert(
+            app_user_data
+        )

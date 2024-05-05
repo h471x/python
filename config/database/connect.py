@@ -61,6 +61,11 @@ def createClass(table):
                         self.__default_new_data = {{
                             {default_new_data}
                         }}
+
+                    def insert(self, {table_name_lower}_data):
+                        self.__{table_name_lower}.insert(
+                            {table_name_lower}_data
+                        )
                 """
             )
 
