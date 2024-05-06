@@ -1,7 +1,6 @@
 from classes.database.dbconfig import DatabaseConfigurator as dbConfig
 from classes.database.dbquery import DatabaseQuery as dbQuery
 
-import os
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 
