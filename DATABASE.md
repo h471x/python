@@ -1,6 +1,6 @@
 ## Manual database configurations
 
-* Init the datase
+* Init the database
 ```shell
 sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
 ```
