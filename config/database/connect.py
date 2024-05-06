@@ -16,6 +16,7 @@ def initTables():
 
     if dbQuery().execute(createQuery):
         dbConfig().createClassFile(createQuery)
+        dbConfig().createControllerFile(createQuery)
         return True
 
 def getStatus():
