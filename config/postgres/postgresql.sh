@@ -39,9 +39,22 @@ else
 		exit 1
 	}
 fi
-
-echo -e
 echo "PostgreSQL configuration files updated successfully."
 
 # break a line
 echo -e
+
+# Check if running on WSL based on the existence of WSLInterop file
+isWSL="/proc/sys/fs/binfmt_misc/WSLInterop"
+
+# Check if any PostgreSQL processes are running
+if pgrep postgres >/dev/null; then
+	echo "PostgreSQL server is already running"
+else
+	echo "Starting the PostgreSQL server"
+	[ -f "$isWSL" ] && sudo service postgresql start || sudo systemctl start postgresql
+fi
+
+# Load the postgresql database configuration
+echo "Configuring PostgreSQL Database"
+sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
