@@ -2,22 +2,20 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.dbcrud import CrudHandler as handleCrud
+from classes.tables.app_user import APP_USER_Controller as app_user
 
-class APP_USER_Controller:
-    def __init__(self):
-        self.__app_user = handleCrud('APP_USER')
-        self.__attributes = {'username', 'password'}
-        self.__default_data = {
-            'username': 'username',
-            'password': 'password'
-        }
-        self.__default_new_data = {
-            'username': 'new_username',
-            'password': 'new_password'
-        }
+app_user_data = {
+    'username': 'username',
+    'password': 'password'
+}
 
-    def insert(self, app_user_data):
-        self.__app_user.insert(
-            app_user_data
-        )
+app_user_new_data = {
+    'username': 'new_username',
+    'password': 'new_password'
+}
+
+app_user = app_user()
+
+def insert_template():
+    app_user.insert(app_user_data)
+
