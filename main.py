@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from config.database.connect import getStatus, initTables
 
 from app.view.gui import mainGui
