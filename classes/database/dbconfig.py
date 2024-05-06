@@ -182,6 +182,8 @@ class DatabaseConfigurator:
                     def insert_template():
                         {table_name_lower}.insert({table_name_lower}_data)
 
+                    if __name__ == '__main__':
+                        insert_template()
                     """
                 )
 

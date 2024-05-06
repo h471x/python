@@ -19,3 +19,5 @@ app_user = app_user()
 def insert_template():
     app_user.insert(app_user_data)
 
+if __name__ == '__main__':
+    insert_template()
