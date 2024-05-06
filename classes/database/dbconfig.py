@@ -104,7 +104,7 @@ class DatabaseConfigurator:
                     from os.path import abspath as abs, join as jn, dirname as dir
                     path.append(abs(jn(dir(__file__), '..', '..')))
 
-                    from classes.dbcrud import CrudHandler as handleCrud
+                    from classes.database.dbcrud import CrudHandler as handleCrud
 
                     class {tableName}_Controller:
                         def __init__(self):
@@ -162,7 +162,7 @@ class DatabaseConfigurator:
                 default_new_data = ",\n".join([f"'{attr}': 'new_{attr}'" for attr in attributes])
                 default_new_data = default_new_data.replace('\n', '\n' + ' ' * 24)
 
-                tableClassContent = (
+                tableControllerContent = (
                     f"""from sys import path
                     from os.path import abspath as abs, join as jn, dirname as dir
                     path.append(abs(jn(dir(__file__), '..', '..')))
@@ -188,11 +188,11 @@ class DatabaseConfigurator:
                 # Adjust indentation for subsequent lines
                 # Remove 4 indentations = 4 x 4 spaces = 16 spaces
                 identations = 5
-                lines = tableClassContent.split('\n')
+                lines = tableControllerContent.split('\n')
                 adjusted_lines = [lines[0]] + [line[identations*4:] for line in lines[1:]]
-                tableClassContent = '\n'.join(adjusted_lines)
+                tableControllerContent = '\n'.join(adjusted_lines)
 
-                tableClass.writeFile(file_path, tableClassContent)
+                tableClass.writeFile(file_path, tableControllerContent)
 
                 # print(f"{tableName} {{ {', '.join(attributes)} }}")
                 print(f"New Controller File  : app/controllers/{class_file_name}")

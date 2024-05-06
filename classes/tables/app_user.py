@@ -2,7 +2,7 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handleCrud
 
 class APP_USER_Controller:
     def __init__(self):
