@@ -5,5 +5,5 @@ if __name__ == '__main__':
     pkg = PkgMngr(PkgMngr.getPkg())
     pkg.install()
 
-    postgresConf = initFile('config/postgres/postgres.sh')
+    postgresConf = initFile('config/postgres/postgresql.sh')
     postgresConf.runShell()
