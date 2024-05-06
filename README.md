@@ -5,7 +5,7 @@
 git clone https://github.com/h471x/python.git && cd python
 ```
 
-### Install project libraries
+### Install project libraries & Configuring PostgreSQL
 ```shell
 python setup.py
 ```
