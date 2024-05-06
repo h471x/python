@@ -10,23 +10,17 @@ git clone https://github.com/h471x/python.git && cd python
 python setup.py
 ```
 
-### PostgreSQL User & Database Configuration
+### Launch the application
 
-* Start the postgresql server on Linux
 ```shell
-sudo systemctl start postgresql
+python main.py
 ```
-* Start the postgresql server on WSL
+
+### Manual database configurations
+
+* Reset database
 ```shell
-sudo service postgresql start
-```
-* Load the postgresql database & user
-```shell
-sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
-```
-* Restart the postgresql service
-```shell
-sudo service postgresql restart
+sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
 ```
 * Access the console with the new user
 ```shell
@@ -35,16 +29,4 @@ psql -U python -d python -h localhost -p 5432 -W
 * python user password
 ```
 python
-```
-
-### Launch the application
-
-```shell
-python main.py
-```
-
-### Resetting the application database
-
-```shell
-sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
 ```
