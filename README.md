@@ -10,28 +10,6 @@ git clone https://github.com/h471x/python.git && cd python
 python setup.py
 ```
 
-### Enabling all IP to connect to the database
-
-```shell
-pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
-pgPath=/etc/postgresql/$pgVersion/main
-pgConf=$pgPath/postgresql.conf
-newConf=config/postgres/postgresql.conf
-sudo cp -rv $pgConf $pgConf.bak
-sudo cp -rv $newConf $pgPath
-```
-
-### Allowing the user to access the database
-
-```shell
-pgVersion=$(ls -1 /etc/postgresql | grep '^[0-9]' | tail -n 1)
-pgPath=/etc/postgresql/$pgVersion/main
-pgHba=$pgPath/pg_hba.conf
-newHba=config/postgres/pg_hba.conf
-sudo cp -rv $pgHba $pgHba.bak
-sudo cp -rv $newHba $pgPath
-```
-
 ### PostgreSQL User & Database Configuration
 
 * Start the postgresql server on Linux
