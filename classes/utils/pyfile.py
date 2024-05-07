@@ -66,6 +66,9 @@ class PythonGenerator:
                             self.__{table_name_lower}.insert(
                                 {table_name_lower}_data
                             )
+
+                        def selectAll(self, {table_name_lower}_data):
+                            return self.__{table_name_lower}.selectAll()
                     """
                 )
 
@@ -127,8 +130,12 @@ class PythonGenerator:
                     def insert_template():
                         {table_name_lower}.insert({table_name_lower}_data)
 
+                    def {table_name_lower}_selectAll():
+                        print({table_name_lower}.selectAll())
+
                     if __name__ == '__main__':
                         insert_template()
+                        {table_name_lower}_selectAll()
                     """
                 )
 
