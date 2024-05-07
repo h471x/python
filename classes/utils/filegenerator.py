@@ -86,7 +86,7 @@ class FileGenerator:
                             {table_name_lower}_data,
                             {table_name_lower}_new_data
                         ):
-                            return {table_name_lower}.update(
+                            {table_name_lower}.update(
                                 {table_name_lower}_data,
                                 {table_name_lower}_new_data
                             )
@@ -94,16 +94,46 @@ class FileGenerator:
                             print(f"Query : {{{table_name_lower}_data}}")
                             print("Have Invalid Attributes")
 
+                    def {table_name_lower}_delete({table_name_lower}_data):
+                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
+                            {table_name_lower}.delete({table_name_lower}_data)
+                        else:
+                            print(f"Query : {{{table_name_lower}_data}}")
+                            print("Have Invalid Attributes")
+
+                    def {table_name_lower}_deleteAll():
+                        {table_name_lower}.deleteAll()
 
                     if __name__ == '__main__':
+                        print("insert template")
                         {table_name_lower}_insert_template()
-                        {table_name_lower}_insert({table_name_lower}_data_template)
                         print({table_name_lower}_selectAll())
+                        print(" ")
+
+                        print("select user_data")
                         print({table_name_lower}_select({table_name_lower}_data_template))
+                        print(" ")
+
+                        print("update user_data")
                         {table_name_lower}_update(
                             {table_name_lower}_data_template,
                             {table_name_lower}_new_data_template
                         )
+                        print({table_name_lower}_selectAll())
+                        print(" ")
+
+                        print("insert user_data")
+                        {table_name_lower}_insert({table_name_lower}_data_template)
+                        print({table_name_lower}_selectAll())
+                        print(" ")
+
+                        print("delete user_data")
+                        {table_name_lower}_delete({table_name_lower}_data_template)
+                        print({table_name_lower}_selectAll())
+                        print(" ")
+
+                        print("delete all")
+                        {table_name_lower}_deleteAll()
                         print({table_name_lower}_selectAll())
                     """
                 )
