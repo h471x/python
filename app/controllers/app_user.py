@@ -17,16 +17,19 @@ app_user_new_data_template = {
 }
 
 def app_user_insert_template():
-    app_user.insert(app_user_data)
+    app_user.insert(app_user_data_template)
 
-def app_user_insert(data):
-    if app_user.hasValidAttributes(data):
-        app_user.insert(data)
+def app_user_insert(app_user_data):
+    if app_user.hasValidAttributes(app_user_data):
+        app_user.insert(app_user_data)
+    else:
+        print(f"Data : {app_user_data}")
+        print("Have Invalid Attributes")
 
 def app_user_selectAll():
-    print(app_user.selectAll())
+    return app_user.selectAll()
 
 if __name__ == '__main__':
-#     app_user_insert_template()
-#     app_user_selectAll()
+    app_user_insert_template()
     app_user_insert(app_user_data_template)
+    print(app_user_selectAll())

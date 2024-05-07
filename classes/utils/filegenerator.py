@@ -53,23 +53,31 @@ class FileGenerator:
 
                     {table_name_lower} = handleCrud('{tableName}')
 
-                    {table_name_lower}_data = {{
+                    {table_name_lower}_data_template = {{
                         {default_data}
                     }}
 
-                    {table_name_lower}_new_data = {{
+                    {table_name_lower}_new_data_template = {{
                         {default_new_data}
                     }}
 
                     def {table_name_lower}_insert_template():
-                        {table_name_lower}.insert({table_name_lower}_data)
+                        {table_name_lower}.insert({table_name_lower}_data_template)
+
+                    def {table_name_lower}_insert({table_name_lower}_data):
+                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
+                            {table_name_lower}.insert({table_name_lower}_data)
+                        else:
+                            print(f"Data : {{{table_name_lower}_data}}")
+                            print("Have Invalid Attributes")
 
                     def {table_name_lower}_selectAll():
-                        print({table_name_lower}.selectAll())
+                        return {table_name_lower}.selectAll()
 
                     if __name__ == '__main__':
                         {table_name_lower}_insert_template()
-                        {table_name_lower}_selectAll()
+                        {table_name_lower}_insert({table_name_lower}_data_template)
+                        print({table_name_lower}_selectAll())
                     """
                 )
 
