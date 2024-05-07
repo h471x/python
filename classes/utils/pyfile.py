@@ -3,7 +3,7 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..' '..')))
 
-from classes.utils.filecreator import FileGenerator as newFile
+from classes.utils.filegenerator import FileGenerator as newFile
 
 class PythonGenerator:
     def getTableInfos(self, createQuery):
