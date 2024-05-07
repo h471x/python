@@ -7,7 +7,7 @@ from classes.database.dbcrud import CrudHandler as handleCrud
 class APP_USER_Controller:
     def __init__(self):
         self.__app_user = handleCrud('APP_USER')
-        self.__attributes = {'password', 'username'}
+        self.__attributes = {'username', 'password'}
         self.__default_data = {
             'username': 'username',
             'password': 'password'
@@ -22,5 +22,5 @@ class APP_USER_Controller:
             app_user_data
         )
 
-    def selectAll(self, app_user_data):
+    def selectAll(self):
         return self.__app_user.selectAll()

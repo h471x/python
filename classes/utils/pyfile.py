@@ -67,7 +67,7 @@ class PythonGenerator:
                                 {table_name_lower}_data
                             )
 
-                        def selectAll(self, {table_name_lower}_data):
+                        def selectAll(self):
                             return self.__{table_name_lower}.selectAll()
                     """
                 )
