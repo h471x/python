@@ -15,7 +15,6 @@ def initTables():
         createQuery = postgresTables.read()
 
     if dbQuery().execute(createQuery):
-        pythonFile().createClassFile(createQuery)
         pythonFile().createControllerFile(createQuery)
         return True
 
