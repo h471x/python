@@ -11,6 +11,22 @@ class FileHandler:
     def getFilePath(self, file):
         return jn(self.destination, file)
 
+    def isBlank(self, file):
+        filePath = self.getFilePath(file)
+        fileExists = os.path.exists(filePath)
+
+        if not fileExists:
+            return True
+
+        fileIsBlank = os.path.getsize(filePath) == 0
+        return fileIsBlank
+
+    def createBlankFile(self, file):
+        createdFile = self.getFilePath(file)
+        with open(createdFile, 'w') as file:
+            pass
+        return createdFile
+
     def writeFile(self, file, content):
         filePath = self.getFilePath(file)
         if self.isBlank(filePath):
