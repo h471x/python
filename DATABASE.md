@@ -8,7 +8,7 @@ sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
 ```shell
 sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
 ```
-* Access the console with the new user
+* Access the console with the python user
 ```shell
 psql -U python -d python -h localhost -p 5432 -W
 ```
