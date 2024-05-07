@@ -2,7 +2,7 @@ import os
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 
-class FileGenerator:
+class FileHandler:
     def __init__(self, destination):
         self.destination = abs(jn(dir(__file__), '..', '..', destination))
         if not os.path.exists(self.destination):
