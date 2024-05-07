@@ -74,10 +74,18 @@ class FileGenerator:
                     def {table_name_lower}_selectAll():
                         return {table_name_lower}.selectAll()
 
+                    def {table_name_lower}_select({table_name_lower}_data):
+                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
+                            return {table_name_lower}.select({table_name_lower}_data)
+                        else:
+                            print(f"Query : {{{table_name_lower}_data}}")
+                            print("Have Invalid Attributes")
+
                     if __name__ == '__main__':
                         {table_name_lower}_insert_template()
                         {table_name_lower}_insert({table_name_lower}_data_template)
                         print({table_name_lower}_selectAll())
+                        print({table_name_lower}_select({table_name_lower}_data_template))
                     """
                 )
 

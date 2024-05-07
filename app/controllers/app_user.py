@@ -29,7 +29,15 @@ def app_user_insert(app_user_data):
 def app_user_selectAll():
     return app_user.selectAll()
 
+def app_user_select(app_user_data):
+    if app_user.hasValidAttributes(app_user_data):
+        return app_user.select(app_user_data)
+    else:
+        print(f"Query : {app_user_data}")
+        print("Have Invalid Attributes")
+
 if __name__ == '__main__':
     app_user_insert_template()
     app_user_insert(app_user_data_template)
     print(app_user_selectAll())
+    print(app_user_select(app_user_data_template))
