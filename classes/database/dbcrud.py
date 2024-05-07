@@ -44,9 +44,11 @@ class CrudHandler():
         ]
 
     def hasValidAttributes(self, *data):
-        tableColumns = self.getTableColumns()
         for data in data:
-            if not all(key in tableColumns for key in data):
+            if not all(
+                key in self.getTableColumns()
+                for key in data
+            ):
                 return False
         return True
 
