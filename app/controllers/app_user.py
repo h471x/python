@@ -6,12 +6,12 @@ from classes.database.dbcrud import CrudHandler as handleCrud
 
 app_user = handleCrud('APP_USER')
 
-app_user_data = {
+app_user_data_template = {
     'username': 'username',
     'password': 'password'
 }
 
-app_user_new_data = {
+app_user_new_data_template = {
     'username': 'new_username',
     'password': 'new_password'
 }
@@ -19,9 +19,14 @@ app_user_new_data = {
 def app_user_insert_template():
     app_user.insert(app_user_data)
 
+def app_user_insert(data):
+    if app_user.hasValidAttributes(data):
+        app_user.insert(data)
+
 def app_user_selectAll():
     print(app_user.selectAll())
 
 if __name__ == '__main__':
-    app_user_insert_template()
-    app_user_selectAll()
+#     app_user_insert_template()
+#     app_user_selectAll()
+    app_user_insert(app_user_data_template)
