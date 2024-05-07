@@ -1,5 +1,6 @@
 from classes.database.dbconfig import DatabaseConfigurator as dbConfig
 from classes.database.dbquery import DatabaseQuery as dbQuery
+from classes.utils.pyfile import PythonGenerator as pythonFile
 
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
@@ -14,8 +15,8 @@ def initTables():
         createQuery = postgresTables.read()
 
     if dbQuery().execute(createQuery):
-        dbConfig().createClassFile(createQuery)
-        dbConfig().createControllerFile(createQuery)
+        pythonFile().createClassFile(createQuery)
+        pythonFile().createControllerFile(createQuery)
         return True
 
 def getStatus():
