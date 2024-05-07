@@ -1,7 +1,6 @@
 import subprocess
-from .filecreator import FileGenerator
 
-class InitFilesGenerator:
+class FileRunner:
     def __init__(self, file):
         self.file = file
 
