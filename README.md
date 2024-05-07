@@ -15,3 +15,5 @@ python setup.py
 ```shell
 python main.py
 ```
+
+### [Configure the database](DATABASE.md)
