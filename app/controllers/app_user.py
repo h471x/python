@@ -36,8 +36,27 @@ def app_user_select(app_user_data):
         print(f"Query : {app_user_data}")
         print("Have Invalid Attributes")
 
+def app_user_update(app_user_data, app_user_new_data):
+    if app_user.hasValidAttributes(
+        app_user_data,
+        app_user_new_data
+    ):
+        return app_user.update(
+            app_user_data,
+            app_user_new_data
+        )
+    else:
+        print(f"Query : {app_user_data}")
+        print("Have Invalid Attributes")
+
+
 if __name__ == '__main__':
     app_user_insert_template()
     app_user_insert(app_user_data_template)
     print(app_user_selectAll())
     print(app_user_select(app_user_data_template))
+    app_user_update(
+        app_user_data_template,
+        app_user_new_data_template
+    )
+    print(app_user_selectAll())
