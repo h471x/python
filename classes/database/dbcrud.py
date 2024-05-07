@@ -32,15 +32,16 @@ class CrudHandler():
         )
 
     def getTableColumns(self):
-        result = self.db.execute(f"""
-            SELECT column_name
-            FROM information_schema.columns
-            WHERE
-            table_schema = 'public' AND
-            table_name = '{self.table.lower()}';
-        """
-        )
-        return [row[0] for row in result]
+        return [
+            row[0] for row in self.db.execute(f"""
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE
+                table_schema = 'public' AND
+                table_name = '{self.table.lower()}';
+            """
+            )
+        ]
 
     def hasValidAttributes(self, *data):
         tableColumns = self.getTableColumns()
