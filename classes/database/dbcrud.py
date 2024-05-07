@@ -35,15 +35,19 @@ class CrudHandler():
         result = self.db.execute(f"""
             SELECT column_name
             FROM information_schema.columns
-            WHERE table_schema = 'public' AND table_name = '{self.table.lower()}';
+            WHERE
+            table_schema = 'public' AND
+            table_name = '{self.table.lower()}';
         """
         )
         return [row[0] for row in result]
 
     def hasValidAttributes(self, data):
-        table_columns = self.getTableColumns()
-        data_keys = data.keys()
-        return all(key in table_columns for key in data_keys)
+        tableColumns = self.getTableColumns()
+        dataColumns = data.keys()
+        return all(
+            key in tableColumns for key in dataColumns
+        )
 
     def rawGet(self, getQuery):
         return self.db.execute(getQuery)
