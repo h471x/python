@@ -5,7 +5,7 @@ path.append(abs(jn(dir(__file__), '..' '..')))
 
 from classes.utils.filehandler import FileHandler as newFile
 
-class PythonGenerator:
+class FileGenerator:
     def getTableInfos(self, createQuery):
         table_infos = {}
         create_table_syntax = 'CREATE TABLE IF NOT EXISTS'
