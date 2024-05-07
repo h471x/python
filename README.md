@@ -16,4 +16,4 @@ python setup.py
 python main.py
 ```
 
-### [Configure the database](DATABASE.md)
+[Database Configurations](DATABASE.md)
