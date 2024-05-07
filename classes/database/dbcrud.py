@@ -42,12 +42,12 @@ class CrudHandler():
         )
         return [row[0] for row in result]
 
-    def hasValidAttributes(self, data):
+    def hasValidAttributes(self, *data):
         tableColumns = self.getTableColumns()
-        dataColumns = data.keys()
-        return all(
-            key in tableColumns for key in dataColumns
-        )
+        for data in data:
+            if not all(key in tableColumns for key in data):
+                return False
+        return True
 
     def rawGet(self, getQuery):
         return self.db.execute(getQuery)
@@ -82,8 +82,13 @@ class CrudHandler():
     def update(self, oldData, newData):
         self.db.execute(f"""
             UPDATE {self.table} SET {self.__getSetValues(newData)}
-            WHERE {self.__getCondition(oldData)};
-        """)
+            WHERE {self.__getCondition(oldData)}
+            AND NOT EXISTS (
+                SELECT 1 FROM {self.table}
+                WHERE {self.__getFirstColumn(oldData)} = '{self.__getFirstValue(newData)}'
+            );
+        """
+    )
 
     def deleteAll(self):
         self.db.execute(f"""
