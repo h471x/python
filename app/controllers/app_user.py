@@ -43,11 +43,11 @@ if __name__ == '__main__':
     print(app_user_selectAll())
     print(" ")
 
-    print("select user_data")
+    print("select app_user_data")
     print(app_user_select(app_user_data_template))
     print(" ")
 
-    print("update user_data")
+    print("update app_user_data")
     app_user_update(
         app_user_data_template,
         app_user_new_data_template
@@ -55,12 +55,12 @@ if __name__ == '__main__':
     print(app_user_selectAll())
     print(" ")
 
-    print("insert user_data")
+    print("insert app_user_data")
     app_user_insert(app_user_data_template)
     print(app_user_selectAll())
     print(" ")
 
-    print("delete user_data")
+    print("delete app_user_data")
     app_user_delete(app_user_data_template)
     print(app_user_selectAll())
     print(" ")

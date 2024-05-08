@@ -88,11 +88,11 @@ class FileGenerator:
                         print({table_name_lower}_selectAll())
                         print(" ")
 
-                        print("select user_data")
+                        print("select {table_name_lower}_data")
                         print({table_name_lower}_select({table_name_lower}_data_template))
                         print(" ")
 
-                        print("update user_data")
+                        print("update {table_name_lower}_data")
                         {table_name_lower}_update(
                             {table_name_lower}_data_template,
                             {table_name_lower}_new_data_template
@@ -100,12 +100,12 @@ class FileGenerator:
                         print({table_name_lower}_selectAll())
                         print(" ")
 
-                        print("insert user_data")
+                        print("insert {table_name_lower}_data")
                         {table_name_lower}_insert({table_name_lower}_data_template)
                         print({table_name_lower}_selectAll())
                         print(" ")
 
-                        print("delete user_data")
+                        print("delete {table_name_lower}_data")
                         {table_name_lower}_delete({table_name_lower}_data_template)
                         print({table_name_lower}_selectAll())
                         print(" ")
