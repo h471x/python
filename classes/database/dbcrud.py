@@ -11,11 +11,9 @@ class CrudHandler():
         )
 
     def getValues(self, data):
-        return ', '.join(
-            [
-                f"'{value}'" for
-                value in data.values()
-            ]
+        return ', '.join([
+            f"'{value}'" for
+            value in data.values()]
         )
 
     def getFirstColumn(self, data):
@@ -25,19 +23,15 @@ class CrudHandler():
         return self.getValues(data).split(', ')[0].strip("'")
 
     def getCondition(self, condition):
-        return " AND ".join(
-            [
-                f"{key} = '{value}'" for key,
-                value in condition.items()
-            ]
+        return " AND ".join([
+            f"{key} = '{value}'" for key,
+            value in condition.items()]
         )
 
     def getSetValues(self, newData):
-        return ", ".join(
-            [
-                f"{key} = '{value}'" for key,
-                value in newData.items()
-            ]
+        return ", ".join([
+            f"{key} = '{value}'" for key,
+            value in newData.items()]
         )
 
     def getTableColumns(self):
