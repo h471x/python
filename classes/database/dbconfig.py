@@ -12,7 +12,7 @@ class DatabaseConfigurator:
         self.iniFile = iniFile
         self.section = 'postgresql'
 
-    def __getIniFile(self):
+    def getIniFile(self):
         iniDir = os.path.dirname(os.path.abspath(__file__))
         dbConfigPath = os.path.join(iniDir, self.iniFile)
 
@@ -22,7 +22,7 @@ class DatabaseConfigurator:
 
     def loadDbConfig(self):
         parser = ConfigParser()
-        parser.read(self.__getIniFile())
+        parser.read(self.getIniFile())
 
         dbConfig = {}
         if parser.has_section(self.section):
