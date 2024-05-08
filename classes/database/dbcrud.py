@@ -58,6 +58,8 @@ class CrudHandler():
                 key in self.getTableColumns()
                 for key in data
             ):
+                print(f"Query : {data}")
+                print("Have Invalid Attributes")
                 return False
         return True
 
@@ -68,18 +70,19 @@ class CrudHandler():
         self.db.execute(executeQuery)
 
     def insert(self, data):
-        firstColumn = self.getFirstColumn(data)
-        firstValue = self.getFirstValue(data)
+        if self.hasValidAttributes(data):
+            firstColumn = self.getFirstColumn(data)
+            firstValue = self.getFirstValue(data)
 
-        self.db.execute(f"""
-            INSERT INTO {self.table} ({self.getColumn(data)})
-            SELECT {self.getValues(data)}
-            WHERE NOT EXISTS(
-                SELECT 1 FROM {self.table}
-                WHERE {firstColumn} = '{firstValue}'
-            );
-        """
-        )
+            self.db.execute(f"""
+                INSERT INTO {self.table} ({self.getColumn(data)})
+                SELECT {self.getValues(data)}
+                WHERE NOT EXISTS(
+                    SELECT 1 FROM {self.table}
+                    WHERE {firstColumn} = '{firstValue}'
+                );
+            """
+            )
 
     def selectAll(self):
         return self.db.execute(f"""
@@ -88,25 +91,27 @@ class CrudHandler():
         )
 
     def select(self, condition):
-        return self.db.execute(f"""
-            SELECT * FROM {self.table}
-            WHERE {self.getCondition(condition)};
-        """
-        )
+        if self.hasValidAttributes(condition):
+            return self.db.execute(f"""
+                SELECT * FROM {self.table}
+                WHERE {self.getCondition(condition)};
+            """
+            )
 
     def update(self, oldData, newData):
-        newFirstColumn = self.getFirstColumn(newData)
-        newFirstValue = self.getFirstValue(newData)
+        if self.hasValidAttributes(oldData, newData):
+            newFirstColumn = self.getFirstColumn(newData)
+            newFirstValue = self.getFirstValue(newData)
 
-        self.db.execute(f"""
-            UPDATE {self.table} SET {self.getSetValues(newData)}
-            WHERE {self.getCondition(oldData)}
-            AND NOT EXISTS (
-                SELECT 1 FROM {self.table}
-                WHERE {newFirstColumn} = '{newFirstValue}'
-            );
-        """
-        )
+            self.db.execute(f"""
+                UPDATE {self.table} SET {self.getSetValues(newData)}
+                WHERE {self.getCondition(oldData)}
+                AND NOT EXISTS (
+                    SELECT 1 FROM {self.table}
+                    WHERE {newFirstColumn} = '{newFirstValue}'
+                );
+            """
+            )
 
     def deleteAll(self):
         self.db.execute(f"""
@@ -115,8 +120,9 @@ class CrudHandler():
         )
 
     def delete(self, condition):
-        self.db.execute(f"""
-            DELETE FROM {self.table}
-            WHERE {self.getCondition(condition)};
-        """
-        )
+        if self.hasValidAttributes(condition):
+            self.db.execute(f"""
+                DELETE FROM {self.table}
+                WHERE {self.getCondition(condition)};
+            """
+            )

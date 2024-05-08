@@ -65,41 +65,19 @@ class FileGenerator:
                         {table_name_lower}.insert({table_name_lower}_data_template)
 
                     def {table_name_lower}_insert({table_name_lower}_data):
-                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
-                            {table_name_lower}.insert({table_name_lower}_data)
-                        else:
-                            print(f"Data : {{{table_name_lower}_data}}")
-                            print("Have Invalid Attributes")
+                        {table_name_lower}.insert({table_name_lower}_data)
 
                     def {table_name_lower}_selectAll():
                         return {table_name_lower}.selectAll()
 
                     def {table_name_lower}_select({table_name_lower}_data):
-                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
-                            return {table_name_lower}.select({table_name_lower}_data)
-                        else:
-                            print(f"Query : {{{table_name_lower}_data}}")
-                            print("Have Invalid Attributes")
+                        return {table_name_lower}.select({table_name_lower}_data)
 
                     def {table_name_lower}_update({table_name_lower}_data, {table_name_lower}_new_data):
-                        if {table_name_lower}.hasValidAttributes(
-                            {table_name_lower}_data,
-                            {table_name_lower}_new_data
-                        ):
-                            {table_name_lower}.update(
-                                {table_name_lower}_data,
-                                {table_name_lower}_new_data
-                            )
-                        else:
-                            print(f"Query : {{{table_name_lower}_data}}")
-                            print("Have Invalid Attributes")
+                        {table_name_lower}.update({table_name_lower}_data, {table_name_lower}_new_data)
 
                     def {table_name_lower}_delete({table_name_lower}_data):
-                        if {table_name_lower}.hasValidAttributes({table_name_lower}_data):
-                            {table_name_lower}.delete({table_name_lower}_data)
-                        else:
-                            print(f"Query : {{{table_name_lower}_data}}")
-                            print("Have Invalid Attributes")
+                        {table_name_lower}.delete({table_name_lower}_data)
 
                     def {table_name_lower}_deleteAll():
                         {table_name_lower}.deleteAll()

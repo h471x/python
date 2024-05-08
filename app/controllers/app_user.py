@@ -20,41 +20,19 @@ def app_user_insert_template():
     app_user.insert(app_user_data_template)
 
 def app_user_insert(app_user_data):
-    if app_user.hasValidAttributes(app_user_data):
-        app_user.insert(app_user_data)
-    else:
-        print(f"Data : {app_user_data}")
-        print("Have Invalid Attributes")
+    app_user.insert(app_user_data)
 
 def app_user_selectAll():
     return app_user.selectAll()
 
 def app_user_select(app_user_data):
-    if app_user.hasValidAttributes(app_user_data):
-        return app_user.select(app_user_data)
-    else:
-        print(f"Query : {app_user_data}")
-        print("Have Invalid Attributes")
+    return app_user.select(app_user_data)
 
 def app_user_update(app_user_data, app_user_new_data):
-    if app_user.hasValidAttributes(
-        app_user_data,
-        app_user_new_data
-    ):
-        app_user.update(
-            app_user_data,
-            app_user_new_data
-        )
-    else:
-        print(f"Query : {app_user_data}")
-        print("Have Invalid Attributes")
+    app_user.update(app_user_data, app_user_new_data)
 
 def app_user_delete(app_user_data):
-    if app_user.hasValidAttributes(app_user_data):
-        app_user.delete(app_user_data)
-    else:
-        print(f"Query : {app_user_data}")
-        print("Have Invalid Attributes")
+    app_user.delete(app_user_data)
 
 def app_user_deleteAll():
     app_user.deleteAll()
