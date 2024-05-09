@@ -7,6 +7,8 @@ class CtkWindow:
         self.window = self.ctk.CTk()
         self.ctk.set_appearance_mode("System")
         self.ctk.set_default_color_theme("blue")
+        self.minWidth = 600
+        self.minHeight = 500
         self.window.title(f"{title}")
 
     def maximise(self):
@@ -20,6 +22,13 @@ class CtkWindow:
 
     def setSize(self, width, height):
         self.window.geometry(f"{width}x{height}")
+
+    def setMinSize(self, minWidth, minHeight):
+        self.minWidth = minWidth
+        self.minHeight minHeight
+
+    def makeResizable(self):
+        self.window.resizable(width=True, height=True)
 
     def open(self):
         self.window.mainloop()
