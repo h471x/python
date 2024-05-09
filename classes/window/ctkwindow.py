@@ -1,11 +1,12 @@
 import customtkinter
 
 class CtkWindow:
-    def __init__(self):
+    def __init__(self, title):
         self.ctk = customtkinter
         self.window = self.ctk.CTk()
-        ctk.set_appearance_mode("System")
-        ctk.set_default_color_theme("blue")
+        self.ctk.set_appearance_mode("System")
+        self.ctk.set_default_color_theme("blue")
+        self.window.title(f"{title}")
 
     def maximise(self):
         self.window.state('zoomed')

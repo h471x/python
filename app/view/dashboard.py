@@ -4,6 +4,5 @@ path.append(abs(jn(dir(__file__), '..', '..')))
 
 from classes.window.ctkwindow import CtkWindow
 
-dashboard = CtkWindow()
-
+dashboard = CtkWindow("Dashboard")
 dashboard.openMaximised()
