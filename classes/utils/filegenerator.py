@@ -27,8 +27,8 @@ class FileGenerator:
 
         for tableName, attributes in table.items():
             table_name_lower = tableName.lower()
-            class_file_name = f"{table_name_lower}.py"
-            file_path = tableClass.getFilePath(class_file_name)
+            controller_file_name = f"{table_name_lower}.py"
+            file_path = tableClass.getFilePath(controller_file_name)
 
             # Check if the file exists and is blank (size is 0)
             if not os.path.exists(file_path) or (os.path.exists(file_path) and os.path.getsize(file_path) == 0):
@@ -126,7 +126,7 @@ class FileGenerator:
                 tableClass.writeFile(file_path, tableControllerContent)
 
                 # print(f"{tableName} {{ {', '.join(attributes)} }}")
-                print(f"New Controller File  : app/controllers/{class_file_name}")
+                print(f"New Controller File : app/controllers/{controller_file_name}")
             else:
                 # print(f"{class_file_name} already exists")
                 pass
