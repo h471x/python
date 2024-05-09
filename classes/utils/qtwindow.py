@@ -5,8 +5,6 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..')))
 
-from app.view.login import LoginUi
-
 GuiApp = QApplication(sys.argv)
 
 class QtWindow(QWidget):
@@ -22,7 +20,3 @@ class QtWindow(QWidget):
 
     def close(self):
         self.close()
-
-if __name__=='__main__':
-    window = QtWindow(LoginUi(), GuiApp)
-    window.open()
