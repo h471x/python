@@ -25,7 +25,7 @@ class CtkWindow:
 
     def setMinSize(self, minWidth, minHeight):
         self.minWidth = minWidth
-        self.minHeight minHeight
+        self.minHeight = minHeight
 
     def makeResizable(self):
         self.window.resizable(width=True, height=True)
