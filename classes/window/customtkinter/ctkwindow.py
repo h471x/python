@@ -9,6 +9,8 @@ class CtkWindow:
         self.ctk.set_default_color_theme("blue")
         self.minWidth = 800
         self.minHeight = 500
+        self.window.update()
+        self.window.minsize(self.minWidth, self.minHeight)
         self.window.title(f"{title}") \
             if title else None
         self.setSize(self.minWidth, self.minHeight)
