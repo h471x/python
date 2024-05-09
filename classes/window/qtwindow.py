@@ -1,10 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QWidget, QApplication, QFrame, QMessageBox
 
-from sys import path
-from os.path import abspath as abs, join as jn, dirname as dir
-path.append(abs(jn(dir(__file__), '..')))
-
 GuiApp = QApplication(sys.argv)
 
 class QtWindow(QWidget):

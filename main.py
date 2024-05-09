@@ -3,7 +3,7 @@ from config.database.connect import getStatus, initTables
 
 from app.view.gui import mainGui
 from app.view.qtlogin import LoginUi
-from classes.utils.qtwindow import QtWindow, GuiApp
+from classes.window.qtwindow import QtWindow, GuiApp
 
 def openLogin():
     login = QtWindow(LoginUi(), GuiApp)
