@@ -1,4 +1,5 @@
 import customtkinter
+from platform import system as getSystem
 
 class CtkWindow:
     def __init__(self, title):
@@ -9,7 +10,13 @@ class CtkWindow:
         self.window.title(f"{title}")
 
     def maximise(self):
-        self.window.state('zoomed')
+        maximiseWindow = {
+            'Windows': "state('zoomed')",
+            'Linux': "attributes('-zoomed', True)",
+            'Darwin': "attributes('-fullscreen', True)"
+        }.get(getSystem(),lambda: print("Unsupported operating system"))
+
+        eval(f"self.window.{maximiseWindow}")
 
     def setSize(self, width, height):
         self.window.geometry(f"{width}x{height}")
