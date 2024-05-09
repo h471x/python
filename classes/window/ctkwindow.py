@@ -2,14 +2,15 @@ import customtkinter
 from platform import system as getSystem
 
 class CtkWindow:
-    def __init__(self, title):
+    def __init__(self, title=None):
         self.ctk = customtkinter
         self.window = self.ctk.CTk()
         self.ctk.set_appearance_mode("System")
         self.ctk.set_default_color_theme("blue")
         self.minWidth = 800
         self.minHeight = 500
-        self.window.title(f"{title}")
+        self.window.title(f"{title}") \
+            if title else None
         self.setSize(self.minWidth, self.minHeight)
 
     def maximise(self):
