@@ -4,5 +4,9 @@ path.append(abs(jn(dir(__file__), '..', '..')))
 
 from classes.window.ctkwindow import CtkWindow
 
-dashboard = CtkWindow("Dashboard")
-dashboard.openMaximised()
+def dashboardUi():
+    dashboard = CtkWindow("Dashboard")
+    dashboard.openMaximised()
+
+if __name__ == '__main__':
+    dashboardUi()
