@@ -25,6 +25,7 @@ class CtkWindow:
         eval(f"self.window.{maximiseWindow}")
 
     def setSize(self, width, height):
+        self.window.minsize(width, height)
         self.window.geometry(f"{width}x{height}")
 
     def makeResizable(self):
