@@ -1,8 +1,8 @@
 from .dbquery import DatabaseQuery as dbQuery
 
-class CrudHandler():
+class CrudHandler(dbQuery):
     def __init__(self, table):
-        self.db = dbQuery()
+        super().__init__()
         self.table = table
 
     def getColumn(self, data):
@@ -36,7 +36,7 @@ class CrudHandler():
 
     def getTableColumns(self):
         return [
-            row[0] for row in self.db.execute(f"""
+            row[0] for row in self.execute(f"""
                 SELECT column_name
                 FROM information_schema.columns
                 WHERE
@@ -58,17 +58,17 @@ class CrudHandler():
         return True
 
     def rawGet(self, getQuery):
-        return self.db.execute(getQuery)
+        return self.execute(getQuery)
 
     def rawExecute(self, executeQuery):
-        self.db.execute(executeQuery)
+        self.execute(executeQuery)
 
     def insert(self, data):
         if self.hasValidAttributes(data):
             firstColumn = self.getFirstColumn(data)
             firstValue = self.getFirstValue(data)
 
-            self.db.execute(f"""
+            self.execute(f"""
                 INSERT INTO {self.table} ({self.getColumn(data)})
                 SELECT {self.getValues(data)}
                 WHERE NOT EXISTS(
@@ -79,14 +79,14 @@ class CrudHandler():
             )
 
     def selectAll(self):
-        return self.db.execute(f"""
+        return self.execute(f"""
             SELECT * from {self.table};
         """
         )
 
     def select(self, condition):
         if self.hasValidAttributes(condition):
-            return self.db.execute(f"""
+            return self.execute(f"""
                 SELECT * FROM {self.table}
                 WHERE {self.getCondition(condition)};
             """
@@ -97,7 +97,7 @@ class CrudHandler():
             newFirstColumn = self.getFirstColumn(newData)
             newFirstValue = self.getFirstValue(newData)
 
-            self.db.execute(f"""
+            self.execute(f"""
                 UPDATE {self.table} SET {self.getSetValues(newData)}
                 WHERE {self.getCondition(oldData)}
                 AND NOT EXISTS (
@@ -108,14 +108,14 @@ class CrudHandler():
             )
 
     def deleteAll(self):
-        self.db.execute(f"""
+        self.execute(f"""
             DELETE from {self.table};
         """
         )
 
     def delete(self, condition):
         if self.hasValidAttributes(condition):
-            self.db.execute(f"""
+            self.execute(f"""
                 DELETE FROM {self.table}
                 WHERE {self.getCondition(condition)};
             """
