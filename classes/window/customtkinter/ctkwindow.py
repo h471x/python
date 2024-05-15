@@ -39,10 +39,3 @@ class CtkWindow:
     def openMaximised(self):
         self.window.after(0, lambda:self.maximise())
         self.open()
-
-    def newButton(self, parent, content, action):
-        return self.ctk.CTkButton(
-            master=parent,
-            text=f"{content}",
-            command=action
-        )
