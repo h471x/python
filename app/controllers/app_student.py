@@ -29,6 +29,9 @@ def app_student_insert(app_student_data):
 def app_student_selectAll():
     return app_student.selectAll()
 
+def app_student_count():
+    return app_student.count()
+
 def app_student_select(app_student_data):
     return app_student.select(app_student_data)
 
@@ -62,6 +65,10 @@ if __name__ == '__main__':
     print("insert app_student_data")
     app_student_insert(app_student_data_template)
     print(app_student_selectAll())
+    print(" ")
+
+    print("Counting app_student")
+    print(f"Number of app_student : {app_student_count()}")
     print(" ")
 
     print("delete app_student_data")

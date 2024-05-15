@@ -25,6 +25,9 @@ def app_user_insert(app_user_data):
 def app_user_selectAll():
     return app_user.selectAll()
 
+def app_user_count():
+    return app_user.count()
+
 def app_user_select(app_user_data):
     return app_user.select(app_user_data)
 
@@ -58,6 +61,10 @@ if __name__ == '__main__':
     print("insert app_user_data")
     app_user_insert(app_user_data_template)
     print(app_user_selectAll())
+    print(" ")
+
+    print("Counting app_user")
+    print(f"Number of app_user : {app_user_count()}")
     print(" ")
 
     print("delete app_user_data")
