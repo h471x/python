@@ -47,15 +47,11 @@ class CrudHandler(dbQuery):
         ]
 
     def hasValidAttributes(self, *data):
-        for data in data:
-            if not all(
-                key in self.getTableColumns()
-                for key in data
-            ):
-                print(f"Query : {data}")
-                print("Have Invalid Attributes")
-                return False
-        return True
+        return all(
+            all(key.lower() in self.getTableColumns()
+                for key in data)
+            for data in data
+        )
 
     def rawGet(self, getQuery):
         return self.execute(getQuery)
