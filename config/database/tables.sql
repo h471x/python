@@ -1,31 +1,31 @@
 CREATE TABLE person(
-  NationalCard TEXT PRIMARY KEY,
-  Name TEXT NOT NULL,
-  FirstName TEXT,
-  Birth DATE NOT NULL,
-  Gender VARCHAR(1) NOT NULL CHECK ( IN('M','F') ),
-  Adress TEXT NOT NULL,
-  Phone VARCHAR(10) NOT NULL
+  id_card TEXT PRIMARY KEY,
+  last_name TEXT NOT NULL,
+  first_name TEXT,
+  birth DATE NOT NULL,
+  gender VARCHAR(1) NOT NULL CHECK( Gender IN('M','F')),
+  adress TEXT NOT NULL,
+  phone VARCHAR(10) NOT NULL
 );
 CREATE TABLE admin(
-  Username TEXT PRIMARY KEY ,
-  Password TEXT NOT NULL
+  username TEXT PRIMARY KEY ,
+  password TEXT NOT NULL
 ) INHERITS (person);
 CREATE TABLE student(
-  Id TEXT PRIMARY KEY,
-  Major TEXT NOT NULL,
+  id TEXT PRIMARY KEY,
+  major TEXT NOT NULL,
   Grade TEXT NOT NULL,
-  Specialization TEXT NOT NULL
+  cursus TEXT NOT NULL
 ) INHERITS (person);
 CREATE TABLE teacher(
   
 ) INHERITS (person);
-CREATE TABLE CE(
-  CeName TEXT PRIMARY KEY,
-  UE TEXT NOT NULL
+CREATE TABLE ce(
+  cename TEXT PRIMARY KEY,
+  ue TEXT NOT NULL
 );
 CREATE TABLE grade(
-  GradeId SERIAL PRIMARY KEY,
-  TheoricalGrade INT NOT NULL DEFAULT 20,
-  PraticalGrade INT NOT NULL DEFAULT 20
+  gradeId SERIAL PRIMARY KEY,
+  theorical_grade INT NOT NULL DEFAULT 20,
+  pratical_grade INT NOT NULL DEFAULT 20
 );
