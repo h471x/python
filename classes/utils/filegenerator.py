@@ -79,6 +79,9 @@ class FileGenerator:
                     def {table_name_lower}_selectAll():
                         return {table_name_lower}.selectAll()
 
+                    def {table_name_lower}_count():
+                        return {table_name_lower}.count()
+
                     def {table_name_lower}_select({table_name_lower}_data):
                         return {table_name_lower}.select({table_name_lower}_data)
 
@@ -112,6 +115,10 @@ class FileGenerator:
                         print("insert {table_name_lower}_data")
                         {table_name_lower}_insert({table_name_lower}_data_template)
                         print({table_name_lower}_selectAll())
+                        print(" ")
+
+                        print("Counting {table_name_lower}")
+                        print(f"Number of {table_name_lower} : {{{table_name_lower}_count()}}")
                         print(" ")
 
                         print("delete {table_name_lower}_data")

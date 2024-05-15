@@ -84,6 +84,12 @@ class CrudHandler(dbQuery):
         """
         )
 
+    def count(self):
+        return self.execute(f"""
+            SELECT COUNT(*) FROM {self.table};
+        """
+        )[0][0]
+
     def select(self, condition):
         if self.hasValidAttributes(condition):
             return self.execute(f"""
