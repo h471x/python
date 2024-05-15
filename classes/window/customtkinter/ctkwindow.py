@@ -14,6 +14,9 @@ class CtkWindow:
         self.window.title(title) if title else None
         self.setSize(self.minWidth, self.minHeight)
 
+    def getWindow(self):
+        return self.window
+
     def maximise(self):
         maximiseWindow = {
             'Windows': "state('zoomed')",
