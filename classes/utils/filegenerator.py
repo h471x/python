@@ -9,6 +9,7 @@ class FileGenerator:
     def getTableInfos(self, createQuery):
         table_infos = {}
         create_table_syntax = 'CREATE TABLE IF NOT EXISTS'
+        inherits_syntax = 'INHERITS'
         queries = createQuery.split(';')
         for query in queries:
             if create_table_syntax in query:
@@ -18,6 +19,14 @@ class FileGenerator:
                 attributes_section = query[table_name_end + 1:].strip()
                 attributes_list = attributes_section[:-1].split(',')
                 attributes = [attr.split()[0].strip() for attr in attributes_list if "FOREIGN KEY" not in attr]
+                if inherits_syntax in query:
+                    inherits_index = query.find(inherits_syntax)
+                    parent_table_name_start = query.find('(', inherits_index) + 1
+                    parent_table_name_end = query.find(')', inherits_index)
+                    parent_table_name = query[parent_table_name_start:parent_table_name_end].strip()
+                    parent_attributes = table_infos.get(parent_table_name, [])
+                    # Prepend parent attributes to child attributes
+                    attributes = parent_attributes + attributes
                 table_infos[table_name] = attributes
         return table_infos
 
