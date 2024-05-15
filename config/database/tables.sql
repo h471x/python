@@ -9,7 +9,8 @@ CREATE TABLE person(
 );
 CREATE TABLE admin(
   username TEXT PRIMARY KEY ,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  workstation TEXT NOT NULL
 ) INHERITS (person);
 CREATE TABLE student(
   id TEXT PRIMARY KEY,
@@ -27,5 +28,7 @@ CREATE TABLE ce(
 CREATE TABLE grade(
   gradeId SERIAL PRIMARY KEY,
   theorical_grade INT NOT NULL DEFAULT 20,
-  pratical_grade INT NOT NULL DEFAULT 20
+  pratical_grade INT NOT NULL DEFAULT 20,
+  fk_cename TEXT NOT NULL,
+  FOREIGN KEY(fk_cename) REFERENCES ce(cename)
 );
