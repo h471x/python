@@ -11,8 +11,7 @@ class CtkWindow:
         self.minHeight = 500
         self.window.update()
         self.window.minsize(self.minWidth, self.minHeight)
-        self.window.title(f"{title}") \
-            if title else None
+        self.window.title(title) if title else None
         self.setSize(self.minWidth, self.minHeight)
 
     def maximise(self):
