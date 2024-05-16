@@ -10,3 +10,10 @@ class CtkWidget:
             text=f"{text}",
             command=btnCommand
         )
+
+    def newFrame(self, parent, color, radius):
+        return self.ctk.CTkFrame(
+            master=parent,
+            fg_color=f"{color}",
+            corner_radius=radius
+        )

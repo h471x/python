@@ -17,6 +17,13 @@ class FileGenerator:
                 table_name_end = query.find('(')
                 table_name = query[table_name_start:table_name_end].strip()
                 attributes_section = query[table_name_end + 1:].strip()
+
+                # Remove content within CHECK() constraints
+                while 'CHECK' in attributes_section:
+                    check_start = attributes_section.find('CHECK')
+                    check_end = attributes_section.find(')', check_start) + 1
+                    attributes_section = attributes_section[:check_start] + attributes_section[check_end:]
+
                 attributes_list = attributes_section[:-1].split(',')
                 attributes = [attr.split()[0].strip() for attr in attributes_list if "FOREIGN KEY" not in attr and "CONSTRAINT" not in attr]
                 if inherits_syntax in query:
