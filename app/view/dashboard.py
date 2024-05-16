@@ -11,14 +11,19 @@ def button_function():
 
 def dashboardUi():
     dashboard = CtkWindow("Dashboard")
-    dashboardWidget = CtkWidget()
+    widget = CtkWidget()
 
-    button = dashboardWidget.newButton(
+    button = widget.newButton(
         dashboard.window,
         "test",
         button_function
     )
     button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
+    # frame = widget.newFrame(
+    #     dashboard.window,
+    #     "blue",
+    #     0
+    # )
     dashboard.openMaximised()
 
 if __name__ == '__main__':
