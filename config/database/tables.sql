@@ -7,28 +7,60 @@ CREATE TABLE person(
   adress TEXT NOT NULL,
   phone VARCHAR(10) NOT NULL
 );
+
 CREATE TABLE admin(
   username TEXT PRIMARY KEY ,
   password TEXT NOT NULL,
   workstation TEXT NOT NULL
 ) INHERITS (person);
+
 CREATE TABLE student(
-  id TEXT PRIMARY KEY,
+  student_id TEXT PRIMARY KEY,
   major TEXT NOT NULL,
   Grade TEXT NOT NULL,
   cursus TEXT NOT NULL
 ) INHERITS (person);
+
 CREATE TABLE teacher(
+  teacher_id TEXT PRIMARY KEY
   
 ) INHERITS (person);
+
 CREATE TABLE ce(
   cename TEXT PRIMARY KEY,
   ue TEXT NOT NULL
 );
+
+
 CREATE TABLE grade(
-  gradeId SERIAL PRIMARY KEY,
   theorical_grade INT NOT NULL DEFAULT 20,
   pratical_grade INT NOT NULL DEFAULT 20,
   fk_cename TEXT NOT NULL,
-  FOREIGN KEY(fk_cename) REFERENCES ce(cename)
+  fk_student_id TEXT NOT NULL,
+  fk_teacher_id TEXT NOT NULL,
+  FOREIGN KEY(fk_student_id) REFERENCES student(student_id),
+  FOREIGN KEY(fk_cename) REFERENCES ce(cename),
+  FOREIGN KEY(fk_teacher_id) REFERENCES teacher(teacher_id),
+  PRIMARY KEY(fk_cename,fk_teacher_id,fk_student_id)
 );
+
+
+--OLD VERSION
+
+-- CREATE TABLE grade(
+--   gradeId SERIAL PRIMARY KEY,
+--   theorical_grade INT NOT NULL DEFAULT 20,
+--   pratical_grade INT NOT NULL DEFAULT 20,
+--   fk_cename TEXT NOT NULL,
+--   FOREIGN KEY(fk_cename) REFERENCES ce(cename)
+-- );
+
+--RELATION TABLE
+
+-- CREATE TABLE have (
+--   rf_id TEXT ,
+--   rf_cename TEXT,
+--   PRIMARY KEY(rf_id,rf_cename),
+--   FOREIGN KEY(rf_id) REFERENCES student(id),
+--   FOREIGN KEY(rf_cename) REFERENCES ce(cename)
+-- );
