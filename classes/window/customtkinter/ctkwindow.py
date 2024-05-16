@@ -1,5 +1,7 @@
 import customtkinter
 from platform import system as getSystem
+# from pathlib import Path
+# ASSETS_PATH = Path(__file__).resolve().parent.parent.parent / "assets"
 
 class CtkWindow:
     def __init__(self, title=None):
@@ -13,9 +15,8 @@ class CtkWindow:
         self.window.minsize(self.minWidth, self.minHeight)
         self.window.title(title) if title else None
         self.setSize(self.minWidth, self.minHeight)
-
-    def getWindow(self):
-        return self.window
+        # self.logo = self.ctk.PhotoImage(file=ASSETS_PATH / "python.ico")
+        # self.window.call('wm', 'iconphoto', self.window._w, self.logo)
 
     def maximise(self):
         maximiseWindow = {
