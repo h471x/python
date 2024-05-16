@@ -14,7 +14,7 @@ def dashboardUi():
     dashboardWidget = CtkWidget()
 
     button = dashboardWidget.newButton(
-        dashboard.getWindow(),
+        dashboard.window,
         "test",
         button_function
     )

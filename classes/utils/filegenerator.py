@@ -18,7 +18,7 @@ class FileGenerator:
                 table_name = query[table_name_start:table_name_end].strip()
                 attributes_section = query[table_name_end + 1:].strip()
                 attributes_list = attributes_section[:-1].split(',')
-                attributes = [attr.split()[0].strip() for attr in attributes_list if "FOREIGN KEY" not in attr]
+                attributes = [attr.split()[0].strip() for attr in attributes_list if "FOREIGN KEY" not in attr and "CONSTRAINT" not in attr]
                 if inherits_syntax in query:
                     inherits_index = query.find(inherits_syntax)
                     parent_table_name_start = query.find('(', inherits_index) + 1
