@@ -1,4 +1,4 @@
-CREATE TABLE person(
+CREATE TABLE IF NOT EXISTS person(
   id_card TEXT PRIMARY KEY,
   last_name TEXT NOT NULL,
   first_name TEXT,
@@ -8,31 +8,31 @@ CREATE TABLE person(
   phone VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE admin(
+CREATE TABLE IF NOT EXISTS admin(
   username TEXT PRIMARY KEY ,
   password TEXT NOT NULL,
   workstation TEXT NOT NULL
 ) INHERITS (person);
 
-CREATE TABLE student(
+CREATE TABLE IF NOT EXISTS student(
   student_id TEXT PRIMARY KEY,
   major TEXT NOT NULL,
   Grade TEXT NOT NULL,
   cursus TEXT NOT NULL
 ) INHERITS (person);
 
-CREATE TABLE teacher(
+CREATE TABLE IF NOT EXISTS teacher(
   teacher_id TEXT PRIMARY KEY
   
 ) INHERITS (person);
 
-CREATE TABLE ce(
+CREATE TABLE IF NOT EXISTS ce(
   cename TEXT PRIMARY KEY,
   ue TEXT NOT NULL
 );
 
 
-CREATE TABLE grade(
+CREATE TABLE IF NOT EXISTS grade(
   theorical_grade INT NOT NULL DEFAULT 20,
   pratical_grade INT NOT NULL DEFAULT 20,
   fk_cename TEXT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE grade(
 
 --OLD VERSION
 
--- CREATE TABLE grade(
+-- CREATE TABLE IF NOT EXISTS grade(
 --   gradeId SERIAL PRIMARY KEY,
 --   theorical_grade INT NOT NULL DEFAULT 20,
 --   pratical_grade INT NOT NULL DEFAULT 20,
@@ -57,7 +57,7 @@ CREATE TABLE grade(
 
 --RELATION TABLE
 
--- CREATE TABLE have (
+-- CREATE TABLE IF NOT EXISTS have (
 --   rf_id TEXT ,
 --   rf_cename TEXT,
 --   PRIMARY KEY(rf_id,rf_cename),
