@@ -1,26 +1,24 @@
-from classes.database.dbconfig import DatabaseConfigurator as dbConfig
-from classes.database.dbquery import DatabaseQuery as dbQuery
-from classes.utils.filegenerator import FileGenerator as createFile
+from classes.database.dbconfig import DatabaseConfigurator as db_config
+from classes.database.dbquery import DatabaseQuery as db_query
+from classes.utils.filegenerator import FileGenerator as create_file
 
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 
-def getSqlFile(sqlFile):
-    return abs(jn(dir(__file__), sqlFile))
+def get_sql_file(sql_file):
+    return abs(jn(dir(__file__), sql_file))
 
-def initTables():
-    with open(
-        getSqlFile('tables.sql'), 'r'
-    ) as postgresTables:
-        createQuery = postgresTables.read()
+def init_tables():
+    with open(get_sql_file('tables.sql'), 'r') as postgres_tables:
+        create_query = postgres_tables.read()
 
-    if dbQuery().execute(createQuery):
-        createFile().createControllerFile(createQuery)
+    if db_query().execute(create_query):
+        create_file().create_controller_file(create_query)
         return True
 
-def getStatus():
-    return dbConfig().getStatus()
+def get_status():
+    return db_config().get_status()
 
 if __name__ == '__main__':
-    getStatus()
-    initTables()
+    get_status()
+    init_tables()

@@ -2,9 +2,9 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.database.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handle_crud
 
-admin = handleCrud('admin')
+admin = handle_crud('admin')
 
 admin_data_template = {
     'id_card': 'id_card',
@@ -38,8 +38,8 @@ def admin_insert_template():
 def admin_insert(admin_data):
     admin.insert(admin_data)
 
-def admin_selectAll():
-    return admin.selectAll()
+def admin_select_all():
+    return admin.select_all()
 
 def admin_count():
     return admin.count()
@@ -53,13 +53,13 @@ def admin_update(admin_data, admin_new_data):
 def admin_delete(admin_data):
     admin.delete(admin_data)
 
-def admin_deleteAll():
-    admin.deleteAll()
+def admin_delete_all():
+    admin.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
     admin_insert_template()
-    print(admin_selectAll())
+    print(admin_select_all())
     print(" ")
 
     print("select admin_data")
@@ -71,12 +71,12 @@ if __name__ == '__main__':
         admin_data_template,
         admin_new_data_template
     )
-    print(admin_selectAll())
+    print(admin_select_all())
     print(" ")
 
     print("insert admin_data")
     admin_insert(admin_data_template)
-    print(admin_selectAll())
+    print(admin_select_all())
     print(" ")
 
     print("Counting admin")
@@ -85,9 +85,9 @@ if __name__ == '__main__':
 
     print("delete admin_data")
     admin_delete(admin_data_template)
-    print(admin_selectAll())
+    print(admin_select_all())
     print(" ")
 
     print("delete all")
-    admin_deleteAll()
-    print(admin_selectAll())
+    admin_delete_all()
+    print(admin_select_all())

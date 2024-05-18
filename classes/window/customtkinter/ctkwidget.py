@@ -1,18 +1,18 @@
 import customtkinter
 
-# CtkWidget Base Class
+# ctk_widget base class
 class CtkWidget:
     def __init__(self):
         self.ctk = customtkinter
 
-    def newButton(self, parent, text, btnCommand):
+    def new_button(self, parent, text, btn_command):
         return self.ctk.CTkButton(
             master=parent,
             text=f"{text}",
-            command=btnCommand
+            command=btn_command
         )
 
-    def newFrame(self, parent, color, corner_radius, width=None, height=None):
+    def new_frame(self, parent, color, corner_radius, width=None, height=None):
         properties = {
             "master": parent,
             "fg_color": color,
@@ -22,20 +22,20 @@ class CtkWidget:
             properties["width"] = width
         if height is not None:
             properties["height"] = height
-        return CustomCTkFrame(**properties)
+        return CustomCtkFrame(**properties)
 
-# Extended class CTkFrame
-class CustomCTkFrame(customtkinter.CTkFrame):
+# extended class CtkFrame
+class CustomCtkFrame(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.originalColor = self.cget("fg_color")
+        self.original_color = self.cget("fg_color")
 
-    def onHover(self, hoverColor):
-        def onHover(event):
-            self.configure(fg_color=hoverColor)
+    def on_hover(self, hover_color):
+        def on_hover(event):
+            self.configure(fg_color=hover_color)
 
-        def onBlur(event):
-            self.configure(fg_color=self.originalColor)
+        def on_blur(event):
+            self.configure(fg_color=self.original_color)
 
-        self.bind("<Enter>", onHover)
-        self.bind("<Leave>", onBlur)
+        self.bind("<Enter>", on_hover)
+        self.bind("<Leave>", on_blur)

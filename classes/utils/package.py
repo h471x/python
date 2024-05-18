@@ -3,7 +3,7 @@ import subprocess
 class PackageManager:
 
     @staticmethod
-    def getPkg():
+    def get_pkg():
         return 'config/libs/requirements.txt'
 
     def __init__(self, file_path):
@@ -16,21 +16,21 @@ class PackageManager:
                 for package in packages:
                     # Remove leading/trailing whitespace
                     package = package.strip()
-                    if not self.isInstalled(package):
-                        self.pkgInstall(package)
+                    if not self.is_installed(package):
+                        self.pkg_install(package)
                     else:
                         print(f"{package} is already installed.")
         except FileNotFoundError:
             print(f"File {self.file_path} not found.")
 
-    def isInstalled(self, package_name):
+    def is_installed(self, package_name):
         try:
             subprocess.check_output(['pip', 'show', package_name])
             return True
         except subprocess.CalledProcessError:
             return False
 
-    def pkgInstall(self, package_name):
+    def pkg_install(self, package_name):
         try:
             subprocess.check_call(['pip', 'install', package_name])
             print(f"Installed {package_name}.")

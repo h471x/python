@@ -1,16 +1,14 @@
 import os
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
-path.append(abs(jn(dir(__file__), '..' '..')))
-
-from classes.utils.filehandler import FileHandler as newFile
+from classes.utils.filehandler import FileHandler as NewFile
 
 class FileGenerator:
-    def getTableInfos(self, createQuery):
+    def get_table_infos(self, create_query):
         table_infos = {}
         create_table_syntax = 'CREATE TABLE IF NOT EXISTS'
         inherits_syntax = 'INHERITS'
-        queries = createQuery.split(';')
+        queries = create_query.split(';')
         for query in queries:
             if create_table_syntax in query:
                 table_name_start = query.find(create_table_syntax) + len(create_table_syntax)
@@ -37,14 +35,14 @@ class FileGenerator:
                 table_infos[table_name] = attributes
         return table_infos
 
-    def createControllerFile(self, createQuery):
-        table = self.getTableInfos(createQuery)
-        tableClass = newFile('app/controllers')
+    def create_controller_file(self, create_query):
+        table = self.get_table_infos(create_query)
+        table_class = NewFile('app/controllers')
 
-        for tableName, attributes in table.items():
-            table_name_lower = tableName.lower()
+        for table_name, attributes in table.items():
+            table_name_lower = table_name.lower()
             controller_file_name = f"{table_name_lower}.py"
-            file_path = tableClass.getFilePath(controller_file_name)
+            file_path = table_class.get_file_path(controller_file_name)
 
             # Check if the file exists and is blank (size is 0)
             if not os.path.exists(file_path) or (os.path.exists(file_path) and os.path.getsize(file_path) == 0):
@@ -60,14 +58,14 @@ class FileGenerator:
                 default_new_data = ",\n".join([f"'{attr}': 'new_{attr}'" for attr in attributes])
                 default_new_data = default_new_data.replace('\n', '\n' + ' ' * 24)
 
-                tableControllerContent = (
+                table_controller_content = (
                     f"""from sys import path
                     from os.path import abspath as abs, join as jn, dirname as dir
                     path.append(abs(jn(dir(__file__), '..', '..')))
 
-                    from classes.database.dbcrud import CrudHandler as handleCrud
+                    from classes.database.dbcrud import CrudHandler as handle_crud
 
-                    {table_name_lower} = handleCrud('{tableName}')
+                    {table_name_lower} = handle_crud('{table_name}')
 
                     {table_name_lower}_data_template = {{
                         {default_data}
@@ -83,8 +81,8 @@ class FileGenerator:
                     def {table_name_lower}_insert({table_name_lower}_data):
                         {table_name_lower}.insert({table_name_lower}_data)
 
-                    def {table_name_lower}_selectAll():
-                        return {table_name_lower}.selectAll()
+                    def {table_name_lower}_select_all():
+                        return {table_name_lower}.select_all()
 
                     def {table_name_lower}_count():
                         return {table_name_lower}.count()
@@ -98,13 +96,13 @@ class FileGenerator:
                     def {table_name_lower}_delete({table_name_lower}_data):
                         {table_name_lower}.delete({table_name_lower}_data)
 
-                    def {table_name_lower}_deleteAll():
-                        {table_name_lower}.deleteAll()
+                    def {table_name_lower}_delete_all():
+                        {table_name_lower}.delete_all()
 
                     if __name__ == '__main__':
                         print("insert template")
                         {table_name_lower}_insert_template()
-                        print({table_name_lower}_selectAll())
+                        print({table_name_lower}_select_all())
                         print(" ")
 
                         print("select {table_name_lower}_data")
@@ -116,12 +114,12 @@ class FileGenerator:
                             {table_name_lower}_data_template,
                             {table_name_lower}_new_data_template
                         )
-                        print({table_name_lower}_selectAll())
+                        print({table_name_lower}_select_all())
                         print(" ")
 
                         print("insert {table_name_lower}_data")
                         {table_name_lower}_insert({table_name_lower}_data_template)
-                        print({table_name_lower}_selectAll())
+                        print({table_name_lower}_select_all())
                         print(" ")
 
                         print("Counting {table_name_lower}")
@@ -130,26 +128,27 @@ class FileGenerator:
 
                         print("delete {table_name_lower}_data")
                         {table_name_lower}_delete({table_name_lower}_data_template)
-                        print({table_name_lower}_selectAll())
+                        print({table_name_lower}_select_all())
                         print(" ")
 
                         print("delete all")
-                        {table_name_lower}_deleteAll()
-                        print({table_name_lower}_selectAll())
+                        {table_name_lower}_delete_all()
+                        print({table_name_lower}_select_all())
                     """
                 )
 
                 # Adjust indentation for subsequent lines
                 # Remove 4 indentations = 4 x 4 spaces = 16 spaces
                 identations = 5
-                lines = tableControllerContent.split('\n')
+                lines = table_controller_content.split('\n')
                 adjusted_lines = [lines[0]] + [line[identations*4:] for line in lines[1:]]
-                tableControllerContent = '\n'.join(adjusted_lines)
+                table_controller_content = '\n'.join(adjusted_lines)
 
-                tableClass.writeFile(file_path, tableControllerContent)
+                table_class.write_file(file_path, table_controller_content)
 
                 # print(f"{tableName} {{ {', '.join(attributes)} }}")
                 print(f"New Controller File : app/controllers/{controller_file_name}")
             else:
                 # print(f"{class_file_name} already exists")
                 pass
+

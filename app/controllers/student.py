@@ -2,9 +2,9 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.database.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handle_crud
 
-student = handleCrud('student')
+student = handle_crud('student')
 
 student_data_template = {
     'id_card': 'id_card',
@@ -16,7 +16,7 @@ student_data_template = {
     'phone': 'phone',
     'student_id': 'student_id',
     'major': 'major',
-    'Grade': 'Grade',
+    'level': 'level',
     'cursus': 'cursus'
 }
 
@@ -30,7 +30,7 @@ student_new_data_template = {
     'phone': 'new_phone',
     'student_id': 'new_student_id',
     'major': 'new_major',
-    'Grade': 'new_Grade',
+    'level': 'new_level',
     'cursus': 'new_cursus'
 }
 
@@ -40,8 +40,8 @@ def student_insert_template():
 def student_insert(student_data):
     student.insert(student_data)
 
-def student_selectAll():
-    return student.selectAll()
+def student_select_all():
+    return student.select_all()
 
 def student_count():
     return student.count()
@@ -55,13 +55,13 @@ def student_update(student_data, student_new_data):
 def student_delete(student_data):
     student.delete(student_data)
 
-def student_deleteAll():
-    student.deleteAll()
+def student_delete_all():
+    student.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
     student_insert_template()
-    print(student_selectAll())
+    print(student_select_all())
     print(" ")
 
     print("select student_data")
@@ -73,12 +73,12 @@ if __name__ == '__main__':
         student_data_template,
         student_new_data_template
     )
-    print(student_selectAll())
+    print(student_select_all())
     print(" ")
 
     print("insert student_data")
     student_insert(student_data_template)
-    print(student_selectAll())
+    print(student_select_all())
     print(" ")
 
     print("Counting student")
@@ -87,9 +87,9 @@ if __name__ == '__main__':
 
     print("delete student_data")
     student_delete(student_data_template)
-    print(student_selectAll())
+    print(student_select_all())
     print(" ")
 
     print("delete all")
-    student_deleteAll()
-    print(student_selectAll())
+    student_delete_all()
+    print(student_select_all())

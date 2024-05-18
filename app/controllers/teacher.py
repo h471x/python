@@ -2,9 +2,9 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.database.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handle_crud
 
-teacher = handleCrud('teacher')
+teacher = handle_crud('teacher')
 
 teacher_data_template = {
     'id_card': 'id_card',
@@ -34,8 +34,8 @@ def teacher_insert_template():
 def teacher_insert(teacher_data):
     teacher.insert(teacher_data)
 
-def teacher_selectAll():
-    return teacher.selectAll()
+def teacher_select_all():
+    return teacher.select_all()
 
 def teacher_count():
     return teacher.count()
@@ -49,13 +49,13 @@ def teacher_update(teacher_data, teacher_new_data):
 def teacher_delete(teacher_data):
     teacher.delete(teacher_data)
 
-def teacher_deleteAll():
-    teacher.deleteAll()
+def teacher_delete_all():
+    teacher.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
     teacher_insert_template()
-    print(teacher_selectAll())
+    print(teacher_select_all())
     print(" ")
 
     print("select teacher_data")
@@ -67,12 +67,12 @@ if __name__ == '__main__':
         teacher_data_template,
         teacher_new_data_template
     )
-    print(teacher_selectAll())
+    print(teacher_select_all())
     print(" ")
 
     print("insert teacher_data")
     teacher_insert(teacher_data_template)
-    print(teacher_selectAll())
+    print(teacher_select_all())
     print(" ")
 
     print("Counting teacher")
@@ -81,9 +81,9 @@ if __name__ == '__main__':
 
     print("delete teacher_data")
     teacher_delete(teacher_data_template)
-    print(teacher_selectAll())
+    print(teacher_select_all())
     print(" ")
 
     print("delete all")
-    teacher_deleteAll()
-    print(teacher_selectAll())
+    teacher_delete_all()
+    print(teacher_select_all())

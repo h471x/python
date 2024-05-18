@@ -1,5 +1,5 @@
 import customtkinter
-from platform import system as getSystem
+from platform import system as get_system
 # from pathlib import Path
 # ASSETS_PATH = Path(__file__).resolve().parent.parent.parent / "assets"
 
@@ -9,34 +9,34 @@ class CtkWindow:
         self.window = self.ctk.CTk()
         self.ctk.set_appearance_mode("System")
         self.ctk.set_default_color_theme("blue")
-        self.minWidth = 800
-        self.minHeight = 500
+        self.min_width = 800
+        self.min_height = 500
         self.window.update()
-        self.window.minsize(self.minWidth, self.minHeight)
+        self.window.minsize(self.min_width, self.min_height)
         self.window.title(title) if title else None
-        self.setSize(self.minWidth, self.minHeight)
+        self.set_size(self.min_width, self.min_height)
         # self.logo = self.ctk.PhotoImage(file=ASSETS_PATH / "python.ico")
         # self.window.call('wm', 'iconphoto', self.window._w, self.logo)
 
     def maximise(self):
-        maximiseWindow = {
+        maximise_window = {
             'Windows': "state('zoomed')",
             'Linux': "attributes('-zoomed', True)",
             'Darwin': "attributes('-fullscreen', True)"
-        }.get(getSystem(),lambda: print("Unsupported operating system"))
+        }.get(get_system(), lambda: print("Unsupported operating system"))
 
-        eval(f"self.window.{maximiseWindow}")
+        eval(f"self.window.{maximise_window}")
 
-    def setSize(self, width, height):
+    def set_size(self, width, height):
         self.window.minsize(width, height)
         self.window.geometry(f"{width}x{height}")
 
-    def makeResizable(self):
+    def make_resizable(self):
         self.window.resizable(width=True, height=True)
 
     def open(self):
         self.window.mainloop()
 
-    def openMaximised(self):
-        self.window.after(0, lambda:self.maximise())
+    def open_maximised(self):
+        self.window.after(0, lambda: self.maximise())
         self.open()

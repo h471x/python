@@ -2,22 +2,30 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.database.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handle_crud
 
-grade = handleCrud('grade')
+grade = handle_crud('grade')
 
 grade_data_template = {
-    '--': '--',
-    '--': '--',
-    '--': '--',
-    '--': '--'
+    'theorical_grade': 'theorical_grade',
+    'pratical_grade': 'pratical_grade',
+    'fk_cename': 'fk_cename',
+    'fk_student_id': 'fk_student_id',
+    'fk_teacher_id': 'fk_teacher_id',
+    'PRIMARY': 'PRIMARY',
+    'fk_teacher_id': 'fk_teacher_id',
+    'fk_student_id)': 'fk_student_id)'
 }
 
 grade_new_data_template = {
-    '--': 'new_--',
-    '--': 'new_--',
-    '--': 'new_--',
-    '--': 'new_--'
+    'theorical_grade': 'new_theorical_grade',
+    'pratical_grade': 'new_pratical_grade',
+    'fk_cename': 'new_fk_cename',
+    'fk_student_id': 'new_fk_student_id',
+    'fk_teacher_id': 'new_fk_teacher_id',
+    'PRIMARY': 'new_PRIMARY',
+    'fk_teacher_id': 'new_fk_teacher_id',
+    'fk_student_id)': 'new_fk_student_id)'
 }
 
 def grade_insert_template():
@@ -26,8 +34,8 @@ def grade_insert_template():
 def grade_insert(grade_data):
     grade.insert(grade_data)
 
-def grade_selectAll():
-    return grade.selectAll()
+def grade_select_all():
+    return grade.select_all()
 
 def grade_count():
     return grade.count()
@@ -41,13 +49,13 @@ def grade_update(grade_data, grade_new_data):
 def grade_delete(grade_data):
     grade.delete(grade_data)
 
-def grade_deleteAll():
-    grade.deleteAll()
+def grade_delete_all():
+    grade.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
     grade_insert_template()
-    print(grade_selectAll())
+    print(grade_select_all())
     print(" ")
 
     print("select grade_data")
@@ -59,12 +67,12 @@ if __name__ == '__main__':
         grade_data_template,
         grade_new_data_template
     )
-    print(grade_selectAll())
+    print(grade_select_all())
     print(" ")
 
     print("insert grade_data")
     grade_insert(grade_data_template)
-    print(grade_selectAll())
+    print(grade_select_all())
     print(" ")
 
     print("Counting grade")
@@ -73,9 +81,9 @@ if __name__ == '__main__':
 
     print("delete grade_data")
     grade_delete(grade_data_template)
-    print(grade_selectAll())
+    print(grade_select_all())
     print(" ")
 
     print("delete all")
-    grade_deleteAll()
-    print(grade_selectAll())
+    grade_delete_all()
+    print(grade_select_all())

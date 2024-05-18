@@ -2,9 +2,9 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 path.append(abs(jn(dir(__file__), '..', '..')))
 
-from classes.database.dbcrud import CrudHandler as handleCrud
+from classes.database.dbcrud import CrudHandler as handle_crud
 
-person = handleCrud('person')
+person = handle_crud('person')
 
 person_data_template = {
     'id_card': 'id_card',
@@ -32,8 +32,8 @@ def person_insert_template():
 def person_insert(person_data):
     person.insert(person_data)
 
-def person_selectAll():
-    return person.selectAll()
+def person_select_all():
+    return person.select_all()
 
 def person_count():
     return person.count()
@@ -47,13 +47,13 @@ def person_update(person_data, person_new_data):
 def person_delete(person_data):
     person.delete(person_data)
 
-def person_deleteAll():
-    person.deleteAll()
+def person_delete_all():
+    person.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
     person_insert_template()
-    print(person_selectAll())
+    print(person_select_all())
     print(" ")
 
     print("select person_data")
@@ -65,12 +65,12 @@ if __name__ == '__main__':
         person_data_template,
         person_new_data_template
     )
-    print(person_selectAll())
+    print(person_select_all())
     print(" ")
 
     print("insert person_data")
     person_insert(person_data_template)
-    print(person_selectAll())
+    print(person_select_all())
     print(" ")
 
     print("Counting person")
@@ -79,9 +79,9 @@ if __name__ == '__main__':
 
     print("delete person_data")
     person_delete(person_data_template)
-    print(person_selectAll())
+    print(person_select_all())
     print(" ")
 
     print("delete all")
-    person_deleteAll()
-    print(person_selectAll())
+    person_delete_all()
+    print(person_select_all())

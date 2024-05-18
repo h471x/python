@@ -8,28 +8,28 @@ class FileHandler:
         if not os.path.exists(self.destination):
             os.makedirs(self.destination)
 
-    def getFilePath(self, file):
+    def get_file_path(self, file):
         return jn(self.destination, file)
 
-    def isBlank(self, file):
-        filePath = self.getFilePath(file)
-        fileExists = os.path.exists(filePath)
+    def is_blank(self, file):
+        file_path = self.get_file_path(file)
+        file_exists = os.path.exists(file_path)
 
-        if not fileExists:
+        if not file_exists:
             return True
 
-        fileIsBlank = os.path.getsize(filePath) == 0
-        return fileIsBlank
+        file_is_blank = os.path.getsize(file_path) == 0
+        return file_is_blank
 
-    def createBlankFile(self, file):
-        createdFile = self.getFilePath(file)
-        with open(createdFile, 'w') as file:
+    def create_blank_file(self, file):
+        created_file = self.get_file_path(file)
+        with open(created_file, 'w'):
             pass
-        return createdFile
+        return created_file
 
-    def writeFile(self, file, content):
-        filePath = self.getFilePath(file)
-        if self.isBlank(filePath):
-            self.createBlankFile(file)
-        with open(filePath, 'w') as f:
+    def write_file(self, file, content):
+        file_path = self.get_file_path(file)
+        if self.is_blank(file_path):
+            self.create_blank_file(file)
+        with open(file_path, 'w') as f:
             f.write(content)

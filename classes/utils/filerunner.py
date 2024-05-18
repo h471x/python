@@ -4,7 +4,7 @@ class FileRunner:
     def __init__(self, file):
         self.file = file
 
-    def runShell(self):
+    def run_shell(self):
         try:
             subprocess.check_call(['bash', self.file])
         except subprocess.CalledProcessError as e:
