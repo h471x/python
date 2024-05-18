@@ -44,23 +44,3 @@ CREATE TABLE IF NOT EXISTS grade(
   PRIMARY KEY(fk_cename,fk_teacher_id,fk_student_id)
 );
 
-
---OLD VERSION
-
--- CREATE TABLE IF NOT EXISTS grade(
---   gradeId SERIAL PRIMARY KEY,
---   theorical_grade INT NOT NULL DEFAULT 20,
---   pratical_grade INT NOT NULL DEFAULT 20,
---   fk_cename TEXT NOT NULL,
---   FOREIGN KEY(fk_cename) REFERENCES ce(cename)
--- );
-
---RELATION TABLE
-
--- CREATE TABLE IF NOT EXISTS have (
---   rf_id TEXT ,
---   rf_cename TEXT,
---   PRIMARY KEY(rf_id,rf_cename),
---   FOREIGN KEY(rf_id) REFERENCES student(id),
---   FOREIGN KEY(rf_cename) REFERENCES ce(cename)
--- );
