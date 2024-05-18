@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS admin(
 CREATE TABLE IF NOT EXISTS student(
   student_id TEXT PRIMARY KEY,
   major TEXT NOT NULL,
-  Grade TEXT NOT NULL,
+  level TEXT NOT NULL,
   cursus TEXT NOT NULL
 ) INHERITS (person);
 
