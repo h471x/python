@@ -95,15 +95,12 @@ class CrudHandler(db_query):
 
     def update(self, old_data, new_data):
         if self.has_valid_attributes(old_data, new_data):
-            new_first_column = self.get_first_column(new_data)
-            new_first_value = self.get_first_value(new_data)
-
             self.execute(f"""
                 UPDATE {self.table} SET {self.get_set_values(new_data)}
                 WHERE {self.get_condition(old_data)}
                 AND NOT EXISTS (
                     SELECT 1 FROM {self.table}
-                    WHERE {new_first_column} = '{new_first_value}'
+                    WHERE {self.get_condition(new_data)}
                 );
             """
             )
