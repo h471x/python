@@ -19,16 +19,44 @@ def dashboard_ui():
 
     # sidebar
     sidebar = widget.new_frame(body, "transparent", 0, 200)
-    sidebar.pack(side="left", fill="y", padx=15, pady=20)
+    sidebar.pack(side="left", fill="y", padx=15, pady=10)
 
     # sidebar menus
     home = widget.new_frame(sidebar, "black", 5, None, 50)
-    home.pack(side="top", fill="x")
+    home.pack(side="top", fill="x", pady=(0,5))
     home.on_hover("white")
+
+    menu = widget.new_frame(sidebar, "black", 5, None, 50)
+    menu.pack(side="top", fill="x", pady=5)
+    menu.on_hover("white")
+
+    home2 = widget.new_frame(sidebar, "black", 5, None, 50)
+    home2.pack(side="top", fill="x", pady=5)
+    home2.on_hover("white")
+
+    menu2 = widget.new_frame(sidebar, "black", 5, None, 50)
+    menu2.pack(side="top", fill="x", pady=5)
+    menu2.on_hover("white")
+
+    home3 = widget.new_frame(sidebar, "black", 5, None, 50)
+    home3.pack(side="top", fill="x", pady=5)
+    home3.on_hover("white")
+
+    menu3 = widget.new_frame(sidebar, "black", 5, None, 50)
+    menu3.pack(side="top", fill="x", pady=5)
+    menu3.on_hover("white")
+
+    home4 = widget.new_frame(sidebar, "black", 5, None, 50)
+    home4.pack(side="top", fill="x", pady=5)
+    home4.on_hover("white")
+
+    menu4 = widget.new_frame(sidebar, "black", 5, None, 50)
+    menu4.pack(side="top", fill="x", pady=5)
+    menu4.on_hover("white")
 
     # content element
     content = widget.new_frame(body, "transparent", 0)
-    content.pack(side="left", expand=True, fill="both", pady=(20, 10), padx=(0,10))
+    content.pack(side="left", expand=True, fill="both", pady=(10, 10), padx=(0,10))
 
     content_body = widget.new_frame(content, "black", 5)
     content_body.pack(expand=True, fill="both")
