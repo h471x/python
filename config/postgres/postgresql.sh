@@ -57,4 +57,5 @@ fi
 
 # Load the postgresql database configuration
 echo "Configuring PostgreSQL Database"
+sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
 sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
