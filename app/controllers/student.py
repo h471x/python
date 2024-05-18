@@ -7,31 +7,31 @@ from classes.database.dbcrud import CrudHandler as handle_crud
 student = handle_crud('student')
 
 student_data_template = {
-    'id_card': 'id_card',
-    'last_name': 'last_name',
-    'first_name': 'first_name',
-    'birth': 'birth',
-    'gender': 'gender',
-    'adress': 'adress',
-    'phone': 'phone',
-    'student_id': 'student_id',
-    'major': 'major',
-    'level': 'level',
-    'cursus': 'cursus'
+    'id_card': '0123456789',
+    'last_name': 'Eliot',
+    'first_name': 'Alderson',
+    'birth': '2003-05-22',
+    'gender': 'M',
+    'adress': 'New Jersey',
+    'phone': '0123456789',
+    'student_id': '0006',
+    'major': 'Computer Science',
+    'level': 'M2',
+    'cursus': 'Cybersecurity'
 }
 
 student_new_data_template = {
-    'id_card': 'new_id_card',
-    'last_name': 'new_last_name',
-    'first_name': 'new_first_name',
-    'birth': 'new_birth',
-    'gender': 'new_gender',
-    'adress': 'new_adress',
-    'phone': 'new_phone',
-    'student_id': 'new_student_id',
-    'major': 'new_major',
-    'level': 'new_level',
-    'cursus': 'new_cursus'
+    'id_card': '0123456789',
+    'last_name': 'Sam',
+    'first_name': 'Sepiol',
+    'birth': '2003-05-22',
+    'gender': 'M',
+    'adress': 'New Jersey',
+    'phone': '0123456789',
+    'student_id': '0006',
+    'major': 'Computer Science',
+    'level': 'M2',
+    'cursus': 'Cybersecurity'
 }
 
 def student_insert_template():
