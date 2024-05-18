@@ -6,10 +6,15 @@ class CrudHandler(db_query):
         self.table = table
 
     def get_column(self, data):
-        return ', '.join(data.keys())
+      return ', '.join(
+        data.keys()
+      )
 
     def get_values(self, data):
-        return ', '.join([f"'{value}'" for value in data.values()])
+      return ', '.join([
+        f"'{value}'" for
+        value in data.values()]
+      )
 
     def get_first_column(self, data):
         return self.get_column(data).split(', ')[0]
@@ -18,23 +23,34 @@ class CrudHandler(db_query):
         return self.get_values(data).split(', ')[0].strip("'")
 
     def get_condition(self, condition):
-        return " AND ".join([f"{key} = '{value}'" for key, value in condition.items()])
+      return " AND ".join([
+        f"{key} = '{value}'" for key,
+        value in condition.items()]
+      )
 
     def get_set_values(self, new_data):
-        return ", ".join([f"{key} = '{value}'" for key, value in new_data.items()])
+      return ", ".join([
+        f"{key} = '{value}'" for key,
+        value in new_data.items()]
+      )
 
     def get_table_columns(self):
-        return [row[0] for row in self.execute(f"""
-                SELECT column_name
-                FROM information_schema.columns
-                WHERE
-                table_schema = 'public' AND
-                table_name = '{self.table.lower()}';
-            """
-        )]
+        return [
+          row[0] for row in self.execute(f"""
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE
+            table_schema = 'public' AND
+            table_name = '{self.table.lower()}';
+          """)
+        ]
 
     def has_valid_attributes(self, *data):
-        return all(all(key.lower() in self.get_table_columns() for key in data) for data in data)
+      return all(
+        all(key.lower() in self.get_table_columns()
+            for key in data)
+        for data in data
+      )
 
     def raw_get(self, get_query):
         return self.execute(get_query)
