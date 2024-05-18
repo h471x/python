@@ -19,18 +19,22 @@ def dashboardUi():
 
     # sidebar
     sidebar = widget.newFrame(body, "transparent", 0, 200)
-    sidebar.pack(side="left", fill="y", padx=10)
+    sidebar.pack(side="left", fill="y", padx=15, pady=40)
 
     # sidebar menus
-    home = widget.newFrame(sidebar, "white", 0, "", 50)
-    home.pack(side="top", expand=True, fill="x")
+    home = widget.newFrame(sidebar, "black", 5, None, 50)
+    home.pack(side="top", fill="x")
+    home.onHover("white")
 
     # content element
     content = widget.newFrame(body, "transparent", 0)
-    content.pack(side="left", expand=True, fill="both")
+    content.pack(side="left", expand=True, fill="both", pady=20)
 
-    # button = widget.newButton(body, "test", button_function)
-    # button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
+    contentBody = widget.newFrame(content, "white", 10)
+    contentBody.pack(expand=True, fill="both")
+
+    button = widget.newButton(contentBody, "test", button_function)
+    button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
 
     dashboard.openMaximised()
 

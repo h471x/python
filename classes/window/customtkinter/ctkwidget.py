@@ -1,5 +1,6 @@
 import customtkinter
 
+# CtkWidget Base Class
 class CtkWidget:
     def __init__(self):
         self.ctk = customtkinter
@@ -11,15 +12,30 @@ class CtkWidget:
             command=btnCommand
         )
 
-    def newFrame(self, parent, color, radius, width=None, height=None):
+    def newFrame(self, parent, color, corner_radius, width=None, height=None):
         properties = {
             "master": parent,
-            "corner_radius": radius,
-            "fg_color": color
+            "fg_color": color,
+            "corner_radius": corner_radius
         }
-        if width:
+        if width is not None:
             properties["width"] = width
-        if height:
+        if height is not None:
             properties["height"] = height
-        return self.ctk.CTkFrame(**properties)
+        return CustomCTkFrame(**properties)
 
+# Extended class CTkFrame
+class CustomCTkFrame(customtkinter.CTkFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.originalColor = self.cget("fg_color")
+
+    def onHover(self, hoverColor):
+        def onHover(event):
+            self.configure(fg_color=hoverColor)
+
+        def onBlur(event):
+            self.configure(fg_color=self.originalColor)
+
+        self.bind("<Enter>", onHover)
+        self.bind("<Leave>", onBlur)
