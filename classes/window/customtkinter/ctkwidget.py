@@ -35,7 +35,7 @@ class CustomCtkFrame(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_color = self.cget("fg_color")
-        self.focus_color = "blue"
+        self.focus_color = "#2b2b2b"
         self.is_focused = False
 
     def on_hover(self, hover_color):

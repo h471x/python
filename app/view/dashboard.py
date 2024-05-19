@@ -36,10 +36,10 @@ def set_frame_focus(frames, frame_to_focus):
             frame.clear_focus()
 
 def create_sidebar_frame(widget, parent, text, frames, content, click_function=None):
-    frame = widget.new_frame(parent, "black", 5, None, 50)
+    frame = widget.new_frame(parent, "transparent", 5, None, 50)
     frame.pack_propagate(False)
     frame.pack(side="top", fill="x", pady=5)
-    frame.on_hover("white")
+    frame.on_hover("#323232")
     frame.on_click(
         lambda: (
             click_function(widget, content) if click_function
@@ -56,7 +56,7 @@ def dashboard_ui():
     frames = []
 
     # Body element
-    body = widget.new_frame(dashboard.window, "#202020", 0)
+    body = widget.new_frame(dashboard.window, "#121212", 0)
     body.pack(expand=True, fill="both")
 
     # Sidebar
@@ -67,7 +67,7 @@ def dashboard_ui():
     main_container = widget.new_frame(body, "transparent", 0)
     main_container.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
 
-    content = widget.new_frame(main_container, "black", 5)
+    content = widget.new_frame(main_container, "#262626", 5)
     content.pack(expand=True, fill="both")
 
     # List of menu items and corresponding functions
