@@ -9,11 +9,15 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 def button_function():
     print("button pressed")
 
-def home_function():
-    print("home")
+def home_function(widget, content_body):
+    for widget in content_body.winfo_children():
+        widget.destroy()
 
-def menu_function():
-    print("menu")
+def menu_function(widget, content_body):
+    for widget in content_body.winfo_children():
+        widget.destroy()
+    button = widget.new_button(content_body, "test", button_function)
+    button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
 
 def set_frame_focus(frames, frame_to_focus):
     for frame in frames:
@@ -22,14 +26,14 @@ def set_frame_focus(frames, frame_to_focus):
         else:
             frame.clear_focus()
 
-def create_sidebar_frame(widget, parent, text, frames, click_function=None):
+def create_sidebar_frame(widget, parent, text, frames, content, click_function=None):
     frame = widget.new_frame(parent, "black", 5, None, 50)
     frame.pack_propagate(False)
     frame.pack(side="top", fill="x", pady=5)
     frame.on_hover("white")
     frame.on_click(
         lambda: (
-            click_function() if click_function
+            click_function(widget, content) if click_function
             else None, set_frame_focus(frames, frame)
         )
     )
@@ -65,7 +69,8 @@ def dashboard_ui():
 
     for label, function in menu_items:
         frame = create_sidebar_frame(
-            widget, sidebar, label, frames, click_function=function
+            widget, sidebar, label, frames, content_body,
+            click_function=function
         )
         frames.append(frame)
 
