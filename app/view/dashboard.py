@@ -12,6 +12,9 @@ def button_function():
 def home_function():
     print("home")
 
+def menu_function():
+    print("menu")
+
 def set_frame_focus(frames, frame_to_focus):
     for frame in frames:
         if frame == frame_to_focus:
@@ -50,13 +53,7 @@ def dashboard_ui():
     # List of menu items and corresponding functions
     menu_items = [
         ("Home", home_function),
-        ("Menu", None),
-        ("Home", None),
-        ("Menu", None),
-        ("Home", None),
-        ("Menu", None),
-        ("Home", None),
-        ("Menu", None),
+        ("Menu", menu_function),
     ]
 
     for label, function in menu_items:
@@ -72,8 +69,11 @@ def dashboard_ui():
     content_body = widget.new_frame(content, "black", 5)
     content_body.pack(expand=True, fill="both")
 
-    button = widget.new_button(content_body, "test", button_function)
-    button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
+    # button = widget.new_button(content_body, "test", button_function)
+    # button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
+
+    # Focus the "Home" frame
+    set_frame_focus(frames, frames[0])
 
     dashboard.open_maximised()
 
