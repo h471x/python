@@ -50,6 +50,13 @@ def dashboard_ui():
     sidebar = widget.new_frame(body, "transparent", 0, 200)
     sidebar.pack(side="left", fill="y", padx=15, pady=10)
 
+    # content element
+    content = widget.new_frame(body, "transparent", 0)
+    content.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
+
+    content_body = widget.new_frame(content, "black", 5)
+    content_body.pack(expand=True, fill="both")
+
     # List of menu items and corresponding functions
     menu_items = [
         ("Home", home_function),
@@ -61,13 +68,6 @@ def dashboard_ui():
             widget, sidebar, label, frames, click_function=function
         )
         frames.append(frame)
-
-    # content element
-    content = widget.new_frame(body, "transparent", 0)
-    content.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
-
-    content_body = widget.new_frame(content, "black", 5)
-    content_body.pack(expand=True, fill="both")
 
     # button = widget.new_button(content_body, "test", button_function)
     # button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
