@@ -24,6 +24,13 @@ class CtkWidget:
             properties["height"] = height
         return CustomCtkFrame(**properties)
 
+    def new_label(self, parent, text, image=None):
+        return self.ctk.CTkLabel(
+            master=parent,
+            text=f"{text}",
+            image=image
+        )
+
 # extended class CtkFrame
 class CustomCtkFrame(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
@@ -31,14 +38,14 @@ class CustomCtkFrame(customtkinter.CTkFrame):
         self.original_color = self.cget("fg_color")
 
     def on_hover(self, hover_color):
-        def on_hover(event):
+        def hovered(event):
             self.configure(fg_color=hover_color)
 
-        def on_blur(event):
+        def blurred(event):
             self.configure(fg_color=self.original_color)
 
-        self.bind("<Enter>", on_hover)
-        self.bind("<Leave>", on_blur)
+        self.bind("<Enter>", hovered)
+        self.bind("<Leave>", blurred)
 
     def on_click(self, function):
         self.bind("<Button-1>", lambda event: function())

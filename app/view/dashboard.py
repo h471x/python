@@ -26,9 +26,13 @@ def dashboard_ui():
 
     # sidebar menus
     home = widget.new_frame(sidebar, "black", 5, None, 50)
+    home.pack_propagate(False)
     home.pack(side="top", fill="x", pady=(0,5))
     home.on_hover("white")
     home.on_click(frame_function)
+
+    home_label = widget.new_label(home, "Home")
+    home_label.pack(pady=10, anchor="center")
 
     menu = widget.new_frame(sidebar, "black", 5, None, 50)
     menu.pack(side="top", fill="x", pady=5)
