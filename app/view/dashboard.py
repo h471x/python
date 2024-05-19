@@ -1,6 +1,7 @@
-import customtkinter
+import customtkinter as ctk
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
+
 path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
@@ -9,15 +10,23 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 def button_function():
     print("button pressed")
 
-def home_function(widget, content_body):
-    for widget in content_body.winfo_children():
-        widget.destroy()
+def home_page(widget, content):
+    for child in content.winfo_children():
+        child.destroy()
+    label = widget.new_label(content, "Home")
+    label.pack(expand=True)
 
-def menu_function(widget, content_body):
-    for widget in content_body.winfo_children():
-        widget.destroy()
-    button = widget.new_button(content_body, "test", button_function)
-    button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
+def menu_page(widget, content):
+    for child in content.winfo_children():
+        child.destroy()
+    label = widget.new_label(content, "Menu")
+    label.pack(expand=True)
+
+def settings_page(widget, content):
+    for child in content.winfo_children():
+        child.destroy()
+    label = widget.new_label(content, "Settings")
+    label.pack(expand=True)
 
 def set_frame_focus(frames, frame_to_focus):
     for frame in frames:
@@ -46,39 +55,38 @@ def dashboard_ui():
     widget = CtkWidget()
     frames = []
 
-    # body element
+    # Body element
     body = widget.new_frame(dashboard.window, "#202020", 0)
     body.pack(expand=True, fill="both")
 
-    # sidebar
+    # Sidebar
     sidebar = widget.new_frame(body, "transparent", 0, 200)
     sidebar.pack(side="left", fill="y", padx=15, pady=10)
 
-    # content element
-    content = widget.new_frame(body, "transparent", 0)
-    content.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
+    # Content element
+    main_container = widget.new_frame(body, "transparent", 0)
+    main_container.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
 
-    content_body = widget.new_frame(content, "black", 5)
-    content_body.pack(expand=True, fill="both")
+    content = widget.new_frame(main_container, "black", 5)
+    content.pack(expand=True, fill="both")
 
     # List of menu items and corresponding functions
     menu_items = [
-        ("Home", home_function),
-        ("Menu", menu_function),
+        ("Home", home_page),
+        ("Menu", menu_page),
+        ("Settings", settings_page),
     ]
 
     for label, function in menu_items:
         frame = create_sidebar_frame(
-            widget, sidebar, label, frames, content_body,
+            widget, sidebar, label, frames, content,
             click_function=function
         )
         frames.append(frame)
 
-    # button = widget.new_button(content_body, "test", button_function)
-    # button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
-
     # Focus the "Home" frame
     set_frame_focus(frames, frames[0])
+    home_page(widget, content)
 
     dashboard.open_maximised()
 
