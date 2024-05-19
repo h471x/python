@@ -9,8 +9,9 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 def button_function():
     print("button pressed")
 
-def frame_function():
-    print("frame clicked")
+def home_function(home):
+    home.set_focus()
+    print("home clicked")
 
 def dashboard_ui():
     dashboard = CtkWindow("Dashboard")
@@ -29,7 +30,7 @@ def dashboard_ui():
     home.pack_propagate(False)
     home.pack(side="top", fill="x", pady=(0,5))
     home.on_hover("white")
-    home.on_click(frame_function)
+    home.on_click(lambda: home_function(home))
 
     home_label = widget.new_label(home, "Home")
     home_label.pack(pady=10, anchor="center")
