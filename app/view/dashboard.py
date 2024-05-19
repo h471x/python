@@ -9,6 +9,9 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 def button_function():
     print("button pressed")
 
+def frame_function():
+    print("frame clicked")
+
 def dashboard_ui():
     dashboard = CtkWindow("Dashboard")
     widget = CtkWidget()
@@ -25,6 +28,7 @@ def dashboard_ui():
     home = widget.new_frame(sidebar, "black", 5, None, 50)
     home.pack(side="top", fill="x", pady=(0,5))
     home.on_hover("white")
+    home.on_click(frame_function)
 
     menu = widget.new_frame(sidebar, "black", 5, None, 50)
     menu.pack(side="top", fill="x", pady=5)

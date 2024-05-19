@@ -39,3 +39,6 @@ class CustomCtkFrame(customtkinter.CTkFrame):
 
         self.bind("<Enter>", on_hover)
         self.bind("<Leave>", on_blur)
+
+    def on_click(self, function):
+        self.bind("<Button-1>", lambda event: function())
