@@ -67,7 +67,7 @@ def dashboard_ui():
 
     # content element
     content = widget.new_frame(body, "transparent", 0)
-    content.pack(side="left", expand=True, fill="both", pady=(10, 10), padx=(0,10))
+    content.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
 
     content_body = widget.new_frame(content, "black", 5)
     content_body.pack(expand=True, fill="both")
