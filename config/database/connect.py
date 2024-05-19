@@ -5,9 +5,6 @@ from classes.utils.filegenerator import FileGenerator as create_file
 from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 
-# Create controller file when debugging
-DEBUG = True
-
 def get_sql_file(sql_file):
     return abs(jn(dir(__file__), sql_file))
 
@@ -15,8 +12,9 @@ def init_tables():
     with open(get_sql_file('tables.sql'), 'r') as postgres_tables:
         create_query = postgres_tables.read()
 
+    debug_mode = True
     if db_query().execute(create_query):
-        if DEBUG:
+        if debug_mode:
             create_file().create_controller_file(create_query)
         return True
 
