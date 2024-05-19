@@ -25,11 +25,10 @@ class CtkWidget:
         return CustomCtkFrame(**properties)
 
     def new_label(self, parent, text, image=None):
-        return self.ctk.CTkLabel(
-            master=parent,
-            text=f"{text}",
-            image=image
-        )
+        label = self.ctk.CTkLabel(master=parent, text=f"{text}", image=image)
+        label.bind("<Enter>", lambda event: None)
+        label.bind("<Leave>", lambda event: None)
+        return label
 
 # extended class CtkFrame
 class CustomCtkFrame(customtkinter.CTkFrame):
@@ -62,6 +61,6 @@ class CustomCtkFrame(customtkinter.CTkFrame):
         self.is_focused = True
         self.configure(fg_color=self.focus_color)
 
-    def remove_focus(self):
+    def clear_focus(self):
         self.is_focused = False
         self.configure(fg_color=self.original_color)

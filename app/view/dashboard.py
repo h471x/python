@@ -9,13 +9,35 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 def button_function():
     print("button pressed")
 
-def home_function(home):
-    home.set_focus()
-    print("home clicked")
+def home_function():
+    print("home")
+
+def set_frame_focus(frames, frame_to_focus):
+    for frame in frames:
+        if frame == frame_to_focus:
+            frame.set_focus()
+        else:
+            frame.clear_focus()
+
+def create_sidebar_frame(widget, parent, text, frames, click_function=None):
+    frame = widget.new_frame(parent, "black", 5, None, 50)
+    frame.pack_propagate(False)
+    frame.pack(side="top", fill="x", pady=5)
+    frame.on_hover("white")
+    frame.on_click(
+        lambda: (
+            click_function() if click_function
+            else None, set_frame_focus(frames, frame)
+        )
+    )
+    label = widget.new_label(frame, text)
+    label.pack(pady=10, anchor="center")
+    return frame
 
 def dashboard_ui():
     dashboard = CtkWindow("Dashboard")
     widget = CtkWidget()
+    frames = []
 
     # body element
     body = widget.new_frame(dashboard.window, "#202020", 0)
@@ -25,43 +47,23 @@ def dashboard_ui():
     sidebar = widget.new_frame(body, "transparent", 0, 200)
     sidebar.pack(side="left", fill="y", padx=15, pady=10)
 
-    # sidebar menus
-    home = widget.new_frame(sidebar, "black", 5, None, 50)
-    home.pack_propagate(False)
-    home.pack(side="top", fill="x", pady=(0,5))
-    home.on_hover("white")
-    home.on_click(lambda: home_function(home))
+    # List of menu items and corresponding functions
+    menu_items = [
+        ("Home", home_function),
+        ("Menu", None),
+        ("Home", None),
+        ("Menu", None),
+        ("Home", None),
+        ("Menu", None),
+        ("Home", None),
+        ("Menu", None),
+    ]
 
-    home_label = widget.new_label(home, "Home")
-    home_label.pack(pady=10, anchor="center")
-
-    menu = widget.new_frame(sidebar, "black", 5, None, 50)
-    menu.pack(side="top", fill="x", pady=5)
-    menu.on_hover("white")
-
-    home2 = widget.new_frame(sidebar, "black", 5, None, 50)
-    home2.pack(side="top", fill="x", pady=5)
-    home2.on_hover("white")
-
-    menu2 = widget.new_frame(sidebar, "black", 5, None, 50)
-    menu2.pack(side="top", fill="x", pady=5)
-    menu2.on_hover("white")
-
-    home3 = widget.new_frame(sidebar, "black", 5, None, 50)
-    home3.pack(side="top", fill="x", pady=5)
-    home3.on_hover("white")
-
-    menu3 = widget.new_frame(sidebar, "black", 5, None, 50)
-    menu3.pack(side="top", fill="x", pady=5)
-    menu3.on_hover("white")
-
-    home4 = widget.new_frame(sidebar, "black", 5, None, 50)
-    home4.pack(side="top", fill="x", pady=5)
-    home4.on_hover("white")
-
-    menu4 = widget.new_frame(sidebar, "black", 5, None, 50)
-    menu4.pack(side="top", fill="x", pady=5)
-    menu4.on_hover("white")
+    for label, function in menu_items:
+        frame = create_sidebar_frame(
+            widget, sidebar, label, frames, click_function=function
+        )
+        frames.append(frame)
 
     # content element
     content = widget.new_frame(body, "transparent", 0)
