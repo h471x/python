@@ -28,6 +28,12 @@ def settings_page(widget, content):
     label = widget.new_label(content, "Settings")
     label.pack(expand=True)
 
+def about_page(widget, content):
+    for child in content.winfo_children():
+        child.destroy()
+    label = widget.new_label(content, "About")
+    label.pack(expand=True)
+
 def set_frame_focus(frames, frame_to_focus):
     for frame in frames:
         if frame == frame_to_focus:
@@ -75,6 +81,7 @@ def dashboard_ui():
         ("Home", home_page),
         ("Menu", menu_page),
         ("Settings", settings_page),
+        ("About", about_page),
     ]
 
     for label, function in menu_items:
