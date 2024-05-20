@@ -11,8 +11,11 @@ def button_function():
     print("button pressed")
 
 def home_page(widget, content):
-    label = widget.new_label(content, "Home")
-    label.pack(expand=True)
+    home_container = widget.new_frame(content, "transparent", 5)
+    home_container.pack(expand=True, fill="both", padx=10, pady=10)
+
+    input = widget.new_input(home_container, "#323232")
+    input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
 def menu_page(widget, content):
     label = widget.new_label(content, "Menu")

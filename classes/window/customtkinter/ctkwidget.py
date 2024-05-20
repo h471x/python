@@ -34,6 +34,13 @@ class CtkWidget:
         label.bind("<Leave>", lambda event: None)
         return label
 
+    def new_input(self, parent, color):
+        return self.ctk.CTkEntry(
+            master=parent,
+            fg_color=f"{color}",
+            border_width=0
+        )
+
 # extended class CtkFrame
 class CustomCtkFrame(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
