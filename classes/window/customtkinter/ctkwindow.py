@@ -40,3 +40,6 @@ class CtkWindow:
     def open_maximised(self):
         self.window.after(0, lambda: self.maximise())
         self.open()
+
+    def close(self):
+        self.destroy()
