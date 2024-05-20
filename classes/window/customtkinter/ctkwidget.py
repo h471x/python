@@ -9,12 +9,31 @@ class CtkWidget:
         for child in widget.winfo_children():
             child.destroy()
 
-    def new_button(self, parent, text, btn_command):
-        return self.ctk.CTkButton(
-            master=parent,
-            text=f"{text}",
-            command=btn_command
-        )
+    def new_button(
+        self, parent, text, btn_command,
+        color=None, width=None, height=None,
+        radius=None, hover=None, focus=None
+    ):
+        button_params = {
+            "master": parent,
+            "text": f"{text}",
+            "command": btn_command,
+        }
+        if color:
+            button_params["fg_color"] = f"{color}"
+        if width:
+            button_params["width"] = width
+        if height:
+            button_params["height"] = height
+        if radius:
+            button_params["corner_radius"] = radius
+        if hover:
+            button_params["hover_color"] = hover
+
+        button = CustomCtkButton(**button_params)
+        if focus:
+            button.set_focus_color(f"{focus}")
+        return button
 
     def new_frame(self, parent, color, corner_radius, width=None, height=None):
         properties = {
@@ -40,6 +59,43 @@ class CtkWidget:
             fg_color=f"{color}",
             border_width=0
         )
+
+# extended class CustomCtkButton
+class CustomCtkButton(customtkinter.CTkButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.original_color = self.cget("fg_color")
+        self.focus_color = None
+        self.is_focused = False
+
+    def set_focus_color(self, color):
+        self.focus_color = color
+
+    def on_hover(self, hover_color):
+        def hovered(event):
+            self.configure(fg_color=hover_color)
+
+        def blurred(event):
+            if self.is_focused:
+                if self.focus_color:
+                    self.configure(fg_color=self.focus_color)
+                else:
+                    self.configure(fg_color=self.original_color)
+            else:
+                self.configure(fg_color=self.original_color)
+
+        self.bind("<Enter>", hovered)
+        self.bind("<Leave>", blurred)
+
+    def set_focus(self):
+        self.is_focused = True
+        if self.focus_color:
+            self.configure(fg_color=self.focus_color)
+
+    def clear_focus(self):
+        self.is_focused = False
+        if self.focus_color:
+            self.configure(fg_color=self.original_color)
 
 # extended class CtkFrame
 class CustomCtkFrame(customtkinter.CTkFrame):

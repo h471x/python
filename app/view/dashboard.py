@@ -18,8 +18,8 @@ def home_page(widget, content):
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
 def menu_page(widget, content):
-    label = widget.new_label(content, "Menu")
-    label.pack(expand=True)
+    button = widget.new_button(content, "Menu", button_function)
+    button.pack(expand=True)
 
 def settings_page(widget, content):
     label = widget.new_label(content, "Settings")
@@ -29,33 +29,34 @@ def about_page(widget, content):
     label = widget.new_label(content, "About")
     label.pack(expand=True)
 
-def set_frame_focus(frames, frame_to_focus):
-    for frame in frames:
-        if frame == frame_to_focus:
-            frame.set_focus()
+def set_button_focus(buttons, button_to_focus):
+    for button in buttons:
+        if button == button_to_focus:
+            button.set_focus()
         else:
-            frame.clear_focus()
+            button.clear_focus()
 
-def create_sidebar_frame(widget, parent, text, frames, content, click_function=None):
-    frame = widget.new_frame(parent, "transparent", 5, None, 50)
-    frame.set_focus_color("#2b2b2b")
-    frame.pack_propagate(False)
-    frame.pack(side="top", fill="x", pady=5)
-    frame.on_hover("#323232")
-    frame.on_click(lambda: (
-        widget.clear_widget(content),
-        click_function(widget, content)
-        if click_function else None,
-        set_frame_focus(frames, frame))
+def create_sidebar_button(
+    widget, parent, text, buttons, content,
+    width, height, color, hover, focus,
+    click_function=None ):
+    button = widget.new_button(
+        parent, text,
+        lambda: (
+            widget.clear_widget(content),
+            click_function(widget, content) if click_function else None,
+            set_button_focus(buttons, button)
+        ),
+        color, width, height, 5, hover, focus
     )
-    label = widget.new_label(frame, text)
-    label.pack(pady=10, anchor="center")
-    return frame
+    button.pack_propagate(False)
+    button.pack(side="top", fill="x", pady=5)
+    return button
 
 def dashboard_ui():
     dashboard = CtkWindow("Dashboard")
     widget = CtkWidget()
-    frames = []
+    buttons = []
 
     # Body element
     body = widget.new_frame(dashboard.window, "#121212", 0)
@@ -67,7 +68,9 @@ def dashboard_ui():
 
     # Content element
     main_container = widget.new_frame(body, "transparent", 0)
-    main_container.pack(side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10))
+    main_container.pack(
+        side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10)
+    )
 
     content = widget.new_frame(main_container, "#262626", 5)
     content.pack(expand=True, fill="both")
@@ -81,14 +84,15 @@ def dashboard_ui():
     ]
 
     for label, function in menu_items:
-        frame = create_sidebar_frame(
-            widget, sidebar, label, frames, content,
+        button = create_sidebar_button(
+            widget, sidebar, label, buttons, content,
+            200, 50, "#121212", "#323232", "#2b2b2b",
             click_function=function
         )
-        frames.append(frame)
+        buttons.append(button)
 
-    # Focus the "Home" frame
-    set_frame_focus(frames, frames[0])
+    # Focus the "Home" button
+    set_button_focus(buttons, buttons[0])
     home_page(widget, content)
 
     dashboard.open_maximised()
