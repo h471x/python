@@ -39,8 +39,11 @@ class CustomCtkFrame(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_color = self.cget("fg_color")
-        self.focus_color = "#2b2b2b"
+        self.focus_color = None
         self.is_focused = False
+
+    def set_focus_color(self, color):
+        self.focus_color = color
 
     def on_hover(self, hover_color):
         def hovered(event):
@@ -48,7 +51,10 @@ class CustomCtkFrame(customtkinter.CTkFrame):
 
         def blurred(event):
             if self.is_focused:
-                self.configure(fg_color=self.focus_color)
+                if self.focus_color:
+                    self.configure(fg_color=self.focus_color)
+                else:
+                    self.configure(fg_color=self.original_color)
             else:
                 self.configure(fg_color=self.original_color)
 
@@ -57,14 +63,17 @@ class CustomCtkFrame(customtkinter.CTkFrame):
 
     def on_click(self, function):
         def click_event(event):
-            self.set_focus()
+            if self.focus_color:
+                self.set_focus()
             function()
         self.bind("<Button-1>", click_event)
 
     def set_focus(self):
         self.is_focused = True
-        self.configure(fg_color=self.focus_color)
+        if self.focus_color:
+            self.configure(fg_color=self.focus_color)
 
     def clear_focus(self):
         self.is_focused = False
-        self.configure(fg_color=self.original_color)
+        if self.focus_color:
+            self.configure(fg_color=self.original_color)

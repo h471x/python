@@ -11,22 +11,18 @@ def button_function():
     print("button pressed")
 
 def home_page(widget, content):
-    widget.clear_widget(content)
     label = widget.new_label(content, "Home")
     label.pack(expand=True)
 
 def menu_page(widget, content):
-    widget.clear_widget(content)
     label = widget.new_label(content, "Menu")
     label.pack(expand=True)
 
 def settings_page(widget, content):
-    widget.clear_widget(content)
     label = widget.new_label(content, "Settings")
     label.pack(expand=True)
 
 def about_page(widget, content):
-    widget.clear_widget(content)
     label = widget.new_label(content, "About")
     label.pack(expand=True)
 
@@ -39,14 +35,15 @@ def set_frame_focus(frames, frame_to_focus):
 
 def create_sidebar_frame(widget, parent, text, frames, content, click_function=None):
     frame = widget.new_frame(parent, "transparent", 5, None, 50)
+    frame.set_focus_color("#2b2b2b")
     frame.pack_propagate(False)
     frame.pack(side="top", fill="x", pady=5)
     frame.on_hover("#323232")
-    frame.on_click(
-        lambda: (
-            click_function(widget, content) if click_function
-            else None, set_frame_focus(frames, frame)
-        )
+    frame.on_click(lambda: (
+        widget.clear_widget(content),
+        click_function(widget, content)
+        if click_function else None,
+        set_frame_focus(frames, frame))
     )
     label = widget.new_label(frame, text)
     label.pack(pady=10, anchor="center")
