@@ -7,25 +7,27 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
-def button_function():
-    print("button pressed")
+def close_window(window):
+    return lambda: (
+        window.close()
+    )
 
-def home_page(widget, content):
+def home_page(dashboard, widget, content):
     home_container = widget.new_frame(content, "transparent", 5)
     home_container.pack(expand=True, fill="both", padx=10, pady=10)
 
     input = widget.new_input(home_container, "#323232")
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
-def menu_page(widget, content):
-    button = widget.new_button(content, "Menu", button_function)
+def menu_page(dashboard, widget, content):
+    button = widget.new_button(content, "Close", close_window(dashboard))
     button.pack(expand=True)
 
-def settings_page(widget, content):
+def settings_page(dashboard, widget, content):
     label = widget.new_label(content, "Settings")
     label.pack(expand=True)
 
-def about_page(widget, content):
+def about_page(dashboard, widget, content):
     label = widget.new_label(content, "About")
     label.pack(expand=True)
 
@@ -39,12 +41,12 @@ def set_button_focus(buttons, button_to_focus):
 def create_sidebar_button(
     widget, parent, text, buttons, content,
     width, height, color, hover, focus,
-    click_function=None ):
+    dashboard, click_function=None ):
     button = widget.new_button(
         parent, text,
         lambda: (
             widget.clear_widget(content),
-            click_function(widget, content) if click_function else None,
+            click_function(dashboard, widget, content) if click_function else None,
             set_button_focus(buttons, button)
         ),
         color, width, height, 5, hover, focus
@@ -87,13 +89,13 @@ def dashboard_ui():
         button = create_sidebar_button(
             widget, sidebar, label, buttons, content,
             200, 50, "#121212", "#323232", "#2b2b2b",
-            click_function=function
+            dashboard, click_function=function
         )
         buttons.append(button)
 
     # Focus the "Home" button
     set_button_focus(buttons, buttons[0])
-    home_page(widget, content)
+    home_page(dashboard, widget, content)
 
     dashboard.open_maximised()
 

@@ -42,4 +42,4 @@ class CtkWindow:
         self.open()
 
     def close(self):
-        self.destroy()
+        self.window.destroy()
