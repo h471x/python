@@ -5,6 +5,10 @@ class CtkWidget:
     def __init__(self):
         self.ctk = customtkinter
 
+    def clear_widget(self, widget):
+        for child in widget.winfo_children():
+            child.destroy()
+
     def new_button(self, parent, text, btn_command):
         return self.ctk.CTkButton(
             master=parent,

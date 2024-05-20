@@ -11,26 +11,22 @@ def button_function():
     print("button pressed")
 
 def home_page(widget, content):
-    for child in content.winfo_children():
-        child.destroy()
+    widget.clear_widget(content)
     label = widget.new_label(content, "Home")
     label.pack(expand=True)
 
 def menu_page(widget, content):
-    for child in content.winfo_children():
-        child.destroy()
+    widget.clear_widget(content)
     label = widget.new_label(content, "Menu")
     label.pack(expand=True)
 
 def settings_page(widget, content):
-    for child in content.winfo_children():
-        child.destroy()
+    widget.clear_widget(content)
     label = widget.new_label(content, "Settings")
     label.pack(expand=True)
 
 def about_page(widget, content):
-    for child in content.winfo_children():
-        child.destroy()
+    widget.clear_widget(content)
     label = widget.new_label(content, "About")
     label.pack(expand=True)
 
