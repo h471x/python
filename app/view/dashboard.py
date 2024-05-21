@@ -20,7 +20,9 @@ def home_page(dashboard, widget, content):
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
 def menu_page(dashboard, widget, content):
-    button = widget.new_button(content, "Close", close_window(dashboard))
+    button = widget.new_button(
+        content, "Close", close_window(dashboard)
+    )
     button.pack(expand=True)
 
 def settings_page(dashboard, widget, content):
@@ -46,13 +48,14 @@ def create_sidebar_button(
         parent, text,
         lambda: (
             widget.clear_widget(content),
-            click_function(dashboard, widget, content) if click_function else None,
+            click_function(dashboard, widget, content)
+            if click_function else None,
             set_button_focus(buttons, button)
         ),
         color, width, height, 5, hover, focus
     )
     button.pack_propagate(False)
-    button.pack(side="top", fill="x", pady=5)
+    button.pack(side="top", fill="x")
     return button
 
 def dashboard_ui():
@@ -71,7 +74,7 @@ def dashboard_ui():
     # Content element
     main_container = widget.new_frame(body, "transparent", 0)
     main_container.pack(
-        side="left", expand=True, fill="both", pady=(15, 10), padx=(0,10)
+        side="left", expand=True, fill="both", pady=(10, 10), padx=(0,10)
     )
 
     content = widget.new_frame(main_container, "#262626", 5)
