@@ -12,10 +12,8 @@ def init_tables():
     with open(get_sql_file('tables.sql'), 'r') as postgres_tables:
         create_query = postgres_tables.read()
 
-    debug_mode = True
     if db_query().execute(create_query):
-        if debug_mode:
-            create_file().create_controller_file(create_query)
+        create_file().create_controller_file(create_query)
         return True
 
 def get_status():
