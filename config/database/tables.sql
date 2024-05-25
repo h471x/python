@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS student(
 
 CREATE TABLE IF NOT EXISTS teacher(
   teacher_id TEXT PRIMARY KEY
-  
 ) INHERITS (person);
 
 CREATE TABLE IF NOT EXISTS ce(
@@ -43,4 +42,3 @@ CREATE TABLE IF NOT EXISTS grade(
   FOREIGN KEY(fk_teacher_id) REFERENCES teacher(teacher_id),
   PRIMARY KEY(fk_cename,fk_teacher_id,fk_student_id)
 );
-
