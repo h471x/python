@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS ce(
   ue TEXT NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS grade(
   theorical_grade INT NOT NULL DEFAULT 20,
   pratical_grade INT NOT NULL DEFAULT 20,
