@@ -30,8 +30,12 @@ def settings_page(dashboard, widget, content):
     label.pack(expand=True)
 
 def about_page(dashboard, widget, content):
-    label = widget.new_label(content, "About")
-    label.pack(expand=True)
+    # label = widget.new_label(content, "About")
+    # label.pack(expand=True)
+
+    image_path = "assets/python.png"
+    image = widget.new_image(content, image_path, width=200, height=200)
+    image.pack(pady=50)
 
 def set_button_focus(buttons, button_to_focus):
     for button in buttons:

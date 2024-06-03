@@ -1,4 +1,5 @@
 import customtkinter
+from PIL import Image
 
 # ctk_widget base class
 class CtkWidget:
@@ -59,6 +60,15 @@ class CtkWidget:
             fg_color=f"{color}",
             border_width=0
         )
+
+    def new_image(self, parent, image_path, width=None, height=None):
+        img_data = Image.open(image_path)
+        img = self.ctk.CTkImage(light_image=img_data, dark_image=img_data)
+        frame = self.ctk.CTkFrame(master=parent, width=width, height=height)
+        label = self.ctk.CTkLabel(master=frame, image=img, text="")
+        label.pack(expand=True, fill='both')
+        frame.pack_propagate(False)
+        return frame
 
 # extended class CustomCtkButton
 class CustomCtkButton(customtkinter.CTkButton):
