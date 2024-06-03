@@ -19,6 +19,11 @@ def home_page(dashboard, widget, content):
     input = widget.new_input(home_container, "#323232")
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
+    users = ["user1", "user2", "user3"]
+
+    users_list = widget.new_dropdown(home_container, users, 500, 20)
+    users_list.pack(side="left", padx=(13, 0), pady=15)
+
 def menu_page(dashboard, widget, content):
     button = widget.new_button(
         content, "Close", close_window(dashboard)

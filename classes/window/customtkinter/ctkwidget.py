@@ -70,6 +70,14 @@ class CtkWidget:
         frame.pack_propagate(False)
         return frame
 
+    def new_dropdown(self, parent, values, width, height):
+        return self.ctk.CTkComboBox(
+            master=parent,
+            values=values,
+            width=width,
+            height=height
+        )
+
 # extended class CustomCtkButton
 class CustomCtkButton(customtkinter.CTkButton):
     def __init__(self, *args, **kwargs):
