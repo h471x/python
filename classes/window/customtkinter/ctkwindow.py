@@ -29,9 +29,10 @@ class CtkWindow:
         eval(f"self.window.{maximise_window}")
 
     def set_size(self, width, height):
-        self.window.minsize(width, height)
-        self.window.geometry(f"{width}x{height}")
-
+        self.min_width = width
+        self.min_height = height
+        self.window.minsize(self.min_width, self.min_height)
+        self.window.geometry(f"{self.min_width}x{self.min_height}")
 
     def make_resizable(self):
         self.window.resizable(width=True, height=True)
@@ -46,8 +47,6 @@ class CtkWindow:
     def open_centered(self):
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
-
-        self.window.minsize(self.min_width, self.min_height)
 
         x = (screen_width // 2) - (self.min_width // 2)
         y = (screen_height // 2) - (self.min_height // 2)
