@@ -1,3 +1,4 @@
+import tkinter as tk
 import customtkinter
 from platform import system as get_system
 # from pathlib import Path
@@ -30,6 +31,15 @@ class CtkWindow:
     def set_size(self, width, height):
         self.window.minsize(width, height)
         self.window.geometry(f"{width}x{height}")
+    def center_window(self,window,width,height):
+        screen_width= window.winfo_screenwidth()
+        screen_height = window.winfo_screenheight()
+
+        x = (screen_width // 2) - (width // 2)
+        y = (screen_height // 2) - (height // 2)
+        
+        window.geometry(f'{width}x{height}+{x}+{y}')
+
 
     def make_resizable(self):
         self.window.resizable(width=True, height=True)
