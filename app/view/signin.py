@@ -14,7 +14,7 @@ def signin_ui ():
     frame = widget.new_frame(signin.window, "transparent", 5)
     frame.pack(expand=True, fill="both", padx=10, pady=10)
 
-    signin.open()
+    signin.open_centered()
 
 if __name__ == '__main__':
     signin_ui()
