@@ -6,15 +6,18 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
-def signin_ui ():
-    signin = CtkWindow("Register")
-    signin.set_size(800,600)
+def signup_ui ():
+    signup = CtkWindow("Register")
+    signup.set_size(800,600)
 
     widget = CtkWidget()
-    frame = widget.new_frame(signin.window, "transparent", 5)
-    frame.pack(expand=True, fill="both", padx=10, pady=10)
+    header = widget.new_frame(signup.window, "transparent", 5)
+    header.pack(expand=True, fill="both", padx=10, pady=10)
+    signup_label=widget.new_label(header,"Sign Up",font=("Roboto",40))
+    signup_label.pack(expand=True,fill="both", padx=10, pady=10)
+    
 
-    signin.open_centered()
+    signup.open_centered()
 
 if __name__ == '__main__':
-    signin_ui()
+    signup_ui()
