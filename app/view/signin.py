@@ -1,3 +1,4 @@
+import customtkinter
 from tkcalendar import DateEntry
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
@@ -22,14 +23,14 @@ def signup_ui ():
     #second frame for body that contains the input widgets
     body = widget.new_frame(signup.window, "transparent", 5)
     body.pack(expand=True, fill="both", padx=10, pady=10)
-    firstname_label=widget.new_label(body,"First Name :",font=("Roboto",20))
+    firstname_label=widget.new_label(body,"First name :",font=("Roboto",20))
     firstname_label.pack(padx=10,pady=10)
-    firstname_input=widget.new_input(body,"grey")
+    firstname_input=widget.new_input(body,"grey",placeholder_text="First name",font=("Roboto",15),corner_radius=10)
     firstname_input.pack(padx=10,pady=10)
 
-    lastname_label=widget.new_label(body,"Last Name :",font=("Roboto",20))
+    lastname_label=widget.new_label(body,"Last name :",font=("Roboto",20))
     lastname_label.pack(padx=10,pady=10)
-    lastname_input=widget.new_input(body,"grey")
+    lastname_input=widget.new_input(body,"grey",placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.pack(padx=10,pady=10)
 
     birth_label=widget.new_label(body,"Birth :",font=("Roboto",20))
@@ -37,6 +38,8 @@ def signup_ui ():
     #Calendar
     calendar_view=DateEntry(body,year=2024,month=6,day=24)
     calendar_view.pack()
+
+    
 
     signup.open_centered()
 #Back section
