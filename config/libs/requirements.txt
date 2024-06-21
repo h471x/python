@@ -3,3 +3,4 @@ pyqt6
 customtkinter
 CTkTable
 pillow
+tkcalendar
