@@ -54,11 +54,16 @@ class CtkWidget:
         label.bind("<Leave>", lambda event: None)
         return label
 
-    def new_input(self, parent, color):
+    def new_input(self, parent, color,text_color="white",font=None,corner_radius=None,placeholder_text=None,placeholder_text_color="white"):
         return self.ctk.CTkEntry(
             master=parent,
             fg_color=f"{color}",
-            border_width=0
+            border_width=0,
+            text_color=text_color,
+            font=font,
+            corner_radius=corner_radius,
+            placeholder_text=placeholder_text,
+            placeholder_text_color=placeholder_text_color
         )
 
     def new_image(self, parent, image_path, width=None, height=None):
