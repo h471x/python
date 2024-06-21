@@ -1,3 +1,4 @@
+import tkinter
 import customtkinter
 from tkcalendar import DateEntry
 from sys import path
@@ -7,6 +8,16 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
+
+#To use this function we need two argument to store the value of the input in front section :: gender , date
+
+#Back section
+#Calendar
+def get_selected_date():
+    return calendar_view.get_date()
+#Radion button
+def radiobutton_event():
+    print("radiobutton toggled, current value:", radio_var.get())
 
 #Front section
 def signup_ui ():
@@ -39,12 +50,17 @@ def signup_ui ():
     calendar_view=DateEntry(body,year=2024,month=6,day=24)
     calendar_view.pack()
 
+    gender_label=widget.new_label(body,"Gender :",font=("Roboto",20))
+    gender_label.pack(padx=10,pady=10)
+    gender=tkinter.StringVar(value="")
+    male_radiobutton=customtkinter.CTkRadioButton(body, text="Male",command=radiobutton_event,variable=gender,value='m')
+    female_radiobutton=customtkinter.CTkRadioButton(body, text="Female",command=radiobutton_event,variable=gender,value='f')
+    male_radiobutton.pack()
+    female_radiobutton.pack()
     
 
     signup.open_centered()
-#Back section
-def get_selected_date():
-    date=calendar_view.get_date()
 
 if __name__ == '__main__':
+    G="Nothing"
     signup_ui()
