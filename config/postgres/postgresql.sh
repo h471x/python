@@ -55,7 +55,20 @@ else
 	[ -f "$isWSL" ] && sudo service postgresql start || sudo systemctl start postgresql
 fi
 
+# Fix the collation version mismatch
+echo "Refreshing collation version for template1..."
+sudo -u postgres psql -c "UPDATE pg_database SET datallowconn = TRUE WHERE datname = 'template1';"
+sudo -u postgres psql -d template1 -c "VACUUM FULL;"
+sudo -u postgres psql -d template1 -c "REINDEX DATABASE template1;"
+sudo -u postgres psql -d template1 -c "ALTER DATABASE template1 REFRESH COLLATION VERSION;"
+sudo -u postgres psql -c "UPDATE pg_database SET datallowconn = FALSE WHERE datname = 'template1';"
+
+# Create the python database if it does not exist
+echo "Creating python database if it does not exist..."
+sudo -u postgres psql -c "CREATE DATABASE python TEMPLATE template1;" || echo "Database python already exists."
+
 # Load the postgresql database configuration
 echo "Configuring PostgreSQL Database"
-sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
-sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
+sudo -u postgres psql -f config/postgres/reset.sql 
+sudo -u postgres psql -f config/postgres/python.sql 
+
