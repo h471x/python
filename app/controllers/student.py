@@ -24,16 +24,16 @@ student_data_template = {
 }
 
 student_new_data_template = {
-    'id_card': '0123456789',
-    'last_name': 'Sam',
+    'id_card': '0123466789',
+    'last_name': 'Sam test',
     'first_name': 'Sepiol',
-    'birth': '2003-05-22',
-    'gender': 'M',
+    'birth': '2003-08-22',
+    'gender': 'F',
     'adress': 'New Jersey',
-    'phone': '0123456789',
-    'student_id': '0006',
+    'phone': '0123466788',
+    'student_id': '0002',
     'major': 'Computer Science',
-    'level': 'M2',
+    'level': 'M1',
     'cursus': 'Cybersecurity'
 }
 
@@ -67,32 +67,38 @@ if __name__ == '__main__':
     print(student_select_all())
     print(" ")
 
-    print("select student_data")
-    print(student_select(student_data_template))
-    print(" ")
-
-    print("update student_data")
-    student_update(
-        student_data_template,
-        student_new_data_template
-    )
-    print(student_select_all())
-    print(" ")
-
     print("insert student_data")
-    student_insert(student_data_template)
+    student_insert(student_new_data_template)
     print(student_select_all())
     print(" ")
 
-    print("Counting student")
-    print(f"Number of student : {student_count()}")
-    print(" ")
 
-    print("delete student_data")
-    student_delete(student_data_template)
-    print(student_select_all())
-    print(" ")
-
-    print("delete all")
-    student_delete_all()
-    print(student_select_all())
+    # print("select student_data")
+    # print(student_select(student_data_template))
+    # print(" ")
+    #
+    # print("update student_data")
+    # student_update(
+    #     student_data_template,
+    #     student_new_data_template
+    # )
+    # print(student_select_all())
+    # print(" ")
+    #
+    # print("insert student_data")
+    # student_insert(student_data_template)
+    # print(student_select_all())
+    # print(" ")
+    #
+    # print("Counting student")
+    # print(f"Number of student : {student_count()}")
+    # print(" ")
+    #
+    # print("delete student_data")
+    # student_delete(student_data_template)
+    # print(student_select_all())
+    # print(" ")
+    #
+    # print("delete all")
+    # student_delete_all()
+    # print(student_select_all())

@@ -10,6 +10,8 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
+from app.controllers.student import *
+from assets.styles.defaults import configure_styles
 
 def close_window(window):
     return lambda: (
@@ -28,88 +30,8 @@ def home_page(dashboard, widget, content):
     # users_list = widget.new_dropdown(home_container, users, 500, 20)
     # users_list.pack(side="left", padx=(13, 0), pady=15)
 
-    # table_data = [
-    #     ["Order ID", "Item Name", "Customer", "Address", "Status", "Quantity"],
-    #     ['3833', 'Smartphone', 'Alice', '123 Main St', 'Confirmed', '8'],
-    #     ['6432', 'Laptop', 'Bob', '456 Elm St', 'Packing', '5'],
-    #     ['2180', 'Tablet', 'Crystal', '789 Oak St', 'Delivered', '1'],
-    #     ['5438', 'Headphones', 'John', '101 Pine St', 'Confirmed', '9'],
-    #     ['9144', 'Camera', 'David', '202 Cedar St', 'Processing', '2'],
-    #     ['7689', 'Printer', 'Alice', '303 Maple St', 'Cancelled', '2'],
-    #     ['1323', 'Smartwatch', 'Crystal', '404 Birch St', 'Shipping', '6'],
-    #     ['7391', 'Keyboard', 'John', '505 Redwood St', 'Cancelled', '10'],
-    #     ['4915', 'Monitor', 'Alice', '606 Fir St', 'Shipping', '6'],
-    #     ['5548', 'External Hard Drive', 'David', '707 Oak St', 'Delivered', '10'],
-    #     ['5485', 'Table Lamp', 'Crystal', '808 Pine St', 'Confirmed', '4'],
-    #     ['7764', 'Desk Chair', 'Bob', '909 Cedar St', 'Processing', '9'],
-    #     ['8252', 'Coffee Maker', 'John', '1010 Elm St', 'Confirmed', '6'],
-    #     ['2377', 'Blender', 'David', '1111 Redwood St', 'Shipping', '2'],
-    #     ['5287', 'Toaster', 'Alice', '1212 Maple St', 'Processing', '1'],
-    #     ['7739', 'Microwave', 'Crystal', '1313 Cedar St', 'Confirmed', '8'],
-    #     ['3129', 'Refrigerator', 'John', '1414 Oak St', 'Processing', '5'],
-    #     ['4789', 'Vacuum Cleaner', 'Bob', '1515 Pine St', 'Cancelled', '10']
-    # ]
-    #
-    # # Create a frame for the header
-    # header_frame = CTkFrame(master=home_container, fg_color="transparent")
-    # header_frame.pack(fill='x', padx=27, pady=(21, 0))
-    #
-    # # Create a scrollable frame for the table body
-    # table_frame = CTkScrollableFrame(master=home_container, fg_color="transparent")
-    # table_frame.pack(expand=True, fill="both", padx=(21,0), pady=0)
-    #
-    # # Extract the header row from `table_data`
-    # header_row = table_data[0]
-    # body_data = table_data[2:]
-    #
-    # # Create the header table
-    # header_table = CTkTable(
-    #     master=header_frame,
-    #     values=[header_row],
-    #     colors=["#ffffff", "#ffffff"],
-    #     header_color="#000000",
-    #     # hover_color="#B4B4B4",
-    #     # corner_radius=5
-    # )
-    # header_table.edit_row(0, text_color="#000", hover_color="#2A8C55")
-    # header_table.pack(fill='x')
-    #
-    # # Create the body table
-    # body_table = CTkTable(
-    #     master=table_frame,
-    #     values=body_data,
-    #     colors=["#000000", "#202020"],
-    #     # header_color="#2A8C55",
-    #     # hover_color="#B4B4B4",
-    #     # corner_radius=5
-    # )
-    # body_table.pack(expand=True, fill='both')
-
-    table_data = [
-        ["Order ID", "Item Name", "Customer", "Address", "Status", "Quantity"],
-        ['3833', 'Smartphone', 'Alice', '123 Main St', 'Confirmed', '8'],
-        ['6432', 'Laptop', 'Bob', '456 Elm St', 'Packing', '5'],
-        ['2180', 'Tablet', 'Crystal', '789 Oak St', 'Delivered', '1'],
-        ['5438', 'Headphones', 'John', '101 Pine St', 'Confirmed', '9'],
-        ['9144', 'Camera', 'David', '202 Cedar St', 'Processing', '2'],
-        ['7689', 'Printer', 'Alice', '303 Maple St', 'Cancelled', '2'],
-        ['1323', 'Smartwatch', 'Crystal', '404 Birch St', 'Shipping', '6'],
-        ['7391', 'Keyboard', 'John', '505 Redwood St', 'Cancelled', '10'],
-        ['4915', 'Monitor', 'Alice', '606 Fir St', 'Shipping', '6'],
-        ['5548', 'External Hard Drive', 'David', '707 Oak St', 'Delivered', '10'],
-        ['5485', 'Table Lamp', 'Crystal', '808 Pine St', 'Confirmed', '4'],
-        ['7764', 'Desk Chair', 'Bob', '909 Cedar St', 'Processing', '9'],
-        ['8252', 'Coffee Maker', 'John', '1010 Elm St', 'Confirmed', '6'],
-        ['2377', 'Blender', 'David', '1111 Redwood St', 'Shipping', '2'],
-        ['5287', 'Toaster', 'Alice', '1212 Maple St', 'Processing', '1'],
-        ['7739', 'Microwave', 'Crystal', '1313 Cedar St', 'Confirmed', '8'],
-        ['3129', 'Refrigerator', 'John', '1414 Oak St', 'Processing', '5'],
-        ['4789', 'Vacuum Cleaner', 'Bob', '1515 Pine St', 'Cancelled', '10']
-    ]
-
-    # Create a frame for the header
-    # header_frame = CTkFrame(master=home_container, fg_color="transparent")
-    # header_frame.pack(fill='x', padx=27, pady=(21, 0))
+    # get data from database
+    table_data = student_select_all()
 
     # Create a scrollable frame for the table body
     table_frame = CTkFrame(master=home_container, fg_color="transparent")
@@ -117,22 +39,36 @@ def home_page(dashboard, widget, content):
 
     # Extract the header row from `table_data`
     header_row = table_data[0]
-    body_data = table_data[2:]
+    body_data = table_data[1:]
+
+    # Apply styles
+    configure_styles()
 
     # Create the Treeview
     columns = header_row
     tree = ttk.Treeview(
-        table_frame, columns=columns, show="headings"
+        table_frame, columns=columns, show="headings", style="Treeview"
     )
 
     # Define headings
     for col in columns:
         tree.heading(col, text=col)
-        tree.column(col, anchor=tk.CENTER)
+        tree.column(col, anchor=tk.CENTER, stretch=True)
 
     # Insert data
     for row in body_data:
         tree.insert("", tk.END, values=row)
+
+    # Adjust column widths based on content
+    def adjust_column_widths(tree, columns):
+        for col in columns:
+            max_len = len(col)
+            for item in tree.get_children():
+                text = str(tree.item(item, "values")[columns.index(col)])
+                max_len = max(max_len, len(text))
+            tree.column(col, width=max_len * 10)
+
+    adjust_column_widths(tree, columns)
 
     # Create a scrollbar for the Treeview
     scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL, command=tree.yview)

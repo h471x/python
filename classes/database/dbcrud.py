@@ -74,9 +74,8 @@ class CrudHandler(db_query):
             )
 
     def select_all(self):
-        return self.execute(f"""
-            SELECT * from {self.table};
-        """
+        return [tuple(self.get_table_columns())] + self.execute(f"""
+            SELECT * FROM {self.table};"""
         )
 
     def count(self):
@@ -87,7 +86,7 @@ class CrudHandler(db_query):
 
     def select(self, condition):
         if self.has_valid_attributes(condition):
-            return self.execute(f"""
+            return [tuple(self.get_table_columns())] + self.execute(f"""
                 SELECT * FROM {self.table}
                 WHERE {self.get_condition(condition)};
             """
