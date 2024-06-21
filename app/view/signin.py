@@ -1,3 +1,4 @@
+from tkcalendar import DateEntry
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
 
@@ -6,7 +7,7 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
-#Front
+#Front section
 def signup_ui ():
     signup = CtkWindow("Register")
     signup.set_size(800,600)
@@ -33,9 +34,14 @@ def signup_ui ():
 
     birth_label=widget.new_label(body,"Birth :",font=("Roboto",20))
     birth_label.pack(padx=10,pady=10)
-    
+    #Calendar
+    calendar_view=DateEntry(body,year=2024,month=6,day=24)
+    calendar_view.pack()
 
     signup.open_centered()
+#Back section
+def get_selected_date():
+    date=calendar_view.get_date()
 
 if __name__ == '__main__':
     signup_ui()
