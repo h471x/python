@@ -7,7 +7,7 @@ def configure_styles():
     style.configure(
         "Treeview.Heading",
         font=("Arial", 12, "bold"),
-        padding=[10, 10, 10, 10],
+        padding=[20, 20, 20, 20],
         background="#000000",
         foreground="#FFFFFF",
     )
@@ -16,7 +16,7 @@ def configure_styles():
     style.configure(
         "Treeview",
         font=("Arial", 12),
-        rowheight=40,
+        rowheight=60,
         background="#202020",
         foreground="#FFFFFF",
         fieldbackground="#202020"
