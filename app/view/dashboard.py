@@ -13,8 +13,10 @@ from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
 from app.controllers.student import *
+from app.controllers.teacher import *
 
 from assets.styles.colors import *
+from assets.styles.dimensions import *
 from assets.styles.defaults import configure_table_styles
 
 def close_window(window):
@@ -23,22 +25,29 @@ def close_window(window):
     )
 
 def dashboard_page(dashboard, widget, content):
-    # home_container = widget.new_frame(content, "transparent", 5)
-    # home_container.pack(expand=True, fill="both", padx=10, pady=10)
+    home_container = widget.new_frame(content, "transparent", 5)
+    home_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    # input = widget.new_input(home_container, "#323232")
-    # input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
+    users = student.raw_get(f"""
+        SELECT last_name FROM student;
+    """)
 
-    label = widget.new_label(content, "Dashboard")
-    label.pack(expand=True)
+    users_list = widget.new_dropdown(
+        home_container,
+        [user[0] for user in users],
+        500, 30
+    ).pack(
+        side="top",
+        padx=(13, 0),
+        pady=15,
+        expand=True
+    )
 
-    # users = ["user1", "user2", "user3"]
+    input = widget.new_input(home_container, "#323232")
+    input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
 
-    # users_list = widget.new_dropdown(home_container, users, 500, 20)
-    # users_list.pack(side="left", padx=(13, 0), pady=15)
-
-    # get data from database
-    # table_data = student_select_all()
+    # label = widget.new_label(home_container, "Dashboard")
+    # label.pack(expand=True)
 
 def classes_page(dashboard, widget, content):
     label = widget.new_label(content, "Classes")
@@ -69,9 +78,11 @@ def student_page(dashboard, widget, content):
         FROM student
     """)
 
+    # table_data = teacher_select_all()
+
     # Create a scrollable frame for the table body
     table_frame = CTkFrame(master=student_container, fg_color="transparent")
-    table_frame.pack(expand=True, fill="both", padx=(21,0), pady=0)
+    table_frame.pack(expand=True, fill="both", padx=0, pady=0)
 
     # Extract the header row from `table_data`
     header_row = table_data[0]
@@ -80,20 +91,22 @@ def student_page(dashboard, widget, content):
     # Call the styles
     configure_table_styles(dashboard.window)
 
+    # Create a scrollbar for the Treeview
+    scrollbar = ctk.CTkScrollableFrame(table_frame)
+    scrollbar.pack(side='right', fill='both', expand=True, padx=0, pady=0)
+
     # Create the Treeview
     columns = header_row
     tree = ttk.Treeview(
-        table_frame, columns=columns, show="headings", style="Treeview"
+        scrollbar, columns=columns, show="headings", style="Treeview"
     )
+    tree.configure(yscroll=scrollbar)
+    tree.pack(expand=True, fill='both')
 
     # Define headings
     for col in columns:
         tree.heading(col, text=col)
         tree.column(col, anchor=tk.CENTER, stretch=True)
-
-    # Insert data
-    # for row in body_data:
-    #     tree.insert("", tk.END, values=row)
 
     tag_count = 0
     for row in body_data:
@@ -116,27 +129,16 @@ def student_page(dashboard, widget, content):
 
     adjust_column_widths(tree, columns)
 
-    # Create a scrollbar for the Treeview
-    scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL, command=tree.yview)
-    tree.configure(yscroll=scrollbar.set)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-    tree.pack(expand=True, fill='both', pady=20)
-
 def settings_page(dashboard, widget, content):
     label = widget.new_label(content, "Settings")
     label.pack(expand=True)
 
 def about_page(dashboard, widget, content):
-    # label = widget.new_label(content, "About")
-    # label.pack(expand=True)
-
     # image_path = "assets/python.png"
     # image = widget.new_image(content, image_path, width=200, height=200)
     # image.pack(pady=50)
     label = widget.new_label(content, "About")
     label.pack(expand=True)
-
 
 def set_button_focus(buttons, button_to_focus):
     for button in buttons:
@@ -172,11 +174,7 @@ def dashboard_ui():
     # Body element
     body = widget.new_frame(dashboard.window, body_bg_color, 0)
     body.pack(expand=True, fill="both")
-
-    # Dimensions of the sidebar
-    sidebar_width = 200
-    sidebar_height = 50
-
+ 
     # Sidebar
     sidebar = widget.new_frame(body, "transparent", 0, sidebar_width)
     sidebar.pack(side="left", fill="y", padx=15, pady=10)

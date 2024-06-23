@@ -7,7 +7,7 @@ INSERT INTO student (
   '0123456789', 'Marc',
   'Parker', '2003-05-22',
   'M', 'New York',
-  '0123456789', '0006',
+  '0123456789', '0034',
   'Computer science', 'M2',
   'Cyber security'
 );

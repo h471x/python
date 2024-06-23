@@ -21,9 +21,17 @@ def init_tables():
         create_file().create_controller_file(create_query)
         return True
 
+def load_sql_seed():
+    with open(get_sql_file('seed.sql'), 'r') as data_seed:
+        seed_query = data_seed.read()
+
+    if db_query().execute(seed_query):
+        return True
+
 def get_status():
     return db_config().get_status()
 
 if __name__ == '__main__':
     get_status()
     init_tables()
+    load_sql_seed()

@@ -1,6 +1,8 @@
 import os
 from sys import path
+
 from os.path import abspath as abs, join as jn, dirname as dir
+
 from classes.utils.filehandler import FileHandler as NewFile
 
 class FileGenerator:
