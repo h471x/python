@@ -6,3 +6,6 @@ sidebar_hover_color = "#323232"
 sidebar_focus_color = "#2b2b2b"
 body_bg_color = "#121212"
 content_bg_color = "#262626"
+
+# treeview colors
+row_selected = "#0078d7"

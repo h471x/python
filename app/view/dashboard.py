@@ -13,6 +13,7 @@ from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
 from app.controllers.student import *
+
 from assets.styles.colors import *
 from assets.styles.defaults import configure_table_styles
 
@@ -77,7 +78,7 @@ def student_page(dashboard, widget, content):
     body_data = table_data[1:]
 
     # Call the styles
-    configure_table_styles()
+    configure_table_styles(dashboard.window)
 
     # Create the Treeview
     columns = header_row
