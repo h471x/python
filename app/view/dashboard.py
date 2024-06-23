@@ -13,6 +13,7 @@ from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
 from app.controllers.student import *
+from assets.styles.colors import *
 from assets.styles.defaults import configure_table_styles
 
 def close_window(window):
@@ -75,7 +76,7 @@ def student_page(dashboard, widget, content):
     header_row = table_data[0]
     body_data = table_data[1:]
 
-    # Apply styles
+    # Call the styles
     configure_table_styles()
 
     # Create the Treeview
@@ -100,8 +101,8 @@ def student_page(dashboard, widget, content):
         tag_count += 1
 
     # Apply the tags to the rows
-    tree.tag_configure('row1', background='#363636')
-    tree.tag_configure('row2', background='#282828')
+    tree.tag_configure('row1', background=row1_color)
+    tree.tag_configure('row2', background=row2_color)
 
     # Adjust column widths based on content
     def adjust_column_widths(tree, columns):
@@ -168,11 +169,12 @@ def dashboard_ui():
     buttons = []
 
     # Body element
-    body = widget.new_frame(dashboard.window, "#121212", 0)
+    body = widget.new_frame(dashboard.window, body_bg_color, 0)
     body.pack(expand=True, fill="both")
 
-    # Width of the sidebar
+    # Dimensions of the sidebar
     sidebar_width = 200
+    sidebar_height = 50
 
     # Sidebar
     sidebar = widget.new_frame(body, "transparent", 0, sidebar_width)
@@ -184,7 +186,7 @@ def dashboard_ui():
         side="left", expand=True, fill="both", pady=(10, 10), padx=(0,10)
     )
 
-    content = widget.new_frame(main_container, "#262626", 5)
+    content = widget.new_frame(main_container, content_bg_color, 5)
     content.pack(expand=True, fill="both")
 
     # List of menu items and corresponding functions
@@ -200,7 +202,8 @@ def dashboard_ui():
     for label, function in menu_items:
         button = create_sidebar_button(
             widget, sidebar, label, buttons, content,
-            sidebar_width, 50, "#121212", "#323232", "#2b2b2b",
+            sidebar_width, sidebar_height,
+            sidebar_color, sidebar_hover_color, sidebar_focus_color,
             dashboard, click_function=function
         )
         buttons.append(button)
