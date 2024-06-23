@@ -1,6 +1,5 @@
 psycopg2
 pyqt6
 customtkinter
-CTkTable
 pillow
 tkcalendar

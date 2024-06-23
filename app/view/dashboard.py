@@ -1,8 +1,9 @@
 import customtkinter as ctk
 from customtkinter import *
+
 import tkinter as tk
 from tkinter import ttk
-from CTkTable import CTkTable
+
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
 
@@ -10,6 +11,7 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
+
 from app.controllers.student import *
 from assets.styles.defaults import configure_styles
 
@@ -18,7 +20,7 @@ def close_window(window):
         window.close()
     )
 
-def home_page(dashboard, widget, content):
+def dashboard_page(dashboard, widget, content):
     home_container = widget.new_frame(content, "transparent", 5)
     home_container.pack(expand=True, fill="both", padx=10, pady=10)
 
@@ -98,11 +100,22 @@ def home_page(dashboard, widget, content):
 
     tree.pack(expand=True, fill='both', pady=20)
 
-def menu_page(dashboard, widget, content):
-    button = widget.new_button(
-        content, "Close", close_window(dashboard)
-    )
-    button.pack(expand=True)
+def classes_page(dashboard, widget, content):
+    label = widget.new_label(content, "Classes")
+    label.pack(expand=True)
+
+def teacher_page(dashboard, widget, content):
+    # button = widget.new_button(
+    #     content, "Close", close_window(dashboard)
+    # )
+    # button.pack(expand=True)
+
+    label = widget.new_label(content, "Teachers")
+    label.pack(expand=True)
+
+def student_page(dashboard, widget, content):
+    label = widget.new_label(content, "Students")
+    label.pack(expand=True)
 
 def settings_page(dashboard, widget, content):
     label = widget.new_label(content, "Settings")
@@ -115,7 +128,9 @@ def about_page(dashboard, widget, content):
     # image_path = "assets/python.png"
     # image = widget.new_image(content, image_path, width=200, height=200)
     # image.pack(pady=50)
-    pass
+    label = widget.new_label(content, "About")
+    label.pack(expand=True)
+
 
 def set_button_focus(buttons, button_to_focus):
     for button in buttons:
@@ -143,7 +158,8 @@ def create_sidebar_button(
     return button
 
 def dashboard_ui():
-    dashboard = CtkWindow("Dashboard")
+    dashboard = CtkWindow("e-school")
+    dashboard.set_size(990,500)
     widget = CtkWidget()
     buttons = []
 
@@ -152,7 +168,7 @@ def dashboard_ui():
     body.pack(expand=True, fill="both")
 
     # Width of the sidebar
-    sidebar_width = 100
+    sidebar_width = 200
 
     # Sidebar
     sidebar = widget.new_frame(body, "transparent", 0, sidebar_width)
@@ -169,8 +185,10 @@ def dashboard_ui():
 
     # List of menu items and corresponding functions
     menu_items = [
-        ("Home", home_page),
-        ("Menu", menu_page),
+        ("Dashboard", dashboard_page),
+        ("Classes", classes_page),
+        ("Teachers", teacher_page),
+        ("Students", student_page),
         ("Settings", settings_page),
         ("About", about_page),
     ]
@@ -185,7 +203,7 @@ def dashboard_ui():
 
     # Focus the "Home" button
     set_button_focus(buttons, buttons[0])
-    home_page(dashboard, widget, content)
+    dashboard_page(dashboard, widget, content)
 
     dashboard.open_maximised()
 
