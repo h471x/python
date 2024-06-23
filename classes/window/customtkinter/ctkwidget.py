@@ -48,7 +48,7 @@ class CtkWidget:
             properties["height"] = height
         return CustomCtkFrame(**properties)
 
-    def new_label(self, parent, text, image=None ,font=None):
+    def new_label(self, parent, text, image=None ,font=("Roboto",20)):
         label = self.ctk.CTkLabel(master=parent, text=f"{text}", image=image,font=font)
         label.bind("<Enter>", lambda event: None)
         label.bind("<Leave>", lambda event: None)
