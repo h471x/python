@@ -13,12 +13,13 @@ class CtkWidget:
     def new_button(
         self, parent, text, btn_command,
         color=None, width=None, height=None,
-        radius=None, hover=None, focus=None
+        radius=None, hover=None, focus=None, font=("Roboto",15)
     ):
         button_params = {
             "master": parent,
             "text": f"{text}",
             "command": btn_command,
+            "font" : font
         }
         if color:
             button_params["fg_color"] = f"{color}"
