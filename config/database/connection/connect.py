@@ -1,3 +1,8 @@
+from sys import path
+from os.path import abspath as abs_path, join as join_path, dirname as dir_name
+
+path.append(abs_path(join_path(dir_name(__file__), '..', '..', '..')))
+
 from classes.database.dbconfig import DatabaseConfigurator as db_config
 from classes.database.dbquery import DatabaseQuery as db_query
 from classes.utils.filegenerator import FileGenerator as create_file
@@ -6,7 +11,7 @@ from sys import path
 from os.path import abspath as abs, join as jn, dirname as dir
 
 def get_sql_file(sql_file):
-    return abs(jn(dir(__file__), sql_file))
+    return abs(jn(dir(__file__), '..', 'sql', sql_file))
 
 def init_tables():
     with open(get_sql_file('tables.sql'), 'r') as postgres_tables:

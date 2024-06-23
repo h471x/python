@@ -12,7 +12,7 @@ pgPath="/etc/postgresql/$pgVersion/main"
 
 # Backup and copy new PostgreSQL configuration files
 pgConf="$pgPath/postgresql.conf"
-newConf="./config/postgres/postgresql.conf"
+newConf="./config/postgres/conf/postgresql.conf"
 if [ -f "$pgConf.bak" ]; then
 	echo "postgresql.conf already configured."
 else
@@ -27,7 +27,7 @@ fi
 
 # Backup and copy new pg_hba.conf file
 pgHba="$pgPath/pg_hba.conf"
-newHba="./config/postgres/pg_hba.conf"
+newHba="./config/postgres/conf/pg_hba.conf"
 if [ -f "$pgHba.bak" ]; then
 	echo "pg_hba.conf already configured."
 else
@@ -77,5 +77,5 @@ fi
 
 # Load the postgresql database configuration
 echo "Configuring PostgreSQL Database"
-sudo -u postgres psql -f config/postgres/reset.sql
-sudo -u postgres psql -f config/postgres/python.sql
+sudo -u postgres psql -f config/postgres/python/reset.sql
+sudo -u postgres psql -f config/postgres/python/python.sql

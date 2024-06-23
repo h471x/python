@@ -2,11 +2,11 @@
 
 * Init the database
 ```shell
-sudo -u postgres psql -f config/postgres/python.sql 2>/dev/null
+sudo -u postgres psql -f config/postgres/python/python.sql 2>/dev/null
 ```
 * Reset database
 ```shell
-sudo -u postgres psql -f config/postgres/reset.sql 2>/dev/null
+sudo -u postgres psql -f config/postgres/python/reset.sql 2>/dev/null
 ```
 * Access the console with the python user
 ```shell

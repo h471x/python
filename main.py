@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from config.database.connect import get_status, init_tables
+from config.database.connection.connect import get_status, init_tables
 
 from app.view.dashboard import dashboard_ui
 from app.view.qtlogin import LoginUi

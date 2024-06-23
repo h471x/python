@@ -21,11 +21,14 @@ def close_window(window):
     )
 
 def dashboard_page(dashboard, widget, content):
-    home_container = widget.new_frame(content, "transparent", 5)
-    home_container.pack(expand=True, fill="both", padx=10, pady=10)
+    # home_container = widget.new_frame(content, "transparent", 5)
+    # home_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    input = widget.new_input(home_container, "#323232")
-    input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
+    # input = widget.new_input(home_container, "#323232")
+    # input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
+
+    label = widget.new_label(content, "Dashboard")
+    label.pack(expand=True)
 
     # users = ["user1", "user2", "user3"]
 
@@ -34,6 +37,24 @@ def dashboard_page(dashboard, widget, content):
 
     # get data from database
     # table_data = student_select_all()
+
+def classes_page(dashboard, widget, content):
+    label = widget.new_label(content, "Classes")
+    label.pack(expand=True)
+
+def teacher_page(dashboard, widget, content):
+    # button = widget.new_button(
+    #     content, "Close", close_window(dashboard)
+    # )
+    # button.pack(expand=True)
+
+    label = widget.new_label(content, "Teachers")
+    label.pack(expand=True)
+
+def student_page(dashboard, widget, content):
+    student_container = widget.new_frame(content, "transparent", 5)
+    student_container.pack(expand=True, fill="both", padx=10, pady=10)
+
     table_data = student.raw_get(f"""
         SELECT
             student_id AS IdNum,
@@ -47,7 +68,7 @@ def dashboard_page(dashboard, widget, content):
     """)
 
     # Create a scrollable frame for the table body
-    table_frame = CTkFrame(master=home_container, fg_color="transparent")
+    table_frame = CTkFrame(master=student_container, fg_color="transparent")
     table_frame.pack(expand=True, fill="both", padx=(21,0), pady=0)
 
     # Extract the header row from `table_data`
@@ -99,23 +120,6 @@ def dashboard_page(dashboard, widget, content):
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
     tree.pack(expand=True, fill='both', pady=20)
-
-def classes_page(dashboard, widget, content):
-    label = widget.new_label(content, "Classes")
-    label.pack(expand=True)
-
-def teacher_page(dashboard, widget, content):
-    # button = widget.new_button(
-    #     content, "Close", close_window(dashboard)
-    # )
-    # button.pack(expand=True)
-
-    label = widget.new_label(content, "Teachers")
-    label.pack(expand=True)
-
-def student_page(dashboard, widget, content):
-    label = widget.new_label(content, "Students")
-    label.pack(expand=True)
 
 def settings_page(dashboard, widget, content):
     label = widget.new_label(content, "Settings")
