@@ -54,7 +54,7 @@ class CtkWidget:
         label.bind("<Leave>", lambda event: None)
         return label
 
-    def new_input(self, parent, color,text_color="white",font=None,corner_radius=None,placeholder_text=None,placeholder_text_color="white"):
+    def new_input(self, parent, color,text_color="white",font=("Roboto",15),corner_radius=10,placeholder_text=None,placeholder_text_color="white"):
         return self.ctk.CTkEntry(
             master=parent,
             fg_color=f"{color}",
