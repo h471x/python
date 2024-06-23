@@ -20,7 +20,6 @@ def load_font(window):
             window.tk.call(
                 'font', 'create', font_family,
                 '-family', font_family,
-                '-size', '20'
             )
     except tk.TclError as e:
         print(f"Error loading font: {e}")
@@ -44,7 +43,7 @@ def configure_table_styles(window):
     # Configure Treeview rows
     style.configure(
         "Treeview",
-        font=(font_family, 15),
+        font=(font_family, 18),
         rowheight=70,
         background="#202020",
         foreground="#FFFFFF",
