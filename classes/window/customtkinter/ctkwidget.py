@@ -56,14 +56,14 @@ class CtkWidget:
 
     def new_input(self, parent, color, text_color="white",font=None,corner_radius=None,placeholder_text=None,placeholder_text_color="white"):
         return self.ctk.CTkEntry(
-            master=parent,
-            fg_color=f"{color}",
-            border_width=0,
-            text_color=text_color,
-            font=font,
-            corner_radius=corner_radius,
-            placeholder_text=placeholder_text,
-            placeholder_text_color=placeholder_text_color
+            master = parent,
+            fg_color = f"{color}",
+            border_width = 0,
+            text_color = text_color,
+            font = font,
+            corner_radius = corner_radius,
+            placeholder_text = placeholder_text,
+            placeholder_text_color = placeholder_text_color
         )
 
     # def new_input(self, parent, *args, **kwargs):
@@ -84,10 +84,19 @@ class CtkWidget:
 
     def new_dropdown(self, parent, values, width, height):
         return self.ctk.CTkComboBox(
-            master=parent,
-            values=values,
-            width=width,
-            height=height
+            master = parent,
+            values = values,
+            width = width,
+            height = height
+        )
+
+    def new_radio(self, parent, text, command, variable, value):
+        return self.ctk.CTkRadioButton(
+            parent,
+            text = f"{text}",
+            command = command,
+            variable = variable,
+            value = value
         )
 
 # extended class CustomCtkButton

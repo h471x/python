@@ -13,7 +13,7 @@ from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
 from app.controllers.student import *
-from assets.styles.defaults import configure_styles
+from assets.styles.defaults import configure_table_styles
 
 def close_window(window):
     return lambda: (
@@ -55,7 +55,7 @@ def dashboard_page(dashboard, widget, content):
     body_data = table_data[1:]
 
     # Apply styles
-    configure_styles()
+    configure_table_styles()
 
     # Create the Treeview
     columns = header_row

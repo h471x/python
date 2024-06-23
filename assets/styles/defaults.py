@@ -1,6 +1,6 @@
 from tkinter import ttk
 
-def configure_styles():
+def configure_table_styles():
     style = ttk.Style()
 
     # Configure Treeview headers
