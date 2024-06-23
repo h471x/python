@@ -1,16 +1,10 @@
 #!/usr/bin/python
+
 from config.database.connection.connect import get_status, init_tables
 
 from app.view.dashboard import dashboard_ui
-from app.view.qtlogin import LoginUi
-from classes.window.pyqt6.qtwindow import QtWindow, GuiApp
-
-def open_login():
-    login = QtWindow(LoginUi(), GuiApp)
-    login.open()
 
 if __name__ == '__main__':
     if get_status() == 'connected':
         if init_tables():
-            # open_login()
             dashboard_ui()
