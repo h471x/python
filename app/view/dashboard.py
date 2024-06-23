@@ -31,7 +31,18 @@ def home_page(dashboard, widget, content):
     # users_list.pack(side="left", padx=(13, 0), pady=15)
 
     # get data from database
-    table_data = student_select_all()
+    # table_data = student_select_all()
+    table_data = student.raw_get(f"""
+        SELECT
+            student_id AS IdNum,
+            last_name as LastName,
+            first_name as FirstName,
+            major as Grade,
+            level as Level,
+            phone as PhoneNumber,
+            adress as Adress
+        FROM student
+    """)
 
     # Create a scrollable frame for the table body
     table_frame = CTkFrame(master=home_container, fg_color="transparent")
@@ -56,8 +67,18 @@ def home_page(dashboard, widget, content):
         tree.column(col, anchor=tk.CENTER, stretch=True)
 
     # Insert data
+    # for row in body_data:
+    #     tree.insert("", tk.END, values=row)
+
+    tag_count = 0
     for row in body_data:
-        tree.insert("", tk.END, values=row)
+        tag = 'row1' if tag_count % 2 == 0 else 'row2'
+        tree.insert("", tk.END, values=row, tags=(tag,))
+        tag_count += 1
+
+    # Apply the tags to the rows
+    tree.tag_configure('row1', background='#363636')
+    tree.tag_configure('row2', background='#282828')
 
     # Adjust column widths based on content
     def adjust_column_widths(tree, columns):
@@ -130,8 +151,11 @@ def dashboard_ui():
     body = widget.new_frame(dashboard.window, "#121212", 0)
     body.pack(expand=True, fill="both")
 
+    # Width of the sidebar
+    sidebar_width = 100
+
     # Sidebar
-    sidebar = widget.new_frame(body, "transparent", 0, 200)
+    sidebar = widget.new_frame(body, "transparent", 0, sidebar_width)
     sidebar.pack(side="left", fill="y", padx=15, pady=10)
 
     # Content element
@@ -154,7 +178,7 @@ def dashboard_ui():
     for label, function in menu_items:
         button = create_sidebar_button(
             widget, sidebar, label, buttons, content,
-            200, 50, "#121212", "#323232", "#2b2b2b",
+            sidebar_width, 50, "#121212", "#323232", "#2b2b2b",
             dashboard, click_function=function
         )
         buttons.append(button)

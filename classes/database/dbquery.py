@@ -1,13 +1,12 @@
 from .dbconfig import DatabaseConfigurator as db_config
 
-class DatabaseQuery:
+class DatabaseQuery(db_config):
     def __init__(self):
-        self.db = db_config()
-        self.postgres = self.db.postgres
+        super().__init__()
 
     def execute(self, query):
         try:
-            connection = self.db.get_connection()
+            connection = self.get_connection()
             cursor = connection.cursor()
             cursor.execute(query)
             query_has_return_value = cursor.description is not None

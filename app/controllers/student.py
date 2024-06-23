@@ -72,7 +72,9 @@ if __name__ == '__main__':
     print(student_select_all())
     print(" ")
 
-
+    print(student.raw_get(f"""
+        SELECT student_id AS Matricule, major as Grade FROM student
+    """))
     # print("select student_data")
     # print(student_select(student_data_template))
     # print(" ")

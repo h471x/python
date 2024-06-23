@@ -1,4 +1,5 @@
 from .dbquery import DatabaseQuery as db_query
+import re
 
 class CrudHandler(db_query):
     def __init__(self, table):
@@ -53,7 +54,16 @@ class CrudHandler(db_query):
       )
 
     def raw_get(self, get_query):
-        return self.execute(get_query)
+        # get the data headers
+        headers = re.findall(
+            r'AS\s+(\w+)',
+            get_query,
+            re.IGNORECASE
+        ) if " AS " in get_query.upper() else []
+
+        # get the data
+        data = self.execute(get_query)
+        return [tuple(headers)] + data if headers else data
 
     def raw_execute(self, execute_query):
         self.execute(execute_query)
