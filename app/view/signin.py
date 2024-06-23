@@ -61,8 +61,18 @@ def signup_ui ():
     #Address
     address_label=widget.new_label(body,"address :",font=("Roboto",15))
     address_label.pack(padx=10,pady=10)
-    address_input=widget.new_input(body,"grey","address",placeholder_text="address")
+    address_input=widget.new_input(body,"grey",placeholder_text="Address")
     address_input.pack(padx=10,pady=10)
+    #Phone
+    phone_label=widget.new_label(body,"Phone number :",font=("Roboto",15))
+    phone_label.pack(padx=10,pady=10)
+    phone_input=widget.new_input(body,"grey",placeholder_text="Phone")
+    phone_input.pack(padx=10,pady=10)
+    #Username
+    username_label=widget.new_label(body,"Username :",font=("Roboto",15))
+    username_label.pack(padx=10,pady=10)
+    username_input=widget.new_input(body,"grey",placeholder_text="Username")
+    username_input.pack(padx=10,pady=10)
     
 
     signup.open_centered()
