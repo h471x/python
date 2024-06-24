@@ -35,7 +35,7 @@ def dashboard_page(dashboard, widget, content):
     users_list = widget.new_dropdown(
         home_container,
         [user[0] for user in users],
-        500, 30
+        125, 30, "center"
     ).pack(
         side="top",
         padx=(13, 0),
@@ -44,7 +44,7 @@ def dashboard_page(dashboard, widget, content):
     )
 
     input = widget.new_input(home_container, "#323232")
-    input.pack(fill="x", pady=(12,0), padx=27, ipady=10)
+    input.pack(fill="x", pady=(12,0), padx=27, ipady=10, ipadx=30)
 
     # label = widget.new_label(home_container, "Dashboard")
     # label.pack(expand=True)
@@ -54,11 +54,6 @@ def classes_page(dashboard, widget, content):
     label.pack(expand=True)
 
 def teacher_page(dashboard, widget, content):
-    # button = widget.new_button(
-    #     content, "Close", close_window(dashboard)
-    # )
-    # button.pack(expand=True)
-
     label = widget.new_label(content, "Teachers")
     label.pack(expand=True)
 
@@ -139,6 +134,12 @@ def about_page(dashboard, widget, content):
     # image.pack(pady=50)
     label = widget.new_label(content, "About")
     label.pack(expand=True)
+
+    button = widget.new_button(
+        content, "Close", close_window(dashboard)
+    )
+    button.pack(expand=True)
+
 
 def set_button_focus(buttons, button_to_focus):
     for button in buttons:

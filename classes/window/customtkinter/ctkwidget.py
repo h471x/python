@@ -13,12 +13,13 @@ class CtkWidget:
     def new_button(
         self, parent, text, btn_command,
         color=None, width=None, height=None,
-        radius=None, hover=None, focus=None
+        radius=None, hover=None, focus=None, font=("Roboto",15)
     ):
         button_params = {
             "master": parent,
             "text": f"{text}",
             "command": btn_command,
+            "font" : font
         }
         if color:
             button_params["fg_color"] = f"{color}"
@@ -48,13 +49,21 @@ class CtkWidget:
             properties["height"] = height
         return CustomCtkFrame(**properties)
 
-    def new_label(self, parent, text, image=None ,font=("Roboto",20)):
+    def new_label(
+        self, parent, text, image=None,
+        font=("Roboto",20)
+    ):
         label = self.ctk.CTkLabel(master=parent, text=f"{text}", image=image,font=font)
         label.bind("<Enter>", lambda event: None)
         label.bind("<Leave>", lambda event: None)
         return label
 
-    def new_input(self, parent, color,text_color="white",font=("Roboto",15),corner_radius=10,placeholder_text=None,placeholder_text_color="white"):
+    def new_input(
+        self, parent, color,
+        text_color="white", font=("Roboto",15),
+        corner_radius=10, placeholder_text=None,
+        placeholder_text_color="white"
+    ):
         return self.ctk.CTkEntry(
             master = parent,
             fg_color = f"{color}",
@@ -66,13 +75,6 @@ class CtkWidget:
             placeholder_text_color = placeholder_text_color
         )
 
-    # def new_input(self, parent, *args, **kwargs):
-    #     return self.ctk.CTkEntry(
-    #         master=parent,
-    #         *args,
-    #         **kwargs
-    #     )
-
     def new_image(self, parent, image_path, width=None, height=None):
         img_data = Image.open(image_path)
         img = self.ctk.CTkImage(light_image=img_data, dark_image=img_data)
@@ -82,12 +84,17 @@ class CtkWidget:
         frame.pack_propagate(False)
         return frame
 
-    def new_dropdown(self, parent, values, width, height):
+    def new_dropdown(
+        self, parent, values,
+        width, height,
+        justify = None
+    ):
         return self.ctk.CTkComboBox(
             master = parent,
             values = values,
             width = width,
-            height = height
+            height = height,
+            justify = f"{justify}" if justify else None,
         )
 
     def new_radio(self, parent, text, command, variable, value):
