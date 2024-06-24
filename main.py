@@ -5,7 +5,7 @@ from config.database.connection.connect import (
 )
 
 from app.view.dashboard import dashboard_ui
-from app.view.signin import signup_ui
+from app.view.signup import signup_ui
 
 if __name__ == '__main__':
     if get_status() == 'connected':

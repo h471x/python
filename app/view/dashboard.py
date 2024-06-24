@@ -12,6 +12,7 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
+from app.controllers.admin import *
 from app.controllers.student import *
 from app.controllers.teacher import *
 
@@ -29,7 +30,7 @@ def dashboard_page(dashboard, widget, content):
     home_container.pack(expand=True, fill="both", padx=10, pady=10)
 
     users = student.raw_get(f"""
-        SELECT last_name FROM student;
+        SELECT last_name FROM admin;
     """)
 
     users_list = widget.new_dropdown(
@@ -61,16 +62,14 @@ def student_page(dashboard, widget, content):
     student_container = widget.new_frame(content, "transparent", 5)
     student_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    table_data = student.raw_get(f"""
+    table_data = admin.raw_get(f"""
         SELECT
-            student_id AS IdNum,
-            last_name as LastName,
+            id_card as IdCard,
             first_name as FirstName,
-            major as Grade,
-            level as Level,
-            phone as PhoneNumber,
-            adress as Adress
-        FROM student
+            last_name as LastName,
+            birth as DoB,
+            phone as Phone
+        FROM admin
     """)
 
     # table_data = teacher_select_all()

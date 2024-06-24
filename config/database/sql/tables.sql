@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS person(
 CREATE TABLE IF NOT EXISTS admin(
   username TEXT PRIMARY KEY ,
   password TEXT NOT NULL,
-  workstation TEXT NOT NULL
+  workstation TEXT
 ) INHERITS (person);
 
 CREATE TABLE IF NOT EXISTS student(
