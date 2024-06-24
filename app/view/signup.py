@@ -20,6 +20,7 @@ def get_selected_date():
 #Radion button
 def radiobutton_event(gender_var):
     print(gender_var.get())
+
 #Insertion function
  #Admin
 def signup_admin():
@@ -29,8 +30,8 @@ def signup_admin():
 def signup_ui ():
     signup = CtkWindow("Register")
     signup.set_size(850,600)
-
     widget = CtkWidget()
+
     #To center header frame
     signup.window.grid_columnconfigure(0,weight=1)
     signup.window.grid_columnconfigure(1, weight=1)
@@ -41,15 +42,18 @@ def signup_ui ():
     #first frame for the header
     header = widget.new_frame(signup.window, "#1696C4", 5)
     header.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
+
     #Center label in header
     header.grid_columnconfigure(0,weight=1)
     signup_label = widget.new_label(header,"Sign Up",font=("Roboto",40))
+
     # signup_label.pack(expand=True,fill="both", padx=10, pady=10)
     signup_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
 
     #second frame for body1 that contains the input widgets
     body=widget.new_frame(signup.window,"transparent",5)
     body.grid(row=1,column=0,columnspan=2,padx=10,pady=10)
+
     #First name
     body1 = widget.new_frame(body, "transparent", 5)
     body2 = widget.new_frame(body, "transparent", 5)
@@ -86,6 +90,7 @@ def signup_ui ():
 
     male_radiobutton = customtkinter.CTkRadioButton(body1, text="Male",command=lambda: radiobutton_event(gender),variable=gender,value='M')
     female_radiobutton = customtkinter.CTkRadioButton(body1, text="Female",command=lambda: radiobutton_event(gender),variable=gender,value='F')
+
     male_radiobutton.grid(row=3,column=1,sticky="w")
     female_radiobutton.grid(row=3,column=2,sticky="w")
 
@@ -129,14 +134,17 @@ def signup_ui ():
 
     confirm_input = widget.new_input(body2,"grey",placeholder_text="Password")
     confirm_input.grid(row=4,column=1,padx=10,pady=10)
+
     #Frame for footer
     footer=widget.new_frame(signup.window,"transparent", 5)
     footer.grid(row=2,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
     footer.grid_columnconfigure(0,weight=1)
+
     # Inner frame for centering the button
     footer_inner = widget.new_frame(footer, "transparent", 5)
     footer_inner.grid(row=0, column=0, padx=10, pady=10)
     footer_inner.grid_columnconfigure(0, weight=1)
+
     #Button signup
     button_signup=widget.new_button(footer_inner,"Sign Up",signup_admin(),"#1696C4",hover="#7DD61E",focus="#7DD61E")
     button_signup.grid(row=0,column=0,padx=10,pady=10,sticky="ew")
