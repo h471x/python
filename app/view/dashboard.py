@@ -75,37 +75,48 @@ def student_page(dashboard, widget, content):
 
     # table_data = teacher_select_all()
 
-    # Create a scrollable frame for the table body
-    table_frame = CTkFrame(master=student_container, fg_color="transparent")
-    table_frame.pack(expand=True, fill="both", padx=0, pady=0)
-
     # Extract the header row from `table_data`
     header_row = table_data[0]
     body_data = table_data[1:]
+
+    # Create a frame for the headers
+    header_frame = widget.new_frame(student_container, "transparent", 5)
+    header_frame.pack(fill="x", padx=0, pady=0)
+
+    # Create the Treeview for headers only
+    header_tree = ttk.Treeview(header_frame, columns=header_row, show="headings", height=0, style="Treeview")
+    header_tree.pack(fill="x", padx=(10, 25), pady=0)
+
+    for col in header_row:
+        header_tree.heading(col, text=col, anchor=tk.CENTER)
+        header_tree.column(col, anchor=tk.CENTER, stretch=True)
+
+    # Create a scrollable frame for the table body
+    table_frame = CTkFrame(master=student_container, fg_color="transparent")
+    table_frame.pack(expand=True, fill="both", padx=0, pady=0)
 
     # Call the styles
     configure_table_styles(dashboard.window)
 
     # Create a scrollbar for the Treeview
-    scrollbar = ctk.CTkScrollableFrame(table_frame)
+    scrollbar = ctk.CTkScrollableFrame(table_frame, fg_color="transparent")
     scrollbar.pack(side='right', fill='both', expand=True, padx=0, pady=0)
 
-    # Create the Treeview
+    # Create the Treeview without the header row
     columns = header_row
     tree = ttk.Treeview(
-        scrollbar, columns=columns, show="headings", style="Treeview"
+        scrollbar, columns=columns, show="", style="Treeview"
     )
     tree.configure(yscroll=scrollbar)
     tree.pack(expand=True, fill='both')
 
-    # Define headings
+    # Define column properties
     for col in columns:
-        tree.heading(col, text=col)
         tree.column(col, anchor=tk.CENTER, stretch=True)
 
     tag_count = 0
     for row in body_data:
-        tag = 'row1' if tag_count % 2 == 0 else 'row2'
+        tag = 'row2' if tag_count % 2 else 'row1'
         tree.insert("", tk.END, values=row, tags=(tag,))
         tag_count += 1
 
@@ -113,16 +124,18 @@ def student_page(dashboard, widget, content):
     tree.tag_configure('row1', background=row1_color)
     tree.tag_configure('row2', background=row2_color)
 
-    # Adjust column widths based on content
-    def adjust_column_widths(tree, columns):
+    # Adjust column widths based on content and apply to both Treeviews
+    def adjust_column_widths(tree, header_tree, columns):
         for col in columns:
             max_len = len(col)
             for item in tree.get_children():
                 text = str(tree.item(item, "values")[columns.index(col)])
                 max_len = max(max_len, len(text))
-            tree.column(col, width=max_len * 10)
+            width = max_len * 10
+            tree.column(col, width=width)
+            header_tree.column(col, width=width)
 
-    adjust_column_widths(tree, columns)
+    adjust_column_widths(tree, header_tree, columns)
 
 def settings_page(dashboard, widget, content):
     label = widget.new_label(content, "Settings")
@@ -139,7 +152,6 @@ def about_page(dashboard, widget, content):
         content, "Close", close_window(dashboard)
     )
     button.pack(expand=True)
-
 
 def set_button_focus(buttons, button_to_focus):
     for button in buttons:
