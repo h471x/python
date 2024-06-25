@@ -51,6 +51,7 @@ def select_date(entry, date_entry, next_entry):
 def signup_ui ():
     signup = CtkWindow("Register")
     signup.set_size(850,600)
+    signup.not_resizable()
     widget = CtkWidget()
 
     # To center header frame
@@ -72,7 +73,7 @@ def signup_ui ():
     signup_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
 
     # second frame for body1 that contains the input widgets
-    body=widget.new_frame(signup.window,"transparent",5)
+    body = widget.new_frame(signup.window,"transparent",5)
     body.grid(row=1,column=0,columnspan=2,padx=10,pady=10)
 
     # First name
@@ -83,7 +84,7 @@ def signup_ui ():
     body1.grid(row=1,column=0, padx=10, pady=10,sticky="nsew")
     body2.grid(row=1,column=1, padx=10, pady=10,sticky="nsew")
 
-    firstname_label = widget.new_label(body1,"First name :",font=("Roboto",20))
+    firstname_label = widget.new_label(body1,"First name",font=("Roboto",20))
     firstname_label.grid(row=0,column=0,padx=10,pady=10)
 
     firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First name",font=("Roboto",15),corner_radius=10)
@@ -93,14 +94,14 @@ def signup_ui ():
     firstname_input.focus_set()
 
     # Last name
-    lastname_label = widget.new_label(body1,"Last name :",font=("Roboto",20))
+    lastname_label = widget.new_label(body1,"Last name",font=("Roboto",20))
     lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
     lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
 
     # Birth
-    birth_label = widget.new_label(body1,"Birth :",font=("Roboto",20))
+    birth_label = widget.new_label(body1,"Birth",font=("Roboto",20))
     birth_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
     # Calculate the date 18 years ago
@@ -172,14 +173,14 @@ def signup_ui ():
     calendar_view.bind("<<DateEntrySelected>>", calendar_date_selected)
 
     # Address
-    address_label = widget.new_label(body1,"Address :")
+    address_label = widget.new_label(body1,"Address")
     address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
     address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
     address_input.grid(row=3,column=1,padx=10,pady=10)
 
     # Gender
-    gender_label = widget.new_label(body1,"Gender :",font=("Roboto",20))
+    gender_label = widget.new_label(body1,"Gender",font=("Roboto",20))
     gender_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
     gender = tkinter.StringVar(value="")
 
@@ -203,34 +204,34 @@ def signup_ui ():
     female_radiobutton.grid(row=4, column=2, sticky="w", padx=5)
 
     # National_card
-    national_card_label = widget.new_label(body2,"National card number :")
+    national_card_label = widget.new_label(body2,"National card number")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
 
     national_card_input = widget.new_input(body2,input_bg_color,placeholder_text="National card")
     national_card_input.grid(row=0,column=1,padx=10,pady=10)
 
     # Phone
-    phone_label = widget.new_label(body2,"Phone number :")
+    phone_label = widget.new_label(body2,"Phone number")
     phone_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
     phone_input = widget.new_input(body2,input_bg_color,placeholder_text="Phone")
     phone_input.grid(row=1,column=1,padx=10,pady=10)
 
     #Username
-    username_label = widget.new_label(body2,"Username :")
+    username_label = widget.new_label(body2,"Username")
     username_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
     username_input = widget.new_input(body2,input_bg_color,placeholder_text="Username")
     username_input.grid(row=2,column=1,padx=10,pady=10)
 
     #Password
-    password_label = widget.new_label(body2,"Password:")
+    password_label = widget.new_label(body2,"Password")
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
     password_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
     password_input.grid(row=3,column=1,padx=10,pady=10)
 
-    confirm_label = widget.new_label(body2,"Confirm:")
+    confirm_label = widget.new_label(body2,"Confirm")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
     confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")

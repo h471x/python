@@ -37,6 +37,9 @@ class CtkWindow:
     def make_resizable(self):
         self.window.resizable(width=True, height=True)
 
+    def not_resizable(self):
+        self.window.resizable(width=False, height=False)
+
     def open(self):
         self.window.mainloop()
 
