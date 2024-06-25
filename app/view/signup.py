@@ -40,7 +40,7 @@ def signup_admin(admin_data):
 
 # Function to handle date selection
 def select_date(entry, date_entry, next_entry):
-    selected_date = date_entry.get_date().strftime('%Y-%m-%d')
+    selected_date = date_entry.get_date()
     entry.delete(0, tkinter.END)
     entry.insert(0, selected_date)
     next_entry.focus_set()
@@ -118,11 +118,25 @@ def signup_ui ():
     # Create DateEntry but hide it initially
     calendar_view = DateEntry(birth_input, year=2024, month=6, day=24, state="readonly", background='darkblue', foreground='white', borderwidth=2)
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
-    calendar_view._calendar.winfo_toplevel().withdraw()  # Initially hide the calendar part
+
+    # Initially hide the calendar part
+    calendar_view._calendar.winfo_toplevel().withdraw()
     calendar_view.grid_remove()
 
     # Bind calendar date selection to update the birth_input field
     def show_calendar(event):
+        # Calculate the position relative to birth_input
+        x = birth_input.winfo_rootx()
+        y = birth_input.winfo_rooty() + birth_input.winfo_height() + 10
+
+        # Update calendar position
+        calendar_view._calendar.winfo_toplevel().geometry(f"+{x}+{y}")
+
+        # Disable direct keyboard input in birth_input
+        birth_input.event_generate("<FocusOut>")  # Make sure input focus is out
+        birth_input.event_generate("<Key>")  # Consume the key event
+
+        # Show the calendar
         calendar_view._calendar.winfo_toplevel().deiconify()
 
     def hide_calendar(event):
