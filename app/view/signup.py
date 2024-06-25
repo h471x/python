@@ -12,6 +12,8 @@ from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
 
 from app.view.dashboard import dashboard_ui
+
+from assets.styles.colors import *
 from app.controllers.admin import *
 
 # To use this function we need two argument to store the value of the input in front section :: gender , date
@@ -50,7 +52,7 @@ def signup_ui ():
     signup.window.grid_rowconfigure(2, weight=1)
 
     # first frame for the header
-    header = widget.new_frame(signup.window, "#1696C4", 5)
+    header = widget.new_frame(signup.window, signup_header_color, 5)
     header.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
 
     # Center label in header
@@ -75,14 +77,14 @@ def signup_ui ():
     firstname_label = widget.new_label(body1,"First name :",font=("Roboto",20))
     firstname_label.grid(row=0,column=0,padx=10,pady=10)
 
-    firstname_input = widget.new_input(body1,"grey",placeholder_text="First name",font=("Roboto",15),corner_radius=10)
+    firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First name",font=("Roboto",15),corner_radius=10)
     firstname_input.grid(row=0,column=1,padx=10,pady=10)
 
     # Last name
     lastname_label = widget.new_label(body1,"Last name :",font=("Roboto",20))
     lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
-    lastname_input = widget.new_input(body1,"grey",placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
+    lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
 
     # Birth
@@ -117,41 +119,41 @@ def signup_ui ():
     address_label = widget.new_label(body1,"Address :")
     address_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
-    address_input = widget.new_input(body1,"grey",placeholder_text="Address")
+    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
     address_input.grid(row=4,column=1,padx=10,pady=10)
 
     # National_card
     national_card_label = widget.new_label(body2,"National card number :")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
 
-    national_card_input = widget.new_input(body2,"grey",placeholder_text="National card")
+    national_card_input = widget.new_input(body2,input_bg_color,placeholder_text="National card")
     national_card_input.grid(row=0,column=1,padx=10,pady=10)
 
     # Phone
     phone_label = widget.new_label(body2,"Phone number :")
     phone_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
-    phone_input = widget.new_input(body2,"grey",placeholder_text="Phone")
+    phone_input = widget.new_input(body2,input_bg_color,placeholder_text="Phone")
     phone_input.grid(row=1,column=1,padx=10,pady=10)
 
     #Username
     username_label = widget.new_label(body2,"Username :")
     username_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
-    username_input = widget.new_input(body2,"grey",placeholder_text="Username")
+    username_input = widget.new_input(body2,input_bg_color,placeholder_text="Username")
     username_input.grid(row=2,column=1,padx=10,pady=10)
 
     #Password
     password_label = widget.new_label(body2,"Password:")
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
-    password_input = widget.new_input(body2,"grey",placeholder_text="Password")
+    password_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
     password_input.grid(row=3,column=1,padx=10,pady=10)
 
     confirm_label = widget.new_label(body2,"Confirm:")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
-    confirm_input = widget.new_input(body2,"grey",placeholder_text="Password")
+    confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
     confirm_input.grid(row=4,column=1,padx=10,pady=10)
 
     #Frame for footer
@@ -183,9 +185,9 @@ def signup_ui ():
         footer_inner,
         "Sign Up",
         lambda: signup_admin(get_admin_data()),
-        "#1696C4",
-        hover="#7DD61E",
-        focus="#7DD61E"
+        signup_btn_color,
+        hover=signup_btn_hover_color,
+        focus=signup_btn_focus_color
     )
     button_signup.grid(row=0,column=0,padx=10,pady=10,sticky="ew")
     button_signup.configure(font=("Roboto",20))

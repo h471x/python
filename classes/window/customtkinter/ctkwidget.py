@@ -62,7 +62,7 @@ class CtkWidget:
         self, parent, color,
         text_color="white", font=("Roboto",15),
         corner_radius=10, placeholder_text=None,
-        placeholder_text_color="white"
+        placeholder_text_color="grey"
     ):
         return self.ctk.CTkEntry(
             master = parent,

@@ -44,7 +44,7 @@ def dashboard_page(dashboard, widget, content):
         expand=True
     )
 
-    input = widget.new_input(home_container, "#323232")
+    input = widget.new_input(home_container, input_bg_color)
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10, ipadx=30)
 
     # label = widget.new_label(home_container, "Dashboard")

@@ -36,8 +36,13 @@ def configure_table_styles(window):
         "Treeview.Heading",
         font=(font_family, 15, "bold"),
         padding=[20, 20, 20, 20],
-        background="#373737",
-        foreground="#FFFFFF",
+        background=header_color,
+        foreground=text_color,
+    )
+
+    style.map(
+        "Treeview.Heading",
+        background=[("hover", header_color)]
     )
 
     # Configure Treeview rows
@@ -45,13 +50,13 @@ def configure_table_styles(window):
         "Treeview",
         font=(font_family, 18),
         rowheight=70,
-        background="#202020",
-        foreground="#FFFFFF",
-        fieldbackground="#202020"
+        background="#262626",
+        foreground=text_color,
+        fieldbackground="#262626"
     )
 
     # Configure the style for selected row
     style.map("Treeview",
-        background=[("selected", row_selected)],
-        foreground=[("selected", "#FFFFFF")]
+        background=[("selected", row_selected_color)],
+        foreground=[("selected", text_color)]
     )
