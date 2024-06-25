@@ -180,28 +180,10 @@ def signup_ui ():
     address_input.grid(row=3,column=1,padx=10,pady=10)
 
     # Gender
-    gender_label = widget.new_label(body1,"Gender",font=("Roboto",20))
-    gender_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
-    gender = tkinter.StringVar(value="")
-
-    male_radiobutton = customtkinter.CTkRadioButton(
-        body1, text="Male",
-        command=lambda: radiobutton_event(gender),
-        variable=gender, value='M'
-    )
-
-    female_radiobutton = customtkinter.CTkRadioButton(
-        body1, text="Female",
-        command=lambda: radiobutton_event(gender),
-        variable=gender, value='F'
-    )
-
-    male_radiobutton.grid(row=4,column=1,sticky="w")
-    female_radiobutton.grid(row=4,column=2,sticky="w")
-
-    # Adjusted grid and padx for male and female radio buttons
-    male_radiobutton.grid(row=4, column=1, sticky="w", padx=5)
-    female_radiobutton.grid(row=4, column=2, sticky="w", padx=5)
+    gender_label = widget.new_label(body1, "Gender", font=("Roboto", 20))
+    gender_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
+    gender_combobox = customtkinter.CTkComboBox(body1, values=["M", "F"], state="readonly", justify="center")
+    gender_combobox.grid(row=4, column=1, padx=10, pady=10, sticky="w")
 
     # National_card
     national_card_label = widget.new_label(body2,"National card number")
@@ -254,7 +236,7 @@ def signup_ui ():
             'last_name': lastname_input.get(),
             'first_name': firstname_input.get(),
             'birth' : calendar_view.get(),
-            'gender': gender.get(),
+            'gender': gender_combobox.get(),
             'adress': address_input.get(),
             'phone': phone_input.get(),
             'username': username_input.get(),
