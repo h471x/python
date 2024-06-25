@@ -87,19 +87,15 @@ def signup_ui ():
     firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First name",font=("Roboto",15),corner_radius=10)
     firstname_input.grid(row=0,column=1,padx=10,pady=10)
 
+    # focus first_name input on startup
+    firstname_input.focus_set()
+
     # Last name
     lastname_label = widget.new_label(body1,"Last name :",font=("Roboto",20))
     lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
     lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
-
-    # Address
-    address_label = widget.new_label(body1,"Address :")
-    address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
-
-    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
-    address_input.grid(row=3,column=1,padx=10,pady=10)
 
     # Birth
     birth_label = widget.new_label(body1,"Birth :",font=("Roboto",20))
@@ -149,6 +145,13 @@ def signup_ui ():
     birth_input.bind("<FocusOut>", hide_calendar)
     calendar_view.bind("<<DateEntrySelected>>", calendar_date_selected)
 
+    # Address
+    address_label = widget.new_label(body1,"Address :")
+    address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
+
+    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
+    address_input.grid(row=3,column=1,padx=10,pady=10)
+
     # Gender
     gender_label = widget.new_label(body1,"Gender :",font=("Roboto",20))
     gender_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
@@ -168,7 +171,11 @@ def signup_ui ():
 
     male_radiobutton.grid(row=4,column=1,sticky="w")
     female_radiobutton.grid(row=4,column=2,sticky="w")
- 
+
+    # Adjusted grid and padx for male and female radio buttons
+    male_radiobutton.grid(row=4, column=1, sticky="w", padx=5)  # Reduced horizontal padding
+    female_radiobutton.grid(row=4, column=2, sticky="w", padx=5)  # Reduced horizontal padding
+
     # National_card
     national_card_label = widget.new_label(body2,"National card number :")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
