@@ -38,6 +38,13 @@ def signup_admin(admin_data):
     # dashboard_ui()
     # close_window(window)
 
+# Function to handle date selection
+def select_date(entry, date_entry, next_entry):
+    selected_date = date_entry.get_date().strftime('%Y-%m-%d')
+    entry.delete(0, tkinter.END)
+    entry.insert(0, selected_date)
+    next_entry.focus_set()
+
 # Front section
 def signup_ui ():
     signup = CtkWindow("Register")
@@ -87,17 +94,50 @@ def signup_ui ():
     lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
 
+    # Address
+    address_label = widget.new_label(body1,"Address :")
+    address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
+
+    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
+    address_input.grid(row=3,column=1,padx=10,pady=10)
+
     # Birth
     birth_label = widget.new_label(body1,"Birth :",font=("Roboto",20))
     birth_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
-    # Calendar
-    calendar_view = DateEntry(body1,year=2024,month=6,day=24)
-    calendar_view.grid(row=2,column=1,)
+    # Birth input
+    birth_input = widget.new_input(
+        body1,
+        input_bg_color,
+        placeholder_text="Date Of Birth",
+        font=("Roboto",15),
+        corner_radius=10,
+    )
+    birth_input.grid(row=2,column=1,padx=10,pady=10)
+
+    # Create DateEntry but hide it initially
+    calendar_view = DateEntry(birth_input, year=2024, month=6, day=24, state="readonly", background='darkblue', foreground='white', borderwidth=2)
+    calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
+    calendar_view._calendar.winfo_toplevel().withdraw()  # Initially hide the calendar part
+    calendar_view.grid_remove()
+
+    # Bind calendar date selection to update the birth_input field
+    def show_calendar(event):
+        calendar_view._calendar.winfo_toplevel().deiconify()
+
+    def hide_calendar(event):
+        calendar_view._calendar.winfo_toplevel().withdraw()
+
+    def calendar_date_selected(event):
+        select_date(birth_input, calendar_view, address_input)
+
+    birth_input.bind("<FocusIn>", show_calendar)
+    birth_input.bind("<FocusOut>", hide_calendar)
+    calendar_view.bind("<<DateEntrySelected>>", calendar_date_selected)
 
     # Gender
     gender_label = widget.new_label(body1,"Gender :",font=("Roboto",20))
-    gender_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
+    gender_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
     gender = tkinter.StringVar(value="")
 
     male_radiobutton = customtkinter.CTkRadioButton(
@@ -112,16 +152,9 @@ def signup_ui ():
         variable=gender, value='F'
     )
 
-    male_radiobutton.grid(row=3,column=1,sticky="w")
-    female_radiobutton.grid(row=3,column=2,sticky="w")
-
-    # Address
-    address_label = widget.new_label(body1,"Address :")
-    address_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
-
-    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
-    address_input.grid(row=4,column=1,padx=10,pady=10)
-
+    male_radiobutton.grid(row=4,column=1,sticky="w")
+    female_radiobutton.grid(row=4,column=2,sticky="w")
+ 
     # National_card
     national_card_label = widget.new_label(body2,"National card number :")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
