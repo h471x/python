@@ -72,58 +72,63 @@ def student_page(dashboard, widget, content):
         FROM admin
     """)
 
-    # table_data = teacher_select_all()
-
     # Extract the header row from `table_data`
     header_row = table_data[0]
     body_data = table_data[1:]
 
-    # Create a frame for the headers
-    header_frame = widget.new_frame(student_container, "transparent", 5)
+    # Create a frame to hold the table and the header
+    table_frame = widget.new_frame(student_container, "transparent", 5)
+    table_frame.pack(side="left", expand=True, fill="both", padx=0, pady=0)
+
+    # Call the styles
+    configure_table_styles(dashboard.window)
+
+    # Create a frame for the headers inside the table frame
+    header_frame = widget.new_frame(table_frame, "transparent", 5)
     header_frame.pack(fill="x", padx=0, pady=0)
 
     # Create the Treeview for headers only
     header_tree = ttk.Treeview(header_frame, columns=header_row, show="headings", height=0, style="Treeview")
-    header_tree.pack(fill="x", padx=(10, 25), pady=0)
+    header_tree.pack(fill="x", padx=0, pady=0)
 
     for col in header_row:
         header_tree.heading(col, text=col, anchor=tk.CENTER)
         header_tree.column(col, anchor=tk.CENTER, stretch=True)
 
-    # Create a scrollable frame for the table body
-    table_frame = CTkFrame(master=student_container, fg_color="transparent")
-    table_frame.pack(expand=True, fill="both", padx=0, pady=0)
-
-    # Call the styles
-    configure_table_styles(dashboard.window)
-
-    # Create a scrollbar for the Treeview
-    scrollbar = ctk.CTkScrollableFrame(table_frame, fg_color="transparent")
-    scrollbar.pack(side='right', fill='both', expand=True, padx=0, pady=0)
-
-    # Create the Treeview without the header row
+    # Create the Treeview
     columns = header_row
     tree = ttk.Treeview(
-        scrollbar, columns=columns, show="", style="Treeview"
+        table_frame, columns=columns, show="", style="Treeview"
     )
-    tree.configure(yscroll=scrollbar)
-    tree.pack(expand=True, fill='both')
+    tree.pack(expand=True, fill="both")
 
-    # Define column properties
+    # Create a new frame to hold the table_frame and the scrollbar
+    outer_frame = widget.new_frame(student_container, "transparent", 5)
+    outer_frame.pack(expand=True, fill="both", padx=0, pady=0)
+
+    # Place the table frame inside the outer frame
+    table_frame.pack(side="left", expand=True, fill="both")
+
+    # Create and place the scrollbar outside the table frame on the right
+    scrollbar = ctk.CTkScrollbar(
+        outer_frame, orientation="vertical", command=tree.yview
+    )
+    scrollbar.pack(side="right", fill="y")
+
+    tree.configure(yscrollcommand=scrollbar.set)
+
     for col in columns:
         tree.column(col, anchor=tk.CENTER, stretch=True)
 
     tag_count = 0
     for row in body_data:
-        tag = 'row2' if tag_count % 2 else 'row1'
+        tag = "row2" if tag_count % 2 else "row1"
         tree.insert("", tk.END, values=row, tags=(tag,))
         tag_count += 1
 
-    # Apply the tags to the rows
-    tree.tag_configure('row1', background=row1_color)
-    tree.tag_configure('row2', background=row2_color)
+    tree.tag_configure("row1", background=row1_color)
+    tree.tag_configure("row2", background=row2_color)
 
-    # Adjust column widths based on content and apply to both Treeviews
     def adjust_column_widths(tree, header_tree, columns):
         for col in columns:
             max_len = len(col)

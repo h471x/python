@@ -179,7 +179,7 @@ def signup_ui ():
         }
 
     # Button signup
-    button_signup=widget.new_button(
+    button_signup = widget.new_button(
         footer_inner,
         "Sign Up",
         lambda: signup_admin(get_admin_data()),

@@ -36,7 +36,7 @@ def configure_table_styles(window):
         "Treeview.Heading",
         font=(font_family, 15, "bold"),
         padding=[20, 20, 20, 20],
-        background="#000000",
+        background="#373737",
         foreground="#FFFFFF",
     )
 
