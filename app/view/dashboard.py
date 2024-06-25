@@ -68,7 +68,8 @@ def student_page(dashboard, widget, content):
             first_name as FirstName,
             last_name as LastName,
             birth as DoB,
-            phone as Phone
+            phone as Phone,
+            gender as Gender
         FROM admin
     """)
 

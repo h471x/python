@@ -182,7 +182,7 @@ def signup_ui ():
     # Gender
     gender_label = widget.new_label(body1, "Gender", font=("Roboto", 20))
     gender_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
-    gender_combobox = customtkinter.CTkComboBox(body1, values=["M", "F"], state="readonly", justify="center")
+    gender_combobox = customtkinter.CTkComboBox(body1, values=["Male", "Female"], state="readonly", justify="center")
     gender_combobox.grid(row=4, column=1, padx=10, pady=10, sticky="w")
 
     # National_card
@@ -236,7 +236,7 @@ def signup_ui ():
             'last_name': lastname_input.get(),
             'first_name': firstname_input.get(),
             'birth' : calendar_view.get(),
-            'gender': gender_combobox.get(),
+            'gender': "M" if gender_combobox.get() == "Male" else "F",
             'adress': address_input.get(),
             'phone': phone_input.get(),
             'username': username_input.get(),
