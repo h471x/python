@@ -1,7 +1,9 @@
 import tkinter
+from tkinter import ttk
 import customtkinter
 
 from tkcalendar import DateEntry
+from datetime import datetime
 
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
@@ -101,6 +103,13 @@ def signup_ui ():
     birth_label = widget.new_label(body1,"Birth :",font=("Roboto",20))
     birth_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
+    # Calculate the date 18 years ago
+    today = datetime.today()
+    initial_birth_date = today.replace(year=today.year - 18)
+
+    # Calculate the last date of the previous year
+    max_date = datetime(today.year - 1, 12, 31)
+
     # Birth input
     birth_input = widget.new_input(
         body1,
@@ -111,9 +120,26 @@ def signup_ui ():
     )
     birth_input.grid(row=2,column=1,padx=10,pady=10)
 
-    # Create DateEntry but hide it initially
-    calendar_view = DateEntry(birth_input, year=2024, month=6, day=24, state="readonly", background='darkblue', foreground='white', borderwidth=2)
+    # Create DateEntry with the calculated initial date and max date
+    calendar_view = DateEntry(
+        birth_input,
+        year=initial_birth_date.year,
+        month=initial_birth_date.month,
+        day=initial_birth_date.day,
+        state="readonly",
+        style='my.DateEntry',
+        background='darkblue',
+        foreground='white',
+        borderwidth=2,
+        maxdate=max_date
+    )
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
+
+    # Adjust size of the calendar popup
+    def configure_calendar_popup():
+        popup = calendar_view._calendar.winfo_toplevel()
+        popup.geometry("300x200")
+        popup.configure(background="darkblue")
 
     # Initially hide the calendar part
     calendar_view._calendar.winfo_toplevel().withdraw()
@@ -129,8 +155,8 @@ def signup_ui ():
         calendar_view._calendar.winfo_toplevel().geometry(f"+{x}+{y}")
 
         # Disable direct keyboard input in birth_input
-        birth_input.event_generate("<FocusOut>")  # Make sure input focus is out
-        birth_input.event_generate("<Key>")  # Consume the key event
+        birth_input.event_generate("<FocusOut>")
+        birth_input.event_generate("<Key>")
 
         # Show the calendar
         calendar_view._calendar.winfo_toplevel().deiconify()
@@ -173,8 +199,8 @@ def signup_ui ():
     female_radiobutton.grid(row=4,column=2,sticky="w")
 
     # Adjusted grid and padx for male and female radio buttons
-    male_radiobutton.grid(row=4, column=1, sticky="w", padx=5)  # Reduced horizontal padding
-    female_radiobutton.grid(row=4, column=2, sticky="w", padx=5)  # Reduced horizontal padding
+    male_radiobutton.grid(row=4, column=1, sticky="w", padx=5)
+    female_radiobutton.grid(row=4, column=2, sticky="w", padx=5)
 
     # National_card
     national_card_label = widget.new_label(body2,"National card number :")
