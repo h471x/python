@@ -50,24 +50,26 @@ def select_date(entry, date_entry, next_entry):
 # Front section
 def signup_ui ():
     signup = CtkWindow("Register")
-    signup.set_size(850,600)
-    signup.not_resizable()
     widget = CtkWidget()
+
+    signup.set_size(850,550)
+    signup.not_resizable()
 
     # To center header frame
     signup.window.grid_columnconfigure(0,weight=1)
-    signup.window.grid_columnconfigure(1, weight=1)
-    signup.window.grid_rowconfigure(0, weight=1)
-    signup.window.grid_rowconfigure(1, weight=1)
-    signup.window.grid_rowconfigure(2, weight=1)
+    signup.window.grid_columnconfigure(1,weight=1)
+
+    signup.window.grid_rowconfigure(0,weight=1)
+    signup.window.grid_rowconfigure(1,weight=1)
+    signup.window.grid_rowconfigure(2,weight=1)
 
     # first frame for the header
-    header = widget.new_frame(signup.window, signup_header_color, 5)
-    header.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
+    header = widget.new_frame(signup.window,row_selected_color,5)
+    header.grid(row=0,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
 
     # Center label in header
     header.grid_columnconfigure(0,weight=1)
-    signup_label = widget.new_label(header,"Sign Up",font=("Roboto",40))
+    signup_label = widget.new_label(header,"Register",font=("Roboto",40))
 
     # signup_label.pack(expand=True,fill="both", padx=10, pady=10)
     signup_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
@@ -77,12 +79,12 @@ def signup_ui ():
     body.grid(row=1,column=0,columnspan=2,padx=10,pady=10)
 
     # First name
-    body1 = widget.new_frame(body, "transparent", 5)
-    body2 = widget.new_frame(body, "transparent", 5)
+    body1 = widget.new_frame(body,"transparent",5)
+    body2 = widget.new_frame(body,"transparent",5)
 
     # body1.pack(expand=True, fill="both", padx=10, pady=10)
-    body1.grid(row=1,column=0, padx=10, pady=10,sticky="nsew")
-    body2.grid(row=1,column=1, padx=10, pady=10,sticky="nsew")
+    body1.grid(row=1,column=0,padx=10,pady=10,sticky="nsew")
+    body2.grid(row=1,column=1,padx=10,pady=10,sticky="nsew")
 
     firstname_label = widget.new_label(body1,"First name",font=("Roboto",20))
     firstname_label.grid(row=0,column=0,padx=10,pady=10)
@@ -182,6 +184,7 @@ def signup_ui ():
     # Gender
     gender_label = widget.new_label(body1, "Gender", font=("Roboto", 20))
     gender_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
+
     gender_combobox = customtkinter.CTkComboBox(body1, values=["Male", "Female"], state="readonly", justify="center")
     gender_combobox.grid(row=4, column=1, padx=10, pady=10, sticky="w")
 
@@ -222,12 +225,21 @@ def signup_ui ():
     #Frame for footer
     footer = widget.new_frame(signup.window,"transparent", 5)
     footer.grid(row=2,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
+
     footer.grid_columnconfigure(0,weight=1)
 
     # Inner frame for centering the button
     footer_inner = widget.new_frame(footer, "transparent", 5)
     footer_inner.grid(row=0, column=0, padx=10, pady=10)
+
     footer_inner.grid_columnconfigure(0, weight=1)
+
+    # get gender from gender_combobox
+    def get_gender():
+        if gender_combobox.get() == "Male":
+            return 'M'
+        else:
+            return 'F'
 
     # Define the admin data
     def get_admin_data():
@@ -236,7 +248,7 @@ def signup_ui ():
             'last_name': lastname_input.get(),
             'first_name': firstname_input.get(),
             'birth' : calendar_view.get(),
-            'gender': "M" if gender_combobox.get() == "Male" else "F",
+            'gender': get_gender(),
             'adress': address_input.get(),
             'phone': phone_input.get(),
             'username': username_input.get(),
@@ -248,9 +260,10 @@ def signup_ui ():
         footer_inner,
         "Sign Up",
         lambda: signup_admin(get_admin_data()),
-        signup_btn_color,
-        hover=signup_btn_hover_color,
-        focus=signup_btn_focus_color
+        row_selected_color,
+        150, 40, 30,
+        hover = signup_btn_hover_color,
+        focus = signup_btn_focus_color
     )
     button_signup.grid(row=0,column=0,padx=10,pady=10,sticky="ew")
     button_signup.configure(font=("Roboto",20))

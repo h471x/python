@@ -14,8 +14,8 @@ content_bg_color = "#262626"
 # signup colors
 signup_header_color = "#1696C4"
 signup_btn_color = "#1696C4"
-signup_btn_hover_color = "#7DD61E"
-signup_btn_focus_color = "#7DD61E"
+signup_btn_hover_color = "#238636"
+signup_btn_focus_color = "#238636"
 
 # treeview colors
 header_color = "#202020"
