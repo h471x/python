@@ -2,6 +2,8 @@ import tkinter
 from tkinter import ttk
 import customtkinter
 
+from PIL import Image, ImageTk
+
 from tkcalendar import DateEntry
 from datetime import datetime
 
@@ -18,16 +20,7 @@ from app.view.dashboard import dashboard_ui
 from assets.styles.colors import *
 from app.controllers.admin import *
 
-# To use this function we need two argument to store the value of the input in front section :: gender , date
-
 # Back section
-def get_selected_date():
-    return calendar_view.get_date()
-
-# Radion button
-def radiobutton_event(gender_var):
-    gender_var.get()
-
 def close_window(window):
     return lambda: (
         window.close()
@@ -47,6 +40,16 @@ def select_date(entry, date_entry, next_entry):
     entry.insert(0, selected_date)
     next_entry.focus_set()
 
+# Function to toggle password visibility
+def toggle_password(password_input, button, show_img, hide_img):
+    if password_input.cget('show') == '●':
+        password_input.configure(show='')
+        button.configure(image=hide_img)
+    else:
+        password_input.configure(show='●')
+        button.configure(image=show_img)
+
+
 # Front section
 def signup_ui ():
     signup = CtkWindow("Register")
@@ -62,6 +65,16 @@ def signup_ui ():
     signup.window.grid_rowconfigure(0,weight=1)
     signup.window.grid_rowconfigure(1,weight=1)
     signup.window.grid_rowconfigure(2,weight=1)
+
+    # Load images
+    show_img = Image.open("assets/images/show.png")
+    hide_img = Image.open("assets/images/hide.png")
+
+    show_img = show_img.resize((20, 20))
+    hide_img = hide_img.resize((20, 20))
+
+    hide_img = ImageTk.PhotoImage(hide_img)
+    show_img = ImageTk.PhotoImage(show_img)
 
     # first frame for the header
     header = widget.new_frame(signup.window,row_selected_color,5)
@@ -86,24 +99,26 @@ def signup_ui ():
     body1.grid(row=1,column=0,padx=10,pady=10,sticky="nsew")
     body2.grid(row=1,column=1,padx=10,pady=10,sticky="nsew")
 
-    firstname_label = widget.new_label(body1,"First name",font=("Roboto",20))
+    firstname_label = widget.new_label(body1,"First Name",font=("Roboto",20))
     firstname_label.grid(row=0,column=0,padx=10,pady=10)
 
-    firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First name",font=("Roboto",15),corner_radius=10)
+    firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First Name",font=("Roboto",15),corner_radius=10)
+    firstname_input.configure(font=("Roboto", 16), height=40, width=200)
     firstname_input.grid(row=0,column=1,padx=10,pady=10)
 
     # focus first_name input on startup
     firstname_input.focus_set()
 
     # Last name
-    lastname_label = widget.new_label(body1,"Last name",font=("Roboto",20))
+    lastname_label = widget.new_label(body1,"Last Name",font=("Roboto",20))
     lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
     lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
+    lastname_input.configure(font=("Roboto", 16), height=40, width=200)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
 
     # Birth
-    birth_label = widget.new_label(body1,"Birth",font=("Roboto",20))
+    birth_label = widget.new_label(body1,"Birth Date",font=("Roboto",20))
     birth_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
     # Calculate the date 18 years ago
@@ -118,23 +133,26 @@ def signup_ui ():
         body1,
         input_bg_color,
         placeholder_text="Date Of Birth",
-        font=("Roboto",15),
+        font=("Roboto",16),
         corner_radius=10,
     )
+    birth_input.configure(height=40, width=200)
     birth_input.grid(row=2,column=1,padx=10,pady=10)
 
     # Create DateEntry with the calculated initial date and max date
     calendar_view = DateEntry(
         birth_input,
-        year=initial_birth_date.year,
-        month=initial_birth_date.month,
-        day=initial_birth_date.day,
-        state="readonly",
-        style='my.DateEntry',
-        background='darkblue',
-        foreground='white',
-        borderwidth=2,
-        maxdate=max_date
+        year = initial_birth_date.year,
+        month = initial_birth_date.month,
+        day = initial_birth_date.day,
+        state = "readonly",
+        fieldbackground = 'black',
+        background = header_color,
+        foreground = 'white',
+        borderwidth = 2,
+        width = 200,
+        font=("Roboto", 16),
+        maxdate = max_date
     )
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
 
@@ -179,27 +197,38 @@ def signup_ui ():
     address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
     address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
+    address_input.configure(font=("Roboto", 16), height=40, width=200)
     address_input.grid(row=3,column=1,padx=10,pady=10)
 
     # Gender
     gender_label = widget.new_label(body1, "Gender", font=("Roboto", 20))
     gender_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
 
-    gender_combobox = customtkinter.CTkComboBox(body1, values=["Male", "Female"], state="readonly", justify="center")
+    gender_combobox = customtkinter.CTkComboBox(
+        body1,
+        values = ["Male", "Female"],
+        state = "readonly",
+        justify = "center",
+        font = ("Roboto", 16),
+        height = 35,
+        width = 200
+    )
     gender_combobox.grid(row=4, column=1, padx=10, pady=10, sticky="w")
 
     # National_card
-    national_card_label = widget.new_label(body2,"National card number")
+    national_card_label = widget.new_label(body2,"ID Card Number")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
 
-    national_card_input = widget.new_input(body2,input_bg_color,placeholder_text="National card")
+    national_card_input = widget.new_input(body2,input_bg_color,placeholder_text="National Card Number")
+    national_card_input.configure(font=("Roboto", 16), height=40, width=200)
     national_card_input.grid(row=0,column=1,padx=10,pady=10)
 
     # Phone
-    phone_label = widget.new_label(body2,"Phone number")
+    phone_label = widget.new_label(body2,"Phone Number")
     phone_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
     phone_input = widget.new_input(body2,input_bg_color,placeholder_text="Phone")
+    phone_input.configure(font=("Roboto", 16), height=40, width=200)
     phone_input.grid(row=1,column=1,padx=10,pady=10)
 
     #Username
@@ -207,6 +236,7 @@ def signup_ui ():
     username_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
     username_input = widget.new_input(body2,input_bg_color,placeholder_text="Username")
+    username_input.configure(font=("Roboto", 16), height=40, width=200)
     username_input.grid(row=2,column=1,padx=10,pady=10)
 
     #Password
@@ -214,13 +244,39 @@ def signup_ui ():
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
     password_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
+    password_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
     password_input.grid(row=3,column=1,padx=10,pady=10)
+
+    # Create the toggle button
+    toggle_password_btn = tkinter.Button(
+        body2,
+        image = show_img,
+        command = lambda : toggle_password(
+            password_input, toggle_password_btn, show_img, hide_img
+        ),
+        relief='flat',
+        bd=0
+    )
+    toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
 
     confirm_label = widget.new_label(body2,"Confirm")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
-    confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
+    confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Retype Password")
+    confirm_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
     confirm_input.grid(row=4,column=1,padx=10,pady=10)
+
+    # Create the toggle button
+    toggle_confirm_btn = tkinter.Button(
+        body2,
+        image = show_img,
+        command = lambda : toggle_password(
+            confirm_input, toggle_confirm_btn, show_img, hide_img
+        ),
+        relief='flat',
+        bd=0
+    )
+    toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
 
     #Frame for footer
     footer = widget.new_frame(signup.window,"transparent", 5)
@@ -261,7 +317,7 @@ def signup_ui ():
         "Sign Up",
         lambda: signup_admin(get_admin_data()),
         row_selected_color,
-        150, 40, 30,
+        150, 40, 10,
         hover = signup_btn_hover_color,
         focus = signup_btn_focus_color
     )
