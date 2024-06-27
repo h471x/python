@@ -14,6 +14,7 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
+from classes.window.customtkinter.ctkwidget import Notification_frame
 
 from app.view.dashboard import dashboard_ui
 
@@ -55,7 +56,7 @@ def signup_ui ():
     signup = CtkWindow("Register")
     widget = CtkWidget()
 
-    signup.set_size(850,550)
+    signup.set_size(850,600)
     signup.not_resizable()
 
     # To center header frame
@@ -311,11 +312,12 @@ def signup_ui ():
             'password': password_input.get(),
         }
 
+    notification=Notification_frame(footer_inner,"notif",1,0,"w")
     # Button signup
     button_signup = widget.new_button(
         footer_inner,
         "Sign Up",
-        lambda: signup_admin(get_admin_data()),
+        lambda  :notification.notif_show_success(),
         row_selected_color,
         150, 40, 10,
         hover = signup_btn_hover_color,
