@@ -1,5 +1,10 @@
 import customtkinter
 from PIL import Image
+from sys import path
+from os.path import abspath as abs_path, join as join_path, dirname as dir_name
+
+path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
+from assets.styles.colors import *
 
 # ctk_widget base class
 class CtkWidget:
@@ -188,7 +193,7 @@ class CustomCtkFrame(customtkinter.CTkFrame):
             self.configure(fg_color=self.original_color)
 
 class Notification_frame(customtkinter.CTkFrame):
-    def __init__(self, parent,message,posrow,poscolumn,stickyval, delay=3000, color="#7DD61E", *args, **kwargs):
+    def __init__(self, parent,message,posrow,poscolumn,stickyval, delay=3000, color=row_selected_color, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
         #Attribut 
         # self.frame=frame
@@ -214,13 +219,7 @@ class Notification_frame(customtkinter.CTkFrame):
     # if self.frame.winfo_ismapped():
     #     self.frame.grid_forget()
         # Ajouter le cadre de notification à la fenêtre principale a la place de l'ancien frame
+    def notif_show_success(self,delay=3000):
+        self.configure(fg_color="grey")
         self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
-        
-        # Fermer automatiquement la notification après 'delay' millisecondes
-        self.after(delay, self.destroy)
-        frame.grid(row=self.frow, column=fcol, padx=10, pady=10, sticky=self.stick)
-        # else:
-        #     for widget in root.grid_slaves(row=1, column=0):
-        #         widget.destroy()
-        #     default_frame.grid(row=0, column=0, sticky="nsew")
-        #
+        self.after(delay, self.grid_remove)
