@@ -243,44 +243,35 @@ def signup_ui ():
     password_label = widget.new_label(body2,"Password")
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
-    # Create a frame to hold the input and the button
-    password_frame = widget.new_frame(body2, "transparent", 0)
-    password_frame.grid(row=3,column=1,padx=10,pady=10)
-
-    # Password input
-    password_input = widget.new_input(password_frame, input_bg_color, placeholder_text="Password")
+    password_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
     password_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
-    password_input.pack(side="left", fill="both", expand=True)
+    password_input.grid(row=3,column=1,padx=10,pady=10)
 
     # Create the toggle button
     toggle_password_btn = tkinter.Button(
-        password_frame,
-        image=show_img,
-        command=lambda: toggle_password(
+        body2,
+        image = show_img,
+        command = lambda : toggle_password(
             password_input, toggle_password_btn, show_img, hide_img
         ),
-        relief='flat',
-        bd=0,
-        bg=input_bg_color,
-        activebackground=input_bg_color
+        relief = 'flat',
+        bd = 0,
+        bg = input_bg_color,
+        activebackground = input_bg_color
     )
-    toggle_password_btn.place(x=258, y=19)
+    toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
 
     # Confirm Password
     confirm_label = widget.new_label(body2,"Confirm")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
-    # Create a frame to hold the input and the button
-    confirm_frame = widget.new_frame(body2, "transparent", 0)
-    confirm_frame.grid(row=4,column=1,padx=10,pady=10)
-
-    confirm_input = widget.new_input(confirm_frame,input_bg_color,placeholder_text="Retype Password")
+    confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Retype Password")
     confirm_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
     confirm_input.grid(row=4,column=1,padx=10,pady=10)
 
     # Create the toggle button
     toggle_confirm_btn = tkinter.Button(
-        confirm_frame,
+        body2,
         image = show_img,
         command = lambda : toggle_password(
             confirm_input, toggle_confirm_btn, show_img, hide_img
@@ -290,7 +281,7 @@ def signup_ui ():
         bg = input_bg_color,
         activebackground = input_bg_color
     )
-    toggle_confirm_btn.place(x=272, y=34)
+    toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
 
     #Frame for footer
     footer = widget.new_frame(signup.window,"transparent", 5)
