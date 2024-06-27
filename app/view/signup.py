@@ -337,8 +337,6 @@ def signup_ui ():
     button_signup.configure(font=("Roboto",20))
 
     signup.open_centered()
-    # Start the Tkinter main loop
-    signup.window.mainloop()
 
 if __name__ == '__main__':
     signup_ui()
