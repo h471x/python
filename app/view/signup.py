@@ -19,6 +19,7 @@ from classes.window.customtkinter.ctkwidget import Notification_frame
 from app.view.dashboard import dashboard_ui
 
 from assets.styles.colors import *
+from assets.styles.dimensions import calendar_font
 from app.controllers.admin import *
 
 # Back section
@@ -152,7 +153,7 @@ def signup_ui ():
         foreground = 'white',
         borderwidth = 2,
         width = 200,
-        font=("Roboto", 16),
+        font = calendar_font,
         maxdate = max_date
     )
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
@@ -232,7 +233,7 @@ def signup_ui ():
     phone_input.configure(font=("Roboto", 16), height=40, width=200)
     phone_input.grid(row=1,column=1,padx=10,pady=10)
 
-    #Username
+    # Username
     username_label = widget.new_label(body2,"Username")
     username_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
@@ -240,7 +241,7 @@ def signup_ui ():
     username_input.configure(font=("Roboto", 16), height=40, width=200)
     username_input.grid(row=2,column=1,padx=10,pady=10)
 
-    #Password
+    # Password
     password_label = widget.new_label(body2,"Password")
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
@@ -255,11 +256,16 @@ def signup_ui ():
         command = lambda : toggle_password(
             password_input, toggle_password_btn, show_img, hide_img
         ),
-        relief='flat',
-        bd=0
+        relief = 'flat',
+        bd = 0,
+        highlightthickness = 0,
+        bg = input_bg_color,
+        activebackground = input_bg_color,
+        takefocus = False
     )
     toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
 
+    # Confirm Password
     confirm_label = widget.new_label(body2,"Confirm")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
@@ -274,8 +280,12 @@ def signup_ui ():
         command = lambda : toggle_password(
             confirm_input, toggle_confirm_btn, show_img, hide_img
         ),
-        relief='flat',
-        bd=0
+        relief = 'flat',
+        bd = 0,
+        highlightthickness = 0,
+        bg = input_bg_color,
+        activebackground = input_bg_color,
+        takefocus = False
     )
     toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
 
