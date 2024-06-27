@@ -186,3 +186,41 @@ class CustomCtkFrame(customtkinter.CTkFrame):
         self.is_focused = False
         if self.focus_color:
             self.configure(fg_color=self.original_color)
+
+class Notification_frame(customtkinter.CTkFrame):
+    def __init__(self, parent,message,posrow,poscolumn,stickyval, delay=3000, color="#7DD61E", *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        #Attribut 
+        # self.frame=frame
+        self.frow=posrow
+        self.fcol=poscolumn
+        self.stick=f"{stickyval}"
+        # Configuration des couleurs
+        self.configure(fg_color=color)  # Utilisation d'une couleur de fond
+        
+        # Ajouter un label au cadre de notification
+        notif_label = customtkinter.CTkLabel(self, text=message, text_color="white", font=("Arial", 14))
+        notif_label.grid(row=0, column=0, padx=20, pady=20, sticky="w")
+        
+        # Ajouter un bouton pour fermer la notification
+        close_button = customtkinter.CTkButton(self, text="Fermer", text_color=color, fg_color="white", command=self.destroy)
+        close_button.grid(row=0, column=1, padx=10, pady=10, sticky="e")
+        
+        # Ajouter le cadre de notification à la fenêtre principale en bas
+        
+        # Fermer automatiquement la notification après 'delay' millisecondes
+
+
+    # if self.frame.winfo_ismapped():
+    #     self.frame.grid_forget()
+        # Ajouter le cadre de notification à la fenêtre principale a la place de l'ancien frame
+        self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
+        
+        # Fermer automatiquement la notification après 'delay' millisecondes
+        self.after(delay, self.destroy)
+        frame.grid(row=self.frow, column=fcol, padx=10, pady=10, sticky=self.stick)
+        # else:
+        #     for widget in root.grid_slaves(row=1, column=0):
+        #         widget.destroy()
+        #     default_frame.grid(row=0, column=0, sticky="nsew")
+        #
