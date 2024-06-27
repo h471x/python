@@ -322,12 +322,12 @@ def signup_ui ():
             'password': password_input.get(),
         }
 
-    notification=Notification_frame(footer_inner,"notif",1,0,"w")
+    notification=Notification_frame(footer_inner,"Ceci est test pour un long message dans la barre de notification",1,0,"w")
     # Button signup
     button_signup = widget.new_button(
         footer_inner,
         "Sign Up",
-        lambda  :notification.notif_show_success(),
+        lambda  :notification.notif_show_error(),
         row_selected_color,
         150, 40, 10,
         hover = signup_btn_hover_color,
