@@ -18,6 +18,7 @@ from classes.window.customtkinter.ctkwidget import CtkWidget
 from app.view.dashboard import dashboard_ui
 
 from assets.styles.colors import *
+from assets.styles.dimensions import calendar_font
 from app.controllers.admin import *
 
 # Back section
@@ -151,7 +152,7 @@ def signup_ui ():
         foreground = 'white',
         borderwidth = 2,
         width = 200,
-        font=("Roboto", 16),
+        font = calendar_font,
         maxdate = max_date
     )
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
@@ -258,7 +259,8 @@ def signup_ui ():
         bd = 0,
         highlightthickness = 0,
         bg = input_bg_color,
-        activebackground = input_bg_color
+        activebackground = input_bg_color,
+        takefocus = False
     )
     toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
 
@@ -281,7 +283,8 @@ def signup_ui ():
         bd = 0,
         highlightthickness = 0,
         bg = input_bg_color,
-        activebackground = input_bg_color
+        activebackground = input_bg_color,
+        takefocus = False
     )
     toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
 
