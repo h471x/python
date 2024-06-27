@@ -208,7 +208,7 @@ class Notification_frame(customtkinter.CTkFrame):
         notif_label.grid(row=0, column=0, padx=20, pady=20, sticky="w")
         
         # Ajouter un bouton pour fermer la notification
-        close_button = customtkinter.CTkButton(self, text="Fermer", text_color=color, fg_color="white", command=self.grid_remove)
+        close_button = customtkinter.CTkButton(self, text="Close", text_color=color, fg_color="white", command=self.grid_remove)
         close_button.grid(row=0, column=1, padx=10, pady=10, sticky="e")
         
         # Ajouter le cadre de notification à la fenêtre principale en bas
@@ -219,15 +219,20 @@ class Notification_frame(customtkinter.CTkFrame):
     # if self.frame.winfo_ismapped():
     #     self.frame.grid_forget()
         # Ajouter le cadre de notification à la fenêtre principale a la place de l'ancien frame
-    def notif_show_success(self,delay=3000):
-        for widgt in self.grid_slaves(row=0,column=1):
-            widgt.configure(text_color=signup_btn_hover_color)
-        self.configure(fg_color=signup_btn_hover_color)
-        self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
-        self.after(delay, self.grid_remove)
-    def notif_show_error(self,delay=3000):
-        for widgt in self.grid_slaves(row=0,column=1):
-            widgt.configure(text_color=error_color)
-        self.configure(fg_color=error_color)
-        self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
-        self.after(delay, self.grid_remove)
+    def notif_show(self,boolval,delay=3000):
+        if boolval:
+            for widgt1 in self.grid_slaves(row=0,column=0):
+                widgt1.configure(text="Operation completed successfully!")
+            for widgt2 in self.grid_slaves(row=0,column=1):
+                widgt2.configure(text_color=signup_btn_hover_color)
+            self.configure(fg_color=signup_btn_hover_color)
+            self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
+            self.after(delay, self.grid_remove)
+        else:
+            for widgt1 in self.grid_slaves(row=0,column=0):
+                widgt1.configure(text="Error during the process!")
+            for widgt in self.grid_slaves(row=0,column=1):
+                widgt.configure(text_color=error_color)
+            self.configure(fg_color=error_color)
+            self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
+            self.after(delay, self.grid_remove)
