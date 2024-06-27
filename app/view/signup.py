@@ -37,6 +37,11 @@ def signup_admin(admin_data):
     else:
         print("error")
 
+#Verification fonction
+def verification(admndat,ntfication):
+    bval=signup_admin(admndat)
+    ntfication.notif_show(bval)
+
 # Bind calendar date selection to update the birth_input field
 def show_calendar(event, calendar_view, birth_input):
     # Calculate the position relative to birth_input
@@ -327,7 +332,8 @@ def signup_ui ():
     button_signup = widget.new_button(
         footer_inner,
         "Sign Up",
-        lambda  :notification.notif_show_error(),
+        # lambda  :notification.notif_show(True),
+        lambda :verification(get_admin_data(),notification),
         row_selected_color,
         150, 40, 10,
         hover = signup_btn_hover_color,
