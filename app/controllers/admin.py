@@ -36,10 +36,10 @@ admin_new_data_template = {
 }
 
 def admin_insert_template():
-    admin.insert(admin_data_template)
+    return admin.insert(admin_data_template)
 
 def admin_insert(admin_data):
-    admin.insert(admin_data)
+    return admin.insert(admin_data)
 
 def admin_select_all():
     return admin.select_all()
@@ -51,13 +51,13 @@ def admin_select(admin_data):
     return admin.select(admin_data)
 
 def admin_update(admin_data, admin_new_data):
-    admin.update(admin_data, admin_new_data)
+    return admin.update(admin_data, admin_new_data)
 
 def admin_delete(admin_data):
-    admin.delete(admin_data)
+    return admin.delete(admin_data)
 
 def admin_delete_all():
-    admin.delete_all()
+    return admin.delete_all()
 
 if __name__ == '__main__':
     print("insert template")

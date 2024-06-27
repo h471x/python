@@ -20,10 +20,10 @@ ce_new_data_template = {
 }
 
 def ce_insert_template():
-    ce.insert(ce_data_template)
+    return ce.insert(ce_data_template)
 
 def ce_insert(ce_data):
-    ce.insert(ce_data)
+    return ce.insert(ce_data)
 
 def ce_select_all():
     return ce.select_all()
@@ -35,13 +35,13 @@ def ce_select(ce_data):
     return ce.select(ce_data)
 
 def ce_update(ce_data, ce_new_data):
-    ce.update(ce_data, ce_new_data)
+    return ce.update(ce_data, ce_new_data)
 
 def ce_delete(ce_data):
-    ce.delete(ce_data)
+    return ce.delete(ce_data)
 
 def ce_delete_all():
-    ce.delete_all()
+    return ce.delete_all()
 
 if __name__ == '__main__':
     print("insert template")

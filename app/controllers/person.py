@@ -30,10 +30,10 @@ person_new_data_template = {
 }
 
 def person_insert_template():
-    person.insert(person_data_template)
+    return person.insert(person_data_template)
 
 def person_insert(person_data):
-    person.insert(person_data)
+    return person.insert(person_data)
 
 def person_select_all():
     return person.select_all()
@@ -45,13 +45,13 @@ def person_select(person_data):
     return person.select(person_data)
 
 def person_update(person_data, person_new_data):
-    person.update(person_data, person_new_data)
+    return person.update(person_data, person_new_data)
 
 def person_delete(person_data):
-    person.delete(person_data)
+    return person.delete(person_data)
 
 def person_delete_all():
-    person.delete_all()
+    return person.delete_all()
 
 if __name__ == '__main__':
     print("insert template")
