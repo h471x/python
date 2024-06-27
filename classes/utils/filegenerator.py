@@ -81,10 +81,10 @@ class FileGenerator:
                     }}
 
                     def {table_name_lower}_insert_template():
-                        {table_name_lower}.insert({table_name_lower}_data_template)
+                        return {table_name_lower}.insert({table_name_lower}_data_template)
 
                     def {table_name_lower}_insert({table_name_lower}_data):
-                        {table_name_lower}.insert({table_name_lower}_data)
+                        return {table_name_lower}.insert({table_name_lower}_data)
 
                     def {table_name_lower}_select_all():
                         return {table_name_lower}.select_all()
@@ -96,13 +96,13 @@ class FileGenerator:
                         return {table_name_lower}.select({table_name_lower}_data)
 
                     def {table_name_lower}_update({table_name_lower}_data, {table_name_lower}_new_data):
-                        {table_name_lower}.update({table_name_lower}_data, {table_name_lower}_new_data)
+                        return {table_name_lower}.update({table_name_lower}_data, {table_name_lower}_new_data)
 
                     def {table_name_lower}_delete({table_name_lower}_data):
-                        {table_name_lower}.delete({table_name_lower}_data)
+                        return {table_name_lower}.delete({table_name_lower}_data)
 
                     def {table_name_lower}_delete_all():
-                        {table_name_lower}.delete_all()
+                        return {table_name_lower}.delete_all()
 
                     if __name__ == '__main__':
                         print("insert template")

@@ -32,10 +32,10 @@ grade_new_data_template = {
 }
 
 def grade_insert_template():
-    grade.insert(grade_data_template)
+    return grade.insert(grade_data_template)
 
 def grade_insert(grade_data):
-    grade.insert(grade_data)
+    return grade.insert(grade_data)
 
 def grade_select_all():
     return grade.select_all()
@@ -47,13 +47,13 @@ def grade_select(grade_data):
     return grade.select(grade_data)
 
 def grade_update(grade_data, grade_new_data):
-    grade.update(grade_data, grade_new_data)
+    return grade.update(grade_data, grade_new_data)
 
 def grade_delete(grade_data):
-    grade.delete(grade_data)
+    return grade.delete(grade_data)
 
 def grade_delete_all():
-    grade.delete_all()
+    return grade.delete_all()
 
 if __name__ == '__main__':
     print("insert template")

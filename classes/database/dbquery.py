@@ -19,3 +19,4 @@ class DatabaseQuery(db_config):
         except self.postgres.Error as e:
             print("Cannot execute the query")
             print("Error executing query:", e)
+            return False

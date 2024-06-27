@@ -66,14 +66,14 @@ class CrudHandler(db_query):
         return [tuple(headers)] + data if headers else data
 
     def raw_execute(self, execute_query):
-        self.execute(execute_query)
+        return self.execute(execute_query)
 
     def insert(self, data):
         if self.has_valid_attributes(data):
             first_column = self.get_first_column(data)
             first_value = self.get_first_value(data)
 
-            self.execute(f"""
+            return self.execute(f"""
                 INSERT INTO {self.table} ({self.get_column(data)})
                 SELECT {self.get_values(data)}
                 WHERE NOT EXISTS(
@@ -104,7 +104,7 @@ class CrudHandler(db_query):
 
     def update(self, old_data, new_data):
         if self.has_valid_attributes(old_data, new_data):
-            self.execute(f"""
+            return self.execute(f"""
                 UPDATE {self.table} SET {self.get_set_values(new_data)}
                 WHERE {self.get_condition(old_data)}
                 AND NOT EXISTS (
@@ -115,14 +115,14 @@ class CrudHandler(db_query):
             )
 
     def delete_all(self):
-        self.execute(f"""
+        return self.execute(f"""
             DELETE from {self.table};
         """
         )
 
     def delete(self, condition):
         if self.has_valid_attributes(condition):
-            self.execute(f"""
+            return self.execute(f"""
                 DELETE FROM {self.table}
                 WHERE {self.get_condition(condition)};
             """

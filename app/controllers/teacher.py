@@ -32,10 +32,10 @@ teacher_new_data_template = {
 }
 
 def teacher_insert_template():
-    teacher.insert(teacher_data_template)
+    return teacher.insert(teacher_data_template)
 
 def teacher_insert(teacher_data):
-    teacher.insert(teacher_data)
+    return teacher.insert(teacher_data)
 
 def teacher_select_all():
     return teacher.select_all()
@@ -47,13 +47,13 @@ def teacher_select(teacher_data):
     return teacher.select(teacher_data)
 
 def teacher_update(teacher_data, teacher_new_data):
-    teacher.update(teacher_data, teacher_new_data)
+    return teacher.update(teacher_data, teacher_new_data)
 
 def teacher_delete(teacher_data):
-    teacher.delete(teacher_data)
+    return teacher.delete(teacher_data)
 
 def teacher_delete_all():
-    teacher.delete_all()
+    return teacher.delete_all()
 
 if __name__ == '__main__':
     print("insert template")

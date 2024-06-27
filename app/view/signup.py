@@ -31,9 +31,33 @@ def close_window(window):
 # Insertion function
 # Admin
 def signup_admin(admin_data):
-    admin_insert(admin_data)
-    # dashboard_ui()
-    # close_window(window)
+    if admin_insert(admin_data):
+        dashboard_ui()
+        # close_window(window)
+    else:
+        print("error")
+
+# Bind calendar date selection to update the birth_input field
+def show_calendar(event, calendar_view, birth_input):
+    # Calculate the position relative to birth_input
+    x = birth_input.winfo_rootx()
+    y = birth_input.winfo_rooty() + birth_input.winfo_height() + 10
+
+    # Update calendar position
+    calendar_view._calendar.winfo_toplevel().geometry(f"+{x}+{y}")
+
+    # Disable direct keyboard input in birth_input
+    birth_input.event_generate("<FocusOut>")
+    birth_input.event_generate("<Key>")
+
+    # Show the calendar
+    calendar_view._calendar.winfo_toplevel().deiconify()
+
+def hide_calendar(event, calendar_view):
+    calendar_view._calendar.winfo_toplevel().withdraw()
+
+def calendar_date_selected(event, calendar_view, birth_input, address_input):
+    select_date(birth_input, calendar_view, address_input)
 
 # Function to handle date selection
 def select_date(entry, date_entry, next_entry):
@@ -43,14 +67,14 @@ def select_date(entry, date_entry, next_entry):
     next_entry.focus_set()
 
 # Function to toggle password visibility
-def toggle_password(password_input, button, show_img, hide_img):
-    if password_input.cget('show') == '●':
-        password_input.configure(show='')
+def toggle_password(input, button, show_img, hide_img):
+    input.focus_set()
+    if input.cget('show') == '●':
+        input.configure(show='')
         button.configure(image=hide_img)
     else:
-        password_input.configure(show='●')
+        input.configure(show='●')
         button.configure(image=show_img)
-
 
 # Front section
 def signup_ui ():
@@ -157,42 +181,15 @@ def signup_ui ():
         maxdate = max_date
     )
     calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
-
-    # Adjust size of the calendar popup
-    def configure_calendar_popup():
-        popup = calendar_view._calendar.winfo_toplevel()
-        popup.geometry("300x200")
-        popup.configure(background="darkblue")
-
+ 
     # Initially hide the calendar part
     calendar_view._calendar.winfo_toplevel().withdraw()
     calendar_view.grid_remove()
 
-    # Bind calendar date selection to update the birth_input field
-    def show_calendar(event):
-        # Calculate the position relative to birth_input
-        x = birth_input.winfo_rootx()
-        y = birth_input.winfo_rooty() + birth_input.winfo_height() + 10
-
-        # Update calendar position
-        calendar_view._calendar.winfo_toplevel().geometry(f"+{x}+{y}")
-
-        # Disable direct keyboard input in birth_input
-        birth_input.event_generate("<FocusOut>")
-        birth_input.event_generate("<Key>")
-
-        # Show the calendar
-        calendar_view._calendar.winfo_toplevel().deiconify()
-
-    def hide_calendar(event):
-        calendar_view._calendar.winfo_toplevel().withdraw()
-
-    def calendar_date_selected(event):
-        select_date(birth_input, calendar_view, address_input)
-
-    birth_input.bind("<FocusIn>", show_calendar)
-    birth_input.bind("<FocusOut>", hide_calendar)
-    calendar_view.bind("<<DateEntrySelected>>", calendar_date_selected)
+    # Birth Date
+    birth_input.bind("<FocusIn>", lambda event: show_calendar(event, calendar_view, birth_input))
+    birth_input.bind("<FocusOut>", lambda event: hide_calendar(event, calendar_view))
+    calendar_view.bind("<<DateEntrySelected>>", lambda event: calendar_date_selected(event, calendar_view, birth_input, address_input))
 
     # Address
     address_label = widget.new_label(body1,"Address")
@@ -251,9 +248,9 @@ def signup_ui ():
 
     # Create the toggle button
     toggle_password_btn = tkinter.Button(
-        body2,
+        password_input,
         image = show_img,
-        command = lambda : toggle_password(
+        command = lambda: toggle_password(
             password_input, toggle_password_btn, show_img, hide_img
         ),
         relief = 'flat',
@@ -263,7 +260,9 @@ def signup_ui ():
         activebackground = input_bg_color,
         takefocus = False
     )
-    toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
+    # toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
+    # Position the button to the right of the password_input
+    toggle_password_btn.place(relx=0.85, rely=0.5, anchor='w')
 
     # Confirm Password
     confirm_label = widget.new_label(body2,"Confirm")
@@ -275,9 +274,9 @@ def signup_ui ():
 
     # Create the toggle button
     toggle_confirm_btn = tkinter.Button(
-        body2,
+        confirm_input,
         image = show_img,
-        command = lambda : toggle_password(
+        command = lambda: toggle_password(
             confirm_input, toggle_confirm_btn, show_img, hide_img
         ),
         relief = 'flat',
@@ -287,7 +286,8 @@ def signup_ui ():
         activebackground = input_bg_color,
         takefocus = False
     )
-    toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
+    # toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
+    toggle_confirm_btn.place(relx=0.85, rely=0.5, anchor='w')
 
     #Frame for footer
     footer = widget.new_frame(signup.window,"transparent", 5)
@@ -337,6 +337,8 @@ def signup_ui ():
     button_signup.configure(font=("Roboto",20))
 
     signup.open_centered()
+    # Start the Tkinter main loop
+    signup.window.mainloop()
 
 if __name__ == '__main__':
     signup_ui()
