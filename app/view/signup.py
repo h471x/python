@@ -256,6 +256,7 @@ def signup_ui ():
         ),
         relief = 'flat',
         bd = 0,
+        highlightthickness = 0,
         bg = input_bg_color,
         activebackground = input_bg_color
     )
@@ -278,6 +279,7 @@ def signup_ui ():
         ),
         relief = 'flat',
         bd = 0,
+        highlightthickness = 0,
         bg = input_bg_color,
         activebackground = input_bg_color
     )
