@@ -20,3 +20,5 @@ signup_btn_focus_color = "#238636"
 # treeview colors
 header_color = "#202020"
 row_selected_color = "#0078d7"
+#Error colors
+error_color="#C72023"
