@@ -9,7 +9,8 @@ from os.path import abspath as abs_path, join as join_path, dirname as dir_name
 
 path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
-from assets.styles.colors import *
+from assets.styles.colors import Common as common
+from assets.styles.colors import Treeview as treeView
 
 def load_font(window):
     font_path = os.path.abspath("assets/fonts/NerdFont.ttf")
@@ -36,13 +37,13 @@ def configure_table_styles(window):
         "Treeview.Heading",
         font=(font_family, 15, "bold"),
         padding=[20, 20, 20, 20],
-        background=header_color,
-        foreground=text_color,
+        background=treeView.header_color,
+        foreground=common.text_color,
     )
 
     style.map(
         "Treeview.Heading",
-        background=[("hover", header_color)]
+        background=[("hover", treeView.header_color)]
     )
 
     # Configure Treeview rows
@@ -51,12 +52,12 @@ def configure_table_styles(window):
         font=(font_family, 18),
         rowheight=70,
         background="#262626",
-        foreground=text_color,
+        foreground=common.text_color,
         fieldbackground="#262626"
     )
 
     # Configure the style for selected row
     style.map("Treeview",
-        background=[("selected", row_selected_color)],
-        foreground=[("selected", text_color)]
+        background=[("selected", treeView.row_selected_color)],
+        foreground=[("selected", common.text_color)]
     )

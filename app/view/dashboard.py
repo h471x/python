@@ -16,7 +16,10 @@ from app.controllers.admin import *
 from app.controllers.student import *
 from app.controllers.teacher import *
 
-from assets.styles.colors import *
+from assets.styles.colors import Common as common
+from assets.styles.colors import Dashboard as dash
+from assets.styles.colors import Treeview as treeView
+
 from assets.styles.dimensions import *
 from assets.styles.defaults import configure_table_styles
 
@@ -44,7 +47,7 @@ def dashboard_page(dashboard, widget, content):
         expand=True
     )
 
-    input = widget.new_input(home_container, input_bg_color)
+    input = widget.new_input(home_container, common.input_bg_color)
     input.pack(fill="x", pady=(12,0), padx=27, ipady=10, ipadx=30)
 
     # label = widget.new_label(home_container, "Dashboard")
@@ -89,7 +92,10 @@ def student_page(dashboard, widget, content):
     header_frame.pack(fill="x", padx=0, pady=0)
 
     # Create the Treeview for headers only
-    header_tree = ttk.Treeview(header_frame, columns=header_row, show="headings", height=0, style="Treeview")
+    header_tree = ttk.Treeview(
+        header_frame, columns=header_row,
+        show="headings", height=0, style="Treeview"
+    )
     header_tree.pack(fill="x", padx=0, pady=0)
 
     for col in header_row:
@@ -127,8 +133,8 @@ def student_page(dashboard, widget, content):
         tree.insert("", tk.END, values=row, tags=(tag,))
         tag_count += 1
 
-    tree.tag_configure("row1", background=row1_color)
-    tree.tag_configure("row2", background=row2_color)
+    tree.tag_configure("row1", background=treeView.row1_color)
+    tree.tag_configure("row2", background=treeView.row2_color)
 
     def adjust_column_widths(tree, header_tree, columns):
         for col in columns:
@@ -190,7 +196,7 @@ def dashboard_ui():
     buttons = []
 
     # Body element
-    body = widget.new_frame(dashboard.window, body_bg_color, 0)
+    body = widget.new_frame(dashboard.window, dash.body_color, 0)
     body.pack(expand=True, fill="both")
  
     # Sidebar
@@ -203,7 +209,7 @@ def dashboard_ui():
         side="left", expand=True, fill="both", pady=(10, 10), padx=(0,10)
     )
 
-    content = widget.new_frame(main_container, content_bg_color, 5)
+    content = widget.new_frame(main_container, dash.content_color, 5)
     content.pack(expand=True, fill="both")
 
     # List of menu items and corresponding functions
@@ -220,7 +226,7 @@ def dashboard_ui():
         button = create_sidebar_button(
             widget, sidebar, label, buttons, content,
             sidebar_width, sidebar_height,
-            sidebar_color, sidebar_hover_color, sidebar_focus_color,
+            dash.sidebar_color, dash.sidebar_hover_color, dash.sidebar_focus_color,
             dashboard, click_function=function
         )
         buttons.append(button)

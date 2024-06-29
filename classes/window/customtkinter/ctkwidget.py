@@ -1,10 +1,14 @@
 import customtkinter
 from PIL import Image
-from sys import path
-from os.path import abspath as abs_path, join as join_path, dirname as dir_name
 
-path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
-from assets.styles.colors import *
+from sys import path
+from os.path import abspath as abs, join as jn, dirname as dir
+
+path.append(abs(jn(dir(__file__), '..', '..')))
+
+from assets.styles.colors import Notification as notif
+from assets.styles.colors import Signup as signup
+from assets.styles.colors import Treeview as tree
 
 # ctk_widget base class
 class CtkWidget:
@@ -193,7 +197,7 @@ class CustomCtkFrame(customtkinter.CTkFrame):
             self.configure(fg_color=self.original_color)
 
 class Notification_frame(customtkinter.CTkFrame):
-    def __init__(self, parent,message,posrow,poscolumn,stickyval, delay=3000, color=row_selected_color, *args, **kwargs):
+    def __init__(self, parent,message,posrow,poscolumn,stickyval, delay=3000, color=tree.row_selected_color, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
         #Attribut 
         # self.frame=frame
@@ -224,15 +228,15 @@ class Notification_frame(customtkinter.CTkFrame):
             for widgt1 in self.grid_slaves(row=0,column=0):
                 widgt1.configure(text="Operation completed successfully!")
             for widgt2 in self.grid_slaves(row=0,column=1):
-                widgt2.configure(text_color=signup_btn_hover_color)
-            self.configure(fg_color=signup_btn_hover_color)
+                widgt2.configure(text_color = signup.btn_hover_color)
+            self.configure(fg_color = signup.btn_hover_color)
             self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
             self.after(delay, self.grid_remove)
         else:
             for widgt1 in self.grid_slaves(row=0,column=0):
                 widgt1.configure(text="Error during the process!")
             for widgt in self.grid_slaves(row=0,column=1):
-                widgt.configure(text_color=error_color)
-            self.configure(fg_color=error_color)
+                widgt.configure(text_color=notif.error_color)
+            self.configure(fg_color=notif.error_color)
             self.grid(row=self.frow, column=self.fcol, padx=10, pady=10, sticky=self.stick)
             self.after(delay, self.grid_remove)

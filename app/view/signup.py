@@ -18,7 +18,10 @@ from classes.window.customtkinter.ctkwidget import Notification_frame
 
 from app.view.dashboard import dashboard_ui
 
-from assets.styles.colors import *
+from assets.styles.colors import Common as common
+from assets.styles.colors import Treeview as treeView
+from assets.styles.colors import Signup as signupColor
+
 from assets.styles.dimensions import calendar_font
 from app.controllers.admin import *
 
@@ -108,7 +111,7 @@ def signup_ui ():
     show_img = ImageTk.PhotoImage(show_img)
 
     # first frame for the header
-    header = widget.new_frame(signup.window,row_selected_color,5)
+    header = widget.new_frame(signup.window,common.blue_color,5)
     header.grid(row=0,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
 
     # Center label in header
@@ -133,7 +136,7 @@ def signup_ui ():
     firstname_label = widget.new_label(body1,"First Name",font=("Roboto",20))
     firstname_label.grid(row=0,column=0,padx=10,pady=10)
 
-    firstname_input = widget.new_input(body1,input_bg_color,placeholder_text="First Name",font=("Roboto",15),corner_radius=10)
+    firstname_input = widget.new_input(body1,common.input_bg_color,placeholder_text="First Name",font=("Roboto",15),corner_radius=10)
     firstname_input.configure(font=("Roboto", 16), height=40, width=200)
     firstname_input.grid(row=0,column=1,padx=10,pady=10)
 
@@ -144,7 +147,7 @@ def signup_ui ():
     lastname_label = widget.new_label(body1,"Last Name",font=("Roboto",20))
     lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
-    lastname_input = widget.new_input(body1,input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
+    lastname_input = widget.new_input(body1,common.input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
     lastname_input.configure(font=("Roboto", 16), height=40, width=200)
     lastname_input.grid(row=1,column=1,padx=10,pady=10)
 
@@ -162,7 +165,7 @@ def signup_ui ():
     # Birth input
     birth_input = widget.new_input(
         body1,
-        input_bg_color,
+        common.input_bg_color,
         placeholder_text="Date Of Birth",
         font=("Roboto",16),
         corner_radius=10,
@@ -178,7 +181,7 @@ def signup_ui ():
         day = initial_birth_date.day,
         state = "readonly",
         fieldbackground = 'black',
-        background = header_color,
+        background = common.header_color,
         foreground = 'white',
         borderwidth = 2,
         width = 200,
@@ -200,7 +203,7 @@ def signup_ui ():
     address_label = widget.new_label(body1,"Address")
     address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
-    address_input = widget.new_input(body1,input_bg_color,placeholder_text="Address")
+    address_input = widget.new_input(body1,common.input_bg_color,placeholder_text="Address")
     address_input.configure(font=("Roboto", 16), height=40, width=200)
     address_input.grid(row=3,column=1,padx=10,pady=10)
 
@@ -223,7 +226,7 @@ def signup_ui ():
     national_card_label = widget.new_label(body2,"ID Card Number")
     national_card_label.grid(row=0,column=0,padx=10,pady=10,sticky="w")
 
-    national_card_input = widget.new_input(body2,input_bg_color,placeholder_text="National Card Number")
+    national_card_input = widget.new_input(body2,common.input_bg_color,placeholder_text="National Card Number")
     national_card_input.configure(font=("Roboto", 16), height=40, width=200)
     national_card_input.grid(row=0,column=1,padx=10,pady=10)
 
@@ -231,7 +234,7 @@ def signup_ui ():
     phone_label = widget.new_label(body2,"Phone Number")
     phone_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
-    phone_input = widget.new_input(body2,input_bg_color,placeholder_text="Phone")
+    phone_input = widget.new_input(body2,common.input_bg_color,placeholder_text="Phone")
     phone_input.configure(font=("Roboto", 16), height=40, width=200)
     phone_input.grid(row=1,column=1,padx=10,pady=10)
 
@@ -239,7 +242,7 @@ def signup_ui ():
     username_label = widget.new_label(body2,"Username")
     username_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
 
-    username_input = widget.new_input(body2,input_bg_color,placeholder_text="Username")
+    username_input = widget.new_input(body2,common.input_bg_color,placeholder_text="Username")
     username_input.configure(font=("Roboto", 16), height=40, width=200)
     username_input.grid(row=2,column=1,padx=10,pady=10)
 
@@ -247,7 +250,7 @@ def signup_ui ():
     password_label = widget.new_label(body2,"Password")
     password_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
 
-    password_input = widget.new_input(body2,input_bg_color,placeholder_text="Password")
+    password_input = widget.new_input(body2,common.input_bg_color,placeholder_text="Password")
     password_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
     password_input.grid(row=3,column=1,padx=10,pady=10)
 
@@ -261,8 +264,8 @@ def signup_ui ():
         relief = 'flat',
         bd = 0,
         highlightthickness = 0,
-        bg = input_bg_color,
-        activebackground = input_bg_color,
+        bg = common.input_bg_color,
+        activebackground = common.input_bg_color,
         takefocus = False
     )
     # toggle_password_btn.grid(row=3, column=1, padx=(240, 0), pady=10)
@@ -273,7 +276,7 @@ def signup_ui ():
     confirm_label = widget.new_label(body2,"Confirm")
     confirm_label.grid(row=4,column=0,padx=10,pady=10,sticky="w")
 
-    confirm_input = widget.new_input(body2,input_bg_color,placeholder_text="Retype Password")
+    confirm_input = widget.new_input(body2,common.input_bg_color,placeholder_text="Retype Password")
     confirm_input.configure(font=("Roboto", 16), height=40, width=200, show="●")
     confirm_input.grid(row=4,column=1,padx=10,pady=10)
 
@@ -287,8 +290,8 @@ def signup_ui ():
         relief = 'flat',
         bd = 0,
         highlightthickness = 0,
-        bg = input_bg_color,
-        activebackground = input_bg_color,
+        bg = common.input_bg_color,
+        activebackground = common.input_bg_color,
         takefocus = False
     )
     # toggle_confirm_btn.grid(row=4, column=1, padx=(240, 0), pady=10)
@@ -334,10 +337,10 @@ def signup_ui ():
         "Sign Up",
         # lambda  :notification.notif_show(True),
         lambda :verification(get_admin_data(),notification),
-        row_selected_color,
+        treeView.row_selected_color,
         150, 40, 10,
-        hover = signup_btn_hover_color,
-        focus = signup_btn_focus_color
+        hover = signupColor.btn_hover_color,
+        focus = signupColor.btn_focus_color
     )
     button_signup.grid(row=0,column=0,padx=10,pady=10,sticky="ew")
     button_signup.configure(font=("Roboto",20))
