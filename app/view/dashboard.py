@@ -143,15 +143,41 @@ def student_page(dashboard, widget, content):
 
         if column == '#%d' % (len(columns) - 1):  # Edit column
             print(f"Edit action for ID Card: {id_card}")
-            dashboard = CtkWindow("e-school")
-            dashboard.set_size(600,350)
-            dashboard.always_on_top()
-            dashboard.open_centered()
+            edit_student = CtkWindow("Edit Student")
+            edit_student.set_size(600,350)
+            edit_student.always_on_top()
+            edit_student.open_centered()
 
             # Implement your edit logic here
         elif column == '#%d' % len(columns):  # Delete column
             print(f"Delete action for ID Card: {id_card}")
-            # Implement your delete logic here
+            delete_student = CtkWindow("Delete Student")
+            delete_student.set_size(400,200)
+            delete_student.always_on_top()
+            delete_student.not_resizable()
+
+            # Function to handle the Confirm button action
+            def confirm_action():
+                # Add your logic for confirm action here
+                print("Confirm button clicked")
+
+            # Function to handle the Cancel button action
+            def cancel_action():
+                # Add your logic for cancel action here
+                delete_student.close()
+                print("Cancel button clicked")
+
+            confirm_button = widget.new_button(
+                delete_student.window, "Confirm", confirm_action
+            )
+            confirm_button.pack(pady=10)
+
+            delete_button = widget.new_button(
+                delete_student.window, "Cancel", cancel_action
+            )
+            delete_button.pack(pady=10)
+
+            delete_student.open_centered()
 
     tree.bind("<Button-1>", on_action_click)
 
