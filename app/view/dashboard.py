@@ -77,8 +77,8 @@ def student_page(dashboard, widget, content):
     """)
 
     # Extract the header row from `table_data`
-    header_row = table_data[0]
-    body_data = table_data[1:]
+    header_row = list(table_data[0]) + ["Edit", "Delete"]
+    body_data = [list(row) + ["Edit", "Delete"] for row in table_data[1:]]
 
     # Create a frame to hold the table and the header
     table_frame = widget.new_frame(student_container, "transparent", 5)
@@ -135,6 +135,25 @@ def student_page(dashboard, widget, content):
 
     tree.tag_configure("row1", background=treeView.row1_color)
     tree.tag_configure("row2", background=treeView.row2_color)
+
+    def on_action_click(event):
+        item = tree.identify('item', event.x, event.y)
+        column = tree.identify_column(event.x)
+        id_card = tree.item(item, 'values')[0]
+
+        if column == '#%d' % (len(columns) - 1):  # Edit column
+            print(f"Edit action for ID Card: {id_card}")
+            dashboard = CtkWindow("e-school")
+            dashboard.set_size(600,350)
+            dashboard.always_on_top()
+            dashboard.open_centered()
+
+            # Implement your edit logic here
+        elif column == '#%d' % len(columns):  # Delete column
+            print(f"Delete action for ID Card: {id_card}")
+            # Implement your delete logic here
+
+    tree.bind("<Button-1>", on_action_click)
 
     def adjust_column_widths(tree, header_tree, columns):
         for col in columns:

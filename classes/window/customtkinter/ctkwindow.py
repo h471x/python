@@ -53,5 +53,14 @@ class CtkWindow:
         self.window.geometry(f"{self.min_width}x{self.min_height}+{x}+{y}")
         self.open()
 
+    def always_on_top(self):
+        self.window.attributes("-topmost", True)
+        self.focus_window()
+
+    def focus_window(self):
+        if self.window.winfo_exists():
+            self.window.focus_force()
+            self.window.after(100, self.focus_window)
+
     def close(self):
         self.window.destroy()
