@@ -80,7 +80,7 @@ def student_page(dashboard, widget, content):
     student_container = widget.new_frame(content, "transparent", 5)
     student_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    table_data = admin.raw_get(f"""
+    admins = f"""
         SELECT
             id_card as IdCard,
             first_name as FirstName,
@@ -89,7 +89,9 @@ def student_page(dashboard, widget, content):
             phone as Phone,
             gender as Gender
         FROM admin
-    """)
+    """
+
+    table_data = admin.raw_get(admins)
 
     # Extract the header row from `table_data`
     header_row = list(table_data[0]) + ["Edit", "Delete"]
@@ -179,7 +181,7 @@ def student_page(dashboard, widget, content):
                         delete_student.window,
                         "Deleted Successfully"
                     )
-                    success_label.configure(font=('Roboto', 25, "bold"))
+                    success_label.configure(font=('Roboto', 22, "bold"))
                     success_label.pack(pady=(10, 20))
 
                     # Add the ID card label
@@ -190,22 +192,17 @@ def student_page(dashboard, widget, content):
                         admin_delete({'id_card' : id_card})
                         new_body_data = [
                             list(row) + ["Edit", "Delete"]
-                            for row in admin.raw_get(f"""
-                                SELECT
-                                    id_card as IdCard,
-                                    first_name as FirstName,
-                                    last_name as LastName,
-                                    birth as DoB,
-                                    phone as Phone,
-                                    gender as Gender
-                                FROM admin
-                            """)[1:]
+                            for row in admin.raw_get(admins)[1:]
                         ]
                         setup_treeview(tree, columns, new_body_data)
                         delete_student.close()
 
-                    # Schedule closing the window after 2 seconds
-                    delete_student.window.after(500, lambda : confirm_delete(tree, columns))
+                    delete_student.window.after(
+                        500,
+                        lambda : confirm_delete(
+                            tree, columns
+                        )
+                    )
 
                     # Add your logic for confirm action here
                     print("Confirm button clicked")
