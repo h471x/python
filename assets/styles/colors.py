@@ -2,6 +2,11 @@ class Common:
     text_color = "#FFFFFF"
     input_bg_color = "#323232"
     blue_color = "#0078d7"
+    dark_blue_color = "#0000FF"
+    blue2_color = "#0b5ed7"
+    green_color = "#0f9a78"
+    pink_color = "#e73224"
+    yellow_color = "#af8700"
     header_color = "#202020"
 
 class Dashboard:
