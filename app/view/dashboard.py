@@ -144,7 +144,44 @@ def student_page(dashboard, widget, content):
         if column == '#%d' % (len(columns) - 1):  # Edit column
             print(f"Edit action for ID Card: {id_card}")
             edit_student = CtkWindow("Edit Student")
-            edit_student.set_size(600,350)
+            edit_student.set_size(750,600)
+
+            # To center header frame
+            edit_student.window.grid_columnconfigure(0,weight=1)
+            edit_student.window.grid_columnconfigure(1,weight=1)
+
+            edit_student.window.grid_rowconfigure(0,weight=1)
+            edit_student.window.grid_rowconfigure(1,weight=1)
+            edit_student.window.grid_rowconfigure(2,weight=1)
+            # first frame for the header
+            header = widget.new_frame(edit_student.window,common.blue_color,5)
+            header.grid(row=0,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
+
+            # Center label in header
+            header.grid_columnconfigure(0,weight=1)
+            edit_student_label = widget.new_label(header,"Modification",font=("Roboto",40))
+
+            edit_student_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
+            # second frame for body1 that contains the input widgets
+            body = widget.new_frame(edit_student.window,"transparent",5)
+            body.grid(row=1,column=0,columnspan=2,padx=10,pady=10)
+
+            # First name
+            body1 = widget.new_frame(body,"transparent",5)
+            body2 = widget.new_frame(body,"transparent",5)
+
+            # body1.pack(expand=True, fill="both", padx=10, pady=10)
+            body1.grid(row=1,column=0,padx=10,pady=10,sticky="nsew")
+            body2.grid(row=1,column=1,padx=10,pady=10,sticky="nsew")
+
+            firstname_label = widget.new_label(body1,"First Name",font=("Roboto",20))
+            firstname_label.grid(row=0,column=0,padx=10,pady=10)
+
+            firstname_input = widget.new_input(body1,common.input_bg_color,placeholder_text="First Name",font=("Roboto",15),corner_radius=10)
+            firstname_input.configure(font=("Roboto", 16), height=40, width=200)
+            firstname_input.grid(row=0,column=1,padx=10,pady=10)
+
+
             edit_student.always_on_top()
             edit_student.open_centered()
 

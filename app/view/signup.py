@@ -118,7 +118,6 @@ def signup_ui ():
     header.grid_columnconfigure(0,weight=1)
     signup_label = widget.new_label(header,"Register",font=("Roboto",40))
 
-    # signup_label.pack(expand=True,fill="both", padx=10, pady=10)
     signup_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
 
     # second frame for body1 that contains the input widgets
