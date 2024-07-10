@@ -1,8 +1,11 @@
 import customtkinter as ctk
 from customtkinter import *
 
+import tkinter
 import tkinter as tk
 from tkinter import ttk
+from tkcalendar import DateEntry
+from datetime import datetime
 
 from sys import path
 from os.path import abspath as abs_path, join as join_path, dirname as dir_name
@@ -11,12 +14,14 @@ path.append(abs_path(join_path(dir_name(__file__), '..', '..')))
 
 from classes.window.customtkinter.ctkwindow import CtkWindow
 from classes.window.customtkinter.ctkwidget import CtkWidget
+from classes.window.customtkinter.ctkwidget import Notification_frame
 
 from app.controllers.admin import *
 from app.controllers.student import *
 from app.controllers.teacher import *
 
 from assets.styles.colors import Common as common
+from assets.styles.colors import Signup as signupColor
 from assets.styles.colors import Dashboard as dash
 from assets.styles.colors import Treeview as treeView
 
@@ -42,6 +47,41 @@ def setup_treeview(tree, columns, body_data):
     # Configure tags for alternating row colors
     tree.tag_configure("row1", background=treeView.row1_color)
     tree.tag_configure("row2", background=treeView.row2_color)
+
+
+    #verification edit student
+#Verification fonction
+def verification(signup,admin_data,ntfication):
+    bval=signup_admin(admin_data, signup)
+    ntfication.notif_show(bval)
+
+def show_calendar(event, calendar_view, birth_input):
+    # Calculate the position relative to birth_input
+    x = birth_input.winfo_rootx()
+    y = birth_input.winfo_rooty() + birth_input.winfo_height() + 10
+
+    # Update calendar position
+    calendar_view._calendar.winfo_toplevel().geometry(f"+{x}+{y}")
+
+    # Disable direct keyboard input in birth_input
+    birth_input.event_generate("<FocusOut>")
+    birth_input.event_generate("<Key>")
+
+    # Show the calendar
+    calendar_view._calendar.winfo_toplevel().deiconify()
+
+def hide_calendar(event, calendar_view):
+    calendar_view._calendar.winfo_toplevel().withdraw()
+
+def calendar_date_selected(event, calendar_view, birth_input, address_input):
+    select_date(birth_input, calendar_view, address_input)
+
+# Function to handle date selection
+def select_date(entry, date_entry, next_entry):
+    selected_date = date_entry.get_date()
+    entry.delete(0, tkinter.END)
+    entry.insert(0, selected_date)
+    next_entry.focus_set()
 
 def dashboard_page(dashboard, widget, content):
     home_container = widget.new_frame(content, "transparent", 5)
@@ -158,7 +198,11 @@ def student_page(dashboard, widget, content):
             if column == '#%d' % (len(columns) - 1):  # Edit column
                 print(f"Edit action for ID Card: {id_card}")
                 edit_student = CtkWindow("Edit Student")
-                edit_student.set_size(750,600)
+                edit_student.set_size(850,600)
+
+                #Begin of form
+
+
 
                 # To center header frame
                 edit_student.window.grid_columnconfigure(0,weight=1)
@@ -195,8 +239,151 @@ def student_page(dashboard, widget, content):
                 firstname_input.configure(font=("Roboto", 16), height=40, width=200)
                 firstname_input.grid(row=0,column=1,padx=10,pady=10)
 
+                # focus first_name input on startup
+                firstname_input.focus_set()
 
-                edit_student.always_on_top()
+                # Last name
+                lastname_label = widget.new_label(body1,"Last Name",font=("Roboto",20))
+                lastname_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
+
+                lastname_input = widget.new_input(body1,common.input_bg_color,placeholder_text="Last Name",font=("Roboto",15),corner_radius=10)
+                lastname_input.configure(font=("Roboto", 16), height=40, width=200)
+                lastname_input.grid(row=1,column=1,padx=10,pady=10)
+
+                # Birth
+                birth_label = widget.new_label(body1,"Birth Date",font=("Roboto",20))
+                birth_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
+
+                # Calculate the date 18 years ago
+                today = datetime.today()
+                initial_birth_date = today.replace(year=today.year - 18)
+
+                # Calculate the last date of the previous year
+                max_date = datetime(today.year - 1, 12, 31)
+
+                # Birth input
+                birth_input = widget.new_input(
+                    body1,
+                    common.input_bg_color,
+                    placeholder_text="Date Of Birth",
+                    font=("Roboto",16),
+                    corner_radius=10,
+                )
+                birth_input.configure(height=40, width=200)
+                birth_input.grid(row=2,column=1,padx=10,pady=10)
+
+                # Create DateEntry with the calculated initial date and max date
+                calendar_view = DateEntry(
+                    birth_input,
+                    year = initial_birth_date.year,
+                    month = initial_birth_date.month,
+                    day = initial_birth_date.day,
+                    state = "readonly",
+                    fieldbackground = 'black',
+                    background = common.header_color,
+                    foreground = 'white',
+                    borderwidth = 2,
+                    width = 200,
+                    font = calendar_font,
+                    maxdate = max_date
+                )
+                calendar_view.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
+             
+                # Initially hide the calendar part
+                calendar_view._calendar.winfo_toplevel().withdraw()
+                calendar_view.grid_remove()
+
+                # Birth Date
+                birth_input.bind("<FocusIn>", lambda event: show_calendar(event, calendar_view, birth_input))
+                birth_input.bind("<FocusOut>", lambda event: hide_calendar(event, calendar_view))
+                calendar_view.bind("<<DateEntrySelected>>", lambda event: calendar_date_selected(event, calendar_view, birth_input, address_input))
+
+                # Address
+                address_label = widget.new_label(body1,"Address")
+                address_label.grid(row=3,column=0,padx=10,pady=10,sticky="w")
+
+                address_input = widget.new_input(body1,common.input_bg_color,placeholder_text="Address")
+                address_input.configure(font=("Roboto", 16), height=40, width=200)
+                address_input.grid(row=3,column=1,padx=10,pady=10)
+
+                # Gender
+                gender_label = widget.new_label(body2, "Gender", font=("Roboto", 20))
+                gender_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+                gender_combobox = ctk.CTkComboBox(
+                    body2,
+                    values = ["Male", "Female"],
+                    state = "readonly",
+                    justify = "center",
+                    font = ("Roboto", 16),
+                    height = 35,
+                    width = 200
+                )
+                gender_combobox.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+
+                # National_card
+                national_card_label = widget.new_label(body2,"ID Card Number")
+                national_card_label.grid(row=1,column=0,padx=10,pady=10,sticky="w")
+
+                national_card_input = widget.new_input(body2,common.input_bg_color,placeholder_text="National Card Number")
+                national_card_input.configure(font=("Roboto", 16), height=40, width=200)
+                national_card_input.grid(row=1,column=1,padx=10,pady=10)
+
+                # Phone
+                phone_label = widget.new_label(body2,"Phone Number")
+                phone_label.grid(row=2,column=0,padx=10,pady=10,sticky="w")
+
+                phone_input = widget.new_input(body2,common.input_bg_color,placeholder_text="Phone")
+                phone_input.configure(font=("Roboto", 16), height=40, width=200)
+                phone_input.grid(row=2,column=1,padx=10,pady=10)
+
+                #Frame for footer
+                footer = widget.new_frame(edit_student.window,"transparent", 5)
+                footer.grid(row=2,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
+
+                footer.grid_columnconfigure(0,weight=1)
+
+                # Inner frame for centering the button
+                footer_inner = widget.new_frame(footer, "transparent", 5)
+                footer_inner.grid(row=0, column=0, padx=10, pady=10)
+
+                footer_inner.grid_columnconfigure(0, weight=1)
+
+                # get gender from gender_combobox
+                def get_gender():
+                    if gender_combobox.get() == "Male":
+                        return 'M'
+                    else:
+                        return 'F'
+
+                # Define the admin data
+                def get_admin_data():
+                    return {
+                        'id_card': national_card_input.get(),
+                        'last_name': lastname_input.get(),
+                        'first_name': firstname_input.get(),
+                        'birth' : calendar_view.get(),
+                        'gender': get_gender(),
+                        'adress': address_input.get(),
+                        'phone': phone_input.get(),
+                    }
+
+                notification=Notification_frame(footer_inner,"Ceci est test pour un long message dans la barre de notification",1,0,"w")
+                # Button confirm
+                button_confirm = widget.new_button(
+                    footer_inner,
+                    "Confirm",
+                    
+                    lambda : verification(edit_student,get_admin_data(),notification),
+                    treeView.row_selected_color,
+                    150, 40, 10,
+                    hover = signupColor.btn_hover_color,
+                    focus = signupColor.btn_focus_color
+                )
+                button_confirm.grid(row=0,column=0,padx=10,pady=10,sticky="ew")
+                button_confirm.configure(font=("Roboto",20))
+
+                # edit_student.always_on_top()
                 edit_student.open_centered()
 
             # Implement your edit logic here
