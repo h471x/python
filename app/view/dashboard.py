@@ -572,7 +572,16 @@ def student_page(dashboard, widget, content):
     student_container = widget.new_frame(content, "transparent", 5)
     student_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    admins = f"""
+    # Top container frame with 50px height
+    top_container = widget.new_frame(student_container, "lightblue", 5)
+    top_container.pack(fill="x", padx=10, pady=10)
+    top_container.configure(height=50)  # Set height to 50 pixels
+
+    # Bottom container frame for tree and scrollbar
+    bottom_container = widget.new_frame(student_container, "transparent", 5)
+    bottom_container.pack(expand=True, fill="both", padx=10, pady=10)
+
+    admins = """
         SELECT
             id_card as IdCard,
             first_name as FirstName,
@@ -590,8 +599,8 @@ def student_page(dashboard, widget, content):
     body_data = [list(row) + ["Edit", "Delete"] for row in table_data[1:]]
 
     # Create a frame to hold the table and the header
-    table_frame = widget.new_frame(student_container, "transparent", 5)
-    table_frame.pack(side="left", expand=True, fill="both", padx=0, pady=0)
+    table_frame = widget.new_frame(bottom_container, "transparent", 5)
+    table_frame.pack(side="left", expand=True, fill="both")
 
     # Call the styles
     configure_table_styles(dashboard.window)
@@ -619,8 +628,8 @@ def student_page(dashboard, widget, content):
     tree.pack(expand=True, fill="both")
 
     # Create a new frame to hold the table_frame and the scrollbar
-    outer_frame = widget.new_frame(student_container, "transparent", 5)
-    outer_frame.pack(expand=True, fill="both", padx=0, pady=0)
+    outer_frame = widget.new_frame(bottom_container, "transparent", 5)
+    outer_frame.pack(expand=True, fill="both")
 
     # Place the table frame inside the outer frame
     table_frame.pack(side="left", expand=True, fill="both")
@@ -649,129 +658,12 @@ def student_page(dashboard, widget, content):
 
             if column == '#%d' % (len(columns) - 1):  # Edit column
                 print(f"Edit action for ID Card: {id_card}")
-                edit_student = CtkWindow("Edit Student")
-                edit_student.set_size(750,600)
+                # Implement edit logic here
 
-                # To center header frame
-                edit_student.window.grid_columnconfigure(0,weight=1)
-                edit_student.window.grid_columnconfigure(1,weight=1)
-
-                edit_student.window.grid_rowconfigure(0,weight=1)
-                edit_student.window.grid_rowconfigure(1,weight=1)
-                edit_student.window.grid_rowconfigure(2,weight=1)
-                # first frame for the header
-                header = widget.new_frame(edit_student.window,common.blue_color,5)
-                header.grid(row=0,column=0,columnspan=2,padx=10,pady=10,sticky="ew")
-
-                # Center label in header
-                header.grid_columnconfigure(0,weight=1)
-                edit_student_label = widget.new_label(header,"Modification",font=("Roboto",40))
-
-                edit_student_label.grid(row=0,column=0,columnspan=2, padx=10, pady=10,sticky="ew")
-                # second frame for body1 that contains the input widgets
-                body = widget.new_frame(edit_student.window,"transparent",5)
-                body.grid(row=1,column=0,columnspan=2,padx=10,pady=10)
-
-                # First name
-                body1 = widget.new_frame(body,"transparent",5)
-                body2 = widget.new_frame(body,"transparent",5)
-
-                # body1.pack(expand=True, fill="both", padx=10, pady=10)
-                body1.grid(row=1,column=0,padx=10,pady=10,sticky="nsew")
-                body2.grid(row=1,column=1,padx=10,pady=10,sticky="nsew")
-
-                firstname_label = widget.new_label(body1,"First Name",font=("Roboto",20))
-                firstname_label.grid(row=0,column=0,padx=10,pady=10)
-
-                firstname_input = widget.new_input(body1,common.input_bg_color,placeholder_text="First Name",font=("Roboto",15),corner_radius=10)
-                firstname_input.configure(font=("Roboto", 16), height=40, width=200)
-                firstname_input.grid(row=0,column=1,padx=10,pady=10)
-
-
-                edit_student.always_on_top()
-                edit_student.open_centered()
-
-            # Implement your edit logic here
             elif column == '#%d' % len(columns):  # Delete column
                 print(f"Delete action for ID Card: {id_card}")
-                delete_student = CtkWindow("Delete Student")
-                delete_student.set_size(400, 200)
-                delete_student.always_on_top()
-                delete_student.not_resizable()
+                # Implement delete logic here
 
-                # Function to handle the Confirm button action
-                def confirm_action(delete_student, delete_widget, tree):
-                    # Clear the content of the delete_student window
-                    for widget in delete_student.window.winfo_children():
-                        widget.pack_forget()
-
-                    # Add the "Deleted Successfully" label
-                    success_label = delete_widget.new_label(
-                        delete_student.window,
-                        "Deleted Successfully"
-                    )
-                    success_label.configure(font=('Roboto', 22, "bold"))
-                    success_label.pack(pady=(10, 20))
-
-                    # Add the ID card label
-                    id_card_label = delete_widget.new_label(delete_student.window, id_card)
-                    id_card_label.pack(pady=(0, 20))
-
-                    def confirm_delete(tree, columns):
-                        admin_delete({'id_card' : id_card})
-                        new_body_data = [
-                            list(row) + ["Edit", "Delete"]
-                            for row in admin.raw_get(admins)[1:]
-                        ]
-                        setup_treeview(tree, columns, new_body_data)
-                        delete_student.close()
-
-                    delete_student.window.after(
-                        500,
-                        lambda : confirm_delete(
-                            tree, columns
-                        )
-                    )
-
-                    # Add your logic for confirm action here
-                    print("Confirm button clicked")
-
-                # Function to handle the Cancel button action
-                def cancel_action(delete_student):
-                    # Add your logic for cancel action here
-                    delete_student.close()
-                    print("Cancel button clicked")
-
-                # Add the "Confirm Deletion?" label
-                confirm_label = widget.new_label(delete_student.window, "Confirm Deletion ?")
-                confirm_label.configure(font=('Roboto', 15, "bold"))
-                confirm_label.pack(pady=(20, 10))
-
-                # Add the ID card label
-                id_card_label = widget.new_label(delete_student.window, id_card)
-                id_card_label.pack(pady=(0, 20))
-
-                # Frame to hold the buttons
-                confirm_cancel_frame = widget.new_frame(delete_student.window, "transparent", 5)
-                confirm_cancel_frame.pack(pady=(30, 30), padx=10, fill="x")
-
-                confirm_button = widget.new_button(
-                    confirm_cancel_frame,
-                    "Delete",
-                    lambda : confirm_action(
-                        delete_student, widget, tree
-                    ),
-                    "#c42b1c"
-                )
-                confirm_button.pack(side="left", padx=30)
-
-                delete_button = widget.new_button(
-                    confirm_cancel_frame, "Cancel", lambda : cancel_action(delete_student),
-                    "#323232"
-                )
-                delete_button.pack(side="right", padx=30)
-
-                delete_student.open_centered()
     tree.bind("<ButtonRelease-1>", on_action_click)
 
     def adjust_column_widths(tree, header_tree, columns):
