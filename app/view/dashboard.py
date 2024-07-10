@@ -175,8 +175,11 @@ def student_page(dashboard, widget, content):
                         widget.pack_forget()
 
                     # Add the "Deleted Successfully" label
-                    success_label = delete_widget.new_label(delete_student.window, "Deleted Successfully")
-                    success_label.configure(font=('Roboto', 20, "bold"))
+                    success_label = delete_widget.new_label(
+                        delete_student.window,
+                        "Deleted Successfully"
+                    )
+                    success_label.configure(font=('Roboto', 25, "bold"))
                     success_label.pack(pady=(10, 20))
 
                     # Add the ID card label

@@ -33,16 +33,17 @@ def close_window(window):
 
 # Insertion function
 # Admin
-def signup_admin(admin_data):
+def signup_admin(admin_data, signup):
     if admin_insert(admin_data):
+        signup.close()
         dashboard_ui()
         # close_window(window)
     else:
         print("error")
 
 #Verification fonction
-def verification(admndat,ntfication):
-    bval=signup_admin(admndat)
+def verification(signup,admin_data,ntfication):
+    bval=signup_admin(admin_data, signup)
     ntfication.notif_show(bval)
 
 # Bind calendar date selection to update the birth_input field
@@ -336,7 +337,7 @@ def signup_ui ():
         footer_inner,
         "Sign Up",
         # lambda  :notification.notif_show(True),
-        lambda :verification(get_admin_data(),notification),
+        lambda : verification(signup,get_admin_data(),notification),
         treeView.row_selected_color,
         150, 40, 10,
         hover = signupColor.btn_hover_color,
