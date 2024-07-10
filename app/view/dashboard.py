@@ -28,6 +28,21 @@ def close_window(window):
         window.close()
     )
 
+def setup_treeview(tree, columns, body_data):
+    # Clear existing items in the treeview
+    tree.delete(*tree.get_children())
+
+    # Insert new data into the treeview
+    tag_count = 0
+    for row in body_data:
+        tag = "row2" if tag_count % 2 else "row1"
+        tree.insert("", tk.END, values=row, tags=(tag,))
+        tag_count += 1
+
+    # Configure tags for alternating row colors
+    tree.tag_configure("row1", background=treeView.row1_color)
+    tree.tag_configure("row2", background=treeView.row2_color)
+
 def dashboard_page(dashboard, widget, content):
     home_container = widget.new_frame(content, "transparent", 5)
     home_container.pack(expand=True, fill="both", padx=10, pady=10)
@@ -65,7 +80,7 @@ def student_page(dashboard, widget, content):
     student_container = widget.new_frame(content, "transparent", 5)
     student_container.pack(expand=True, fill="both", padx=10, pady=10)
 
-    table_data = admin.raw_get(f"""
+    admins = f"""
         SELECT
             id_card as IdCard,
             first_name as FirstName,
@@ -74,7 +89,9 @@ def student_page(dashboard, widget, content):
             phone as Phone,
             gender as Gender
         FROM admin
-    """)
+    """
+
+    table_data = admin.raw_get(admins)
 
     # Extract the header row from `table_data`
     header_row = list(table_data[0]) + ["Edit", "Delete"]
@@ -127,19 +144,16 @@ def student_page(dashboard, widget, content):
     for col in columns:
         tree.column(col, anchor=tk.CENTER, stretch=True)
 
-    tag_count = 0
-    for row in body_data:
-        tag = "row2" if tag_count % 2 else "row1"
-        tree.insert("", tk.END, values=row, tags=(tag,))
-        tag_count += 1
-
-    tree.tag_configure("row1", background=treeView.row1_color)
-    tree.tag_configure("row2", background=treeView.row2_color)
+    # Initial setup of treeview with data
+    setup_treeview(tree, columns, body_data)
 
     def on_action_click(event):
-        item = tree.identify('item', event.x, event.y)
-        column = tree.identify_column(event.x)
-        id_card = tree.item(item, 'values')[0]
+        item = tree.identify_row(event.y)
+        if item:
+            tree.focus(item)  # Set focus on the clicked item
+            tree.selection_set(item)  # Select the clicked item
+            column = tree.identify_column(event.x)
+            id_card = tree.item(item, 'values')[0]
 
         if column == '#%d' % (len(columns) - 1):  # Edit column
             print(f"Edit action for ID Card: {id_card}")
@@ -185,38 +199,88 @@ def student_page(dashboard, widget, content):
             edit_student.always_on_top()
             edit_student.open_centered()
 
-            # Implement your edit logic here
-        elif column == '#%d' % len(columns):  # Delete column
-            print(f"Delete action for ID Card: {id_card}")
-            delete_student = CtkWindow("Delete Student")
-            delete_student.set_size(400,200)
-            delete_student.always_on_top()
-            delete_student.not_resizable()
+                # Implement your edit logic here
+            elif column == '#%d' % len(columns):  # Delete column
+                print(f"Delete action for ID Card: {id_card}")
+                delete_student = CtkWindow("Delete Student")
+                delete_student.set_size(400, 200)
+                delete_student.always_on_top()
+                delete_student.not_resizable()
 
-            # Function to handle the Confirm button action
-            def confirm_action():
-                # Add your logic for confirm action here
-                print("Confirm button clicked")
+                # Function to handle the Confirm button action
+                def confirm_action(delete_student, delete_widget, tree):
+                    # Clear the content of the delete_student window
+                    for widget in delete_student.window.winfo_children():
+                        widget.pack_forget()
 
-            # Function to handle the Cancel button action
-            def cancel_action():
-                # Add your logic for cancel action here
-                delete_student.close()
-                print("Cancel button clicked")
+                    # Add the "Deleted Successfully" label
+                    success_label = delete_widget.new_label(
+                        delete_student.window,
+                        "Deleted Successfully"
+                    )
+                    success_label.configure(font=('Roboto', 22, "bold"))
+                    success_label.pack(pady=(10, 20))
 
-            confirm_button = widget.new_button(
-                delete_student.window, "Confirm", confirm_action
-            )
-            confirm_button.pack(pady=10)
+                    # Add the ID card label
+                    id_card_label = delete_widget.new_label(delete_student.window, id_card)
+                    id_card_label.pack(pady=(0, 20))
 
-            delete_button = widget.new_button(
-                delete_student.window, "Cancel", cancel_action
-            )
-            delete_button.pack(pady=10)
+                    def confirm_delete(tree, columns):
+                        admin_delete({'id_card' : id_card})
+                        new_body_data = [
+                            list(row) + ["Edit", "Delete"]
+                            for row in admin.raw_get(admins)[1:]
+                        ]
+                        setup_treeview(tree, columns, new_body_data)
+                        delete_student.close()
 
-            delete_student.open_centered()
+                    delete_student.window.after(
+                        500,
+                        lambda : confirm_delete(
+                            tree, columns
+                        )
+                    )
 
-    tree.bind("<Button-1>", on_action_click)
+                    # Add your logic for confirm action here
+                    print("Confirm button clicked")
+
+                # Function to handle the Cancel button action
+                def cancel_action(delete_student):
+                    # Add your logic for cancel action here
+                    delete_student.close()
+                    print("Cancel button clicked")
+
+                # Add the "Confirm Deletion?" label
+                confirm_label = widget.new_label(delete_student.window, "Confirm Deletion ?")
+                confirm_label.configure(font=('Roboto', 15, "bold"))
+                confirm_label.pack(pady=(20, 10))
+
+                # Add the ID card label
+                id_card_label = widget.new_label(delete_student.window, id_card)
+                id_card_label.pack(pady=(0, 20))
+
+                # Frame to hold the buttons
+                confirm_cancel_frame = widget.new_frame(delete_student.window, "transparent", 5)
+                confirm_cancel_frame.pack(pady=(30, 30), padx=10, fill="x")
+
+                confirm_button = widget.new_button(
+                    confirm_cancel_frame,
+                    "Delete",
+                    lambda : confirm_action(
+                        delete_student, widget, tree
+                    ),
+                    "#c42b1c"
+                )
+                confirm_button.pack(side="left", padx=30)
+
+                delete_button = widget.new_button(
+                    confirm_cancel_frame, "Cancel", lambda : cancel_action(delete_student),
+                    "#323232"
+                )
+                delete_button.pack(side="right", padx=30)
+
+                delete_student.open_centered()
+    tree.bind("<ButtonRelease-1>", on_action_click)
 
     def adjust_column_widths(tree, header_tree, columns):
         for col in columns:
